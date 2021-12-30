@@ -4,4 +4,4 @@
 - npm install
 - npm add antd
 - npm install react-router-dom@6 history@5
-- npm run dev
+- npm start
