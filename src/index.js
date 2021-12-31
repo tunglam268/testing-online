@@ -5,8 +5,8 @@ import {
   Route
 } from "react-router-dom";
 import App from "./App";
-import Login from "./routes/login";
-import Home from "./routes/home";
+import Login from "./routes/LoginPage/login";
+import Home from "./routes/Home/home";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -15,6 +15,7 @@ ReactDOM.render(
       <Route path="/" element={<App />}>
         <Route path="home" element={<Home />} />
         <Route path="login" element={<Login />} />
+        <Route path="/" element={<App />}></Route>
       </Route>
     </Routes>
   </BrowserRouter>,
