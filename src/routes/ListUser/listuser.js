@@ -5,9 +5,8 @@ import './listuser.css';
 import { Layout, Menu, Descriptions, Card ,TreeSelect, Button , Dropdown,Divider, Tabs, Space} from 'antd';
 import { UserOutlined , MailOutlined , PhoneOutlined ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
 import { Form, Input,  Select , Radio , DatePicker} from 'antd';
-import SubMenu from 'antd/lib/menu/SubMenu';
 
-const { Header, Content, Sider } = Layout;
+const {  Content, Sider } = Layout;
 const dateFormat = 'YYYY-MM-DD';
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -43,19 +42,7 @@ export default function ListUser() {
 
   return (
     <Layout>
-    <Header className="header">
-      <div className="logo" />
-      <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-        <Menu.Item key="1">Lịch test</Menu.Item>
-        <Menu.Item key="2">Bộ câu hỏi</Menu.Item>
-        <Menu.Item key="3">Đã hoàn thành</Menu.Item>
-        <Menu.Item key="4">Tài liệu</Menu.Item>
-        <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Account">
-          <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
-          <Menu.Item key="logout" >Đăng xuất</Menu.Item>
-        </SubMenu>
-      </Menu>
-    </Header>
+   
     <Layout>
       <Sider  width={500} theme="light" className="site-layout-background" >
       <Menu mode="inline">

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import './question.css';
-import { Layout, Menu, Modal ,Image, Button ,Divider, Tabs, Space} from 'antd';
-import { UserOutlined   ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
-import { Form, Input,  Select , Radio } from 'antd';
-import SubMenu from 'antd/lib/menu/SubMenu';
+import { Layout, Menu, Modal ,Image, Button , Divider, Tabs, Space} from 'antd';
+import {  SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
+import { Form, Input,  Select , Radio , } from 'antd';
 
 
 const { Header, Content, Sider } = Layout;
@@ -26,7 +25,7 @@ function callback(key) {
   console.log(key);
 }
 
-export default function Question() {
+export default function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -48,22 +47,7 @@ export default function Question() {
   
   return (
     <Layout>
-    <Header className="header">
-      <div className="logo" />
-      <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-     
-          <Menu.Item key="1">Lịch test</Menu.Item>
-          
-          <Menu.Item key="2">Bộ câu hỏi</Menu.Item>
 
-          <Menu.Item key="3">Đã hoàn thành</Menu.Item>
-          <Menu.Item key="4">Tài liệu</Menu.Item>
-          <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Account">
-           <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
-           <Menu.Item key="logout" >Đăng xuất</Menu.Item>
-        </SubMenu>
-      </Menu>
-    </Header>
     <Layout>
       <Sider  width={500} theme="light" className="site-layout-background" >
       <Divider>Bài test</Divider>
@@ -181,7 +165,7 @@ export default function Question() {
                     </TabPane>
                     
                     <TabPane tab="Tự luận" key="2">
-                      <TextArea width={100} height={100} maxLength={100} onChange={onChange} />
+                      <TextArea width={0} height={0} maxLength={100} onChange={onChange} />
                     </TabPane>
                   </Tabs>
                 </Menu>
@@ -193,7 +177,23 @@ export default function Question() {
             </TabPane>
 
             <TabPane tab="Tab 1" tab="Demo" key="2"> 
-              <TextArea width={100} height={100} maxLength={100} onChange={onChange} />
+              <p>Tên bài test</p>
+              <Input style={{ width: '20%' }} maxLength={100} onChange={onChange} />
+              <p></p>
+              <Radio.Group buttonStyle="solid">
+                      <Space>
+                      <Radio.Button value="B1">B1</Radio.Button>
+                      <Radio.Button value="B2">B2</Radio.Button>
+                      <Radio.Button value="B3">B3</Radio.Button>
+                      </Space>
+              </Radio.Group>
+
+              <p></p>
+              <Form.Item name="Position" label="Position">
+                <Select mode="tags" style={{ width: '30%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
+              </Form.Item>
+              
+              <Button type="primary" htmlType="submit">Lưu</Button>
             </TabPane>
             
           </Tabs>

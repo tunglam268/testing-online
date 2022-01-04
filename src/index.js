@@ -2,18 +2,22 @@ import ReactDOM from 'react-dom';
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
 } from "react-router-dom";
 import App from "./App";
-import Login from "./routes/LoginPage/login";
-import Home from "./routes/Home/home";
+import ListUser from './routes/ListUser/listuser';
+import Question from './routes/Question/question';
+import Login from './routes/LoginPage/login';
+
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="home" element={<Home />} />
+      
+        <Route path="listuser" element={<ListUser />} />
+        <Route path="question" element={<Question />} />
         <Route path="login" element={<Login />} />
       </Route>
     </Routes>
