@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
-import './App.css';
+import './question.css';
 import { Layout, Menu, Modal ,Image, Button ,Divider, Tabs, Space} from 'antd';
-import { UserOutlined  ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
+import { UserOutlined   ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
 import { Form, Input,  Select , Radio } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 
@@ -26,7 +26,7 @@ function callback(key) {
   console.log(key);
 }
 
-export default function App() {
+export default function Question() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -181,7 +181,7 @@ export default function App() {
                     </TabPane>
                     
                     <TabPane tab="Tự luận" key="2">
-                      <TextArea width={0} height={0} maxLength={100} onChange={onChange} />
+                      <TextArea width={100} height={100} maxLength={100} onChange={onChange} />
                     </TabPane>
                   </Tabs>
                 </Menu>
@@ -193,23 +193,7 @@ export default function App() {
             </TabPane>
 
             <TabPane tab="Tab 1" tab="Demo" key="2"> 
-              <p>Tên bài test</p>
-              <Input style={{ width: '20%' }} maxLength={100} onChange={onChange} />
-              <p></p>
-              <Radio.Group buttonStyle="solid">
-                      <Space>
-                      <Radio.Button value="B1">B1</Radio.Button>
-                      <Radio.Button value="B2">B2</Radio.Button>
-                      <Radio.Button value="B3">B3</Radio.Button>
-                      </Space>
-              </Radio.Group>
-
-              <p></p>
-              <Form.Item name="Position" label="Position">
-                <Select mode="tags" style={{ width: '30%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
-              </Form.Item>
-              
-              <Button type="primary" htmlType="submit">Lưu</Button>
+              <TextArea width={100} height={100} maxLength={100} onChange={onChange} />
             </TabPane>
             
           </Tabs>

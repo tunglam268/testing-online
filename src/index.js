@@ -15,7 +15,6 @@ ReactDOM.render(
       <Route path="/" element={<App />}>
         <Route path="home" element={<Home />} />
         <Route path="login" element={<Login />} />
-        <Route path="/" element={<App />}></Route>
       </Route>
     </Routes>
   </BrowserRouter>,
