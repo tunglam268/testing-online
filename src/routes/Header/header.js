@@ -4,13 +4,12 @@ import './header.css';
 import { Layout, Menu} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import { Link ,Outlet} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const { Header  } = Layout;
+const { Header , } = Layout;
 
 
-export default function Header() {
-
+export default function HeaderTitle() {
 
   return (
     <Layout>
@@ -23,12 +22,10 @@ export default function Header() {
         <Menu.Item key="4">Tài liệu</Menu.Item>
         <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Account">
           <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
-          <Menu.Item key="logout"><Link to ="/login"/>Đăng xuất</Menu.Item>
+          <Menu.Item key="logout"><Link to ="/"/>Đăng xuất</Menu.Item>
         </SubMenu>
-        
       </Menu>
     </Header>
-    <Outlet />
   </Layout>
   
   );

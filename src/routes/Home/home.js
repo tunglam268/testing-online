@@ -21,11 +21,10 @@ export default function Home() {
         <Menu.Item key="1"><Link to ="/login"/>Login</Menu.Item>
         
       </Menu>
+      <Outlet />
     </Header>
     <Layout>
-      <Sider width={200} className="site-layout-background">
-        <Outlet />
-      </Sider>
+
       
       <Layout style={{ padding: '0 24px 24px' }}>
         
@@ -39,8 +38,11 @@ export default function Home() {
         >
           Content
         </Content>
+          
       </Layout>
+      
     </Layout>
+    
   </Layout>
   
   );

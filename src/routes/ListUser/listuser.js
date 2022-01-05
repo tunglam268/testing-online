@@ -5,8 +5,10 @@ import './listuser.css';
 import { Layout, Menu, Descriptions, Card ,TreeSelect, Button , Dropdown,Divider, Tabs, Space} from 'antd';
 import { UserOutlined , MailOutlined , PhoneOutlined ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
 import { Form, Input,  Select , Radio , DatePicker} from 'antd';
+import SubMenu from 'antd/lib/menu/SubMenu';
+import { Link } from 'react-router-dom';
 
-const {  Content, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 const dateFormat = 'YYYY-MM-DD';
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -42,18 +44,31 @@ export default function ListUser() {
 
   return (
     <Layout>
-   
+      <Header className="header">
+      <div className="logo" />
+      <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+        <Menu.Item key="1"><Link to ="/listuser"/>Lịch test</Menu.Item>   
+        <Menu.Item key="2"><Link to ="/question"/>Bộ câu hỏi</Menu.Item>
+        <Menu.Item key="3">Đã hoàn thành</Menu.Item>
+        <Menu.Item key="4">Tài liệu</Menu.Item>
+          <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Account">
+            <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
+            <Menu.Item key="logout"><Link to ="/"/>Đăng xuất</Menu.Item>
+          </SubMenu>
+        
+      </Menu>
+    </Header>
     <Layout>
       <Sider  width={500} theme="light" className="site-layout-background" >
       <Menu mode="inline">
       <Divider>Bộ lọc</Divider>
-    
-      <Form.Item name="Name" label="Name"><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
+      
+      <Form.Item name="Name" label="Name" style={{ width: '89%'}}><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
 
-      <Form.Item name="Room" label="Room"><TreeSelect placeholder="Select an option"/></Form.Item>
+      <Form.Item name="Room" label="Room" style={{ width: '89%' }}><TreeSelect placeholder="Select an option"/></Form.Item>
 
       <Form.Item name="Position" label="Position">
-        <Select mode="tags" style={{ width: '100%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
+        <Select mode="tags" style={{ width: '89%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
       </Form.Item>
 
       <Form.Item>
@@ -66,16 +81,16 @@ export default function ListUser() {
         </Radio.Group>
       </Form.Item>
 
-      <Form.Item name ="DatePicker" label="DatePicker">
+      <Form.Item name ="DatePicker" label="DatePicker" >
         <DatePicker />
       </Form.Item>
 
       <Form.Item name="Contact" label="Contact">
         <Form.Item>
-          <Input placeholder="Gmail" prefix={<MailOutlined />}/>
+          <Input placeholder="Gmail" style={{ width: '89%'}} prefix={<MailOutlined />}/>
         </Form.Item>
         <Form.Item>
-          <Input placeholder="Phone" prefix={<PhoneOutlined />}/>
+          <Input placeholder="Phone" style={{ width: '89%'}} prefix={<PhoneOutlined />}/>
         </Form.Item>
       </Form.Item>
       

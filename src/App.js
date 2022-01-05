@@ -6,10 +6,10 @@ import { UserOutlined } from '@ant-design/icons';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { Link ,Outlet} from 'react-router-dom';
 
-const { Header , Content ,Sider } = Layout;
+const { Header } = Layout;
 
 
-export default function ListUser() {
+export default function App() {
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
@@ -25,9 +25,8 @@ export default function ListUser() {
         <Menu.Item key="4">Tài liệu</Menu.Item>
         <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Account">
           <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
-          <Menu.Item key="logout"><Link to ="/login"/>Đăng xuất</Menu.Item>
+          <Menu.Item key="logout"><Link to ="/home"/>Đăng xuất</Menu.Item>
         </SubMenu>
-        
       </Menu>
     </Header>
     <Outlet />
