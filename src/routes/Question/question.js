@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import './question.css';
 import { Layout, Menu, Modal ,Image, Button , Divider, Tabs, Space} from 'antd';
-import {  SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
+import {  SearchOutlined , PlusOutlined ,UserOutlined, CloseOutlined} from '@ant-design/icons';
 import { Form, Input,  Select , Radio , } from 'antd';
+import { Link } from 'react-router-dom';
+import SubMenu from 'antd/lib/menu/SubMenu';
 
 
 const { Header, Content, Sider } = Layout;
@@ -47,7 +49,20 @@ export default function App() {
   
   return (
     <Layout>
-
+      {/* <Header className="header">
+      <div className="logo" />
+      <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+        <Menu.Item key="1"><Link to ="/listuser"/>Lịch test</Menu.Item>   
+        <Menu.Item key="2"><Link to ="/question"/>Bộ câu hỏi</Menu.Item>
+        <Menu.Item key="3">Đã hoàn thành</Menu.Item>
+        <Menu.Item key="4">Tài liệu</Menu.Item>
+          <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Account">
+            <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
+            <Menu.Item key="logout"><Link to ="/login"/>Đăng xuất</Menu.Item>
+          </SubMenu>
+        
+      </Menu>
+    </Header> */}
     <Layout>
       <Sider  width={500} theme="light" className="site-layout-background" >
       <Divider>Bài test</Divider>

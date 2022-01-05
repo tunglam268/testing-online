@@ -1,18 +1,16 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import './App.css';
+import './header.css';
 import { Layout, Menu} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { Link ,Outlet} from 'react-router-dom';
 
-const { Header , Content ,Sider } = Layout;
+const { Header  } = Layout;
 
 
-export default function ListUser() {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-  };
+export default function Header() {
+
 
   return (
     <Layout>
