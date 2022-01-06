@@ -9,9 +9,6 @@ const { Header , Content ,Sider } = Layout;
 
 
 export default function Home() {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-  };
 
   return (
     <Layout>

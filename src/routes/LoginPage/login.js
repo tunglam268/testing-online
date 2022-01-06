@@ -1,14 +1,16 @@
-import { Form, Input,Card, Button, Checkbox , Menu } from 'antd';
+import { Form, Input,Card,Row,Col, Button, Checkbox , Menu } from 'antd';
 import { UserOutlined ,  LockOutlined} from '@ant-design/icons';
 import './login.css'
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  const onFinish = () => {
+    window.location.href = '/listuser'
   };
 
   return (
+    <Row>
+      <Col span={12} offset={10}>
     <Card style={{ width: 400 }}>
     <Menu
           mode="inline"
@@ -62,7 +64,7 @@ const Login = () => {
             margin: 0,
             minHeight: 10,
             width:350,
-          }} type="primary" htmlType="submit" className="login-form-button"><Link to ="/listuser"/></Button>
+          }} type="primary" htmlType="submit" className="login-form-button"><Link to ="/listuser"/>LOGIN</Button>
           
       </Form.Item>
     </Form>
@@ -70,7 +72,8 @@ const Login = () => {
           
         </Menu>
         </Card>
-       
+        </Col>
+    </Row>
   );
 };
 

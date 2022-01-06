@@ -2,8 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import 'antd/dist/antd.css';
 import './listuser.css';
-import { Layout, Menu, Descriptions, Card ,TreeSelect, Button , Dropdown,Divider, Tabs, Space} from 'antd';
-import { UserOutlined , MailOutlined , PhoneOutlined ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
+import { Layout, Menu,Row,Col, Descriptions, Card ,TreeSelect, Button , Dropdown,Divider,Table ,Tag, Tabs, Space} from 'antd';
+import { UserOutlined , MailOutlined ,SettingOutlined , EditOutlined, EllipsisOutlined, PhoneOutlined ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
 import { Form, Input,  Select , Radio , DatePicker} from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,10 @@ const { TabPane } = Tabs;
 const { Option } = Select;
 const children = [];
 const menuContact = (
-  <Form.Item >
+  <Card  style={{ width: '99%'}}>
+  <Row>
+    <Col span={14} >
+  <Form.Item style={{ width: '150%'}}  >
     <Form.Item name="Contact" label="Contact">
         <Form.Item>
           <Input placeholder="Gmail" prefix={<MailOutlined />}/>
@@ -22,13 +25,64 @@ const menuContact = (
         <Form.Item>
           <Input placeholder="Phone" prefix={<PhoneOutlined />}/>
         </Form.Item>
+        
+        
+        <Form.Item>
+          <p>Tùy chọn gửi code</p>
+          <Select>
+            <Option value="sms">Qua SMS</Option>
+            <Option value="gmail">Qua Gmail</Option>
+          </Select>
+          <p></p>
+          <Button>Gửi</Button>
+        </Form.Item>
       </Form.Item>
   </Form.Item>
+    </Col>
+  </Row>
+  </Card>
 );
 
 for (let i = 10; i < 36; i++) {
   children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
 }
+
+const { Column, ColumnGroup } = Table;
+const data = [
+  {
+    key: '1',
+    firstName: 'Nguyen',
+    lastName: 'Van A',
+    code: 'BLC001',
+    room: 'P.CN. BLOCKCHAIN',
+    level: 'Java developer',
+    tags: ['junior','freshser'],
+    gmail:'abc@gmail.com',
+    phone: 123456,
+  },
+  {
+    key: '2',
+    firstName: 'Nguyen',
+    lastName: 'Van A',
+    code: 'BLC001',
+    room: 'P.CN. BLOCKCHAIN',
+    level: 'Java developer',
+    tags: ['junior','freshser'],
+    gmail:'abc@gmail.com',
+    phone: 123456,
+  },
+  {
+    key: '3',
+    firstName: 'Nguyen',
+    lastName: 'Van A',
+    code: 'BLC001',
+    room: 'P.CN. BLOCKCHAIN',
+    level: 'Java developer',
+    tags: ['junior','freshser'],
+    gmail:'abc@gmail.com',
+    phone: 123456,
+  },
+];
 
 
 function handleChange(value) {
@@ -58,122 +112,169 @@ export default function ListUser() {
         
       </Menu>
     </Header>
+
     <Layout>
-      <Sider  width={500} theme="light" className="site-layout-background" >
-      <Menu mode="inline">
-      <Divider>Bộ lọc</Divider>
-      
-      <Form.Item name="Name" label="Name" style={{ width: '89%'}}><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
+      <Sider  width={1852} theme="light" className="site-layout-background" >
+        <Row>
+          <Col span={6} push={18}>  
+            <Card>
+            <Form.Item name="Name" label="Name" style={{ width: '89%'}}><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
 
-      <Form.Item name="Room" label="Room" style={{ width: '89%' }}><TreeSelect placeholder="Select an option"/></Form.Item>
+            <Form.Item name="Room" label="Room" style={{ width: '89%' }}><TreeSelect placeholder="Select an option"/></Form.Item>
 
-      <Form.Item name="Position" label="Position">
-        <Select mode="tags" style={{ width: '89%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
-      </Form.Item>
+            <Form.Item name="Position" label="Position">
+              <Select mode="tags" style={{ width: '89%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
+            </Form.Item>
 
-      <Form.Item>
-        <Radio.Group buttonStyle="solid">
-          <Space>
-          <Radio.Button value="Fresher">Fresher</Radio.Button>
-          <Radio.Button value="Junior">Junior</Radio.Button>
-          <Radio.Button value="Senior">Senior</Radio.Button>
-          </Space>
-        </Radio.Group>
-      </Form.Item>
+            <Form.Item>
+              <Radio.Group buttonStyle="solid">
+                <Space>
+                  <Radio.Button value="Fresher">Fresher</Radio.Button>
+                  <Radio.Button value="Junior">Junior</Radio.Button>
+                  <Radio.Button value="Senior">Senior</Radio.Button>
+                </Space>
+              </Radio.Group>
+            </Form.Item>
 
-      <Form.Item name ="DatePicker" label="DatePicker" >
-        <DatePicker />
-      </Form.Item>
-
-      <Form.Item name="Contact" label="Contact">
-        <Form.Item>
-          <Input placeholder="Gmail" style={{ width: '89%'}} prefix={<MailOutlined />}/>
-        </Form.Item>
-        <Form.Item>
-          <Input placeholder="Phone" style={{ width: '89%'}} prefix={<PhoneOutlined />}/>
-        </Form.Item>
-      </Form.Item>
-      
-      <Form.Item >
-        <Space>
-          <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>Search</Button>
-          <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>Add</Button>
-          <Button type="primary" htmlType="submit" icon={<CloseOutlined />}>Delete</Button>
-        </Space>
-      </Form.Item>
-      
-
-      </Menu>
-      </Sider>
-      <Layout style={{ padding: '0 24px 24px' }}>
-        
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
-          }}>
-
-          <Tabs defaultActiveKey="1" onChange={callback}>
-            <TabPane tab="Tab 1" tab="Board" key="1">
-              <Tabs defaultActiveKey="1" onChange={callback}>
-                <TabPane tab="Sắp tới" key="soon">
-                  <Card>
-                   <Descriptions theme="dark" bordered title="User Info">
-                    <Descriptions.Item label="Code">BLC001</Descriptions.Item>
-                    <Descriptions.Item label="Position">Blockchain</Descriptions.Item>
-                    <Descriptions.Item label="Role">Java</Descriptions.Item>
-                    <Descriptions.Item label="Level">Junior</Descriptions.Item>
-                    <Descriptions.Item label="Reporter"> Lâm</Descriptions.Item>
-                    <Descriptions.Item label="Date">
-                      <DatePicker defaultValue={moment('2015-06-06', dateFormat)} disabled />
-                    </Descriptions.Item>
-
-                    <Descriptions.Item >
-                    <Dropdown overlay={menuContact} placement="bottomCenter">
-                      <Button label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                    </Dropdown>
-                    </Descriptions.Item>
-                    </Descriptions> 
-                  </Card>
-                </TabPane>
-
-                <TabPane tab="Hôm nay" key="today"></TabPane>
-                <TabPane tab="Quá hạn" key="late"></TabPane>
-              </Tabs>
-            </TabPane>
-
-            <TabPane tab="Tab 1" tab="Calendar" key="2"> 
-              <Tabs>
-              <TabPane tab="Sắp tới" key="soon">
-                <Card>
-                  <Descriptions theme="dark" bordered title="User Info">
-                    <Descriptions.Item label="Code">BLC001</Descriptions.Item>
-                    <Descriptions.Item label="Position">Blockchain</Descriptions.Item>
-                    <Descriptions.Item label="Role">Java</Descriptions.Item>
-                    <Descriptions.Item label="Level">Junior</Descriptions.Item>
-                    <Descriptions.Item label="Reporter"> Lâm</Descriptions.Item>
-                    <Descriptions.Item label="Date">
-                      <DatePicker defaultValue={moment('2015-06-06', dateFormat)} disabled />
-                    </Descriptions.Item>
-                    <Descriptions.Item >
-                    <Dropdown overlay={menuContact} placement="bottomLeft">
-                      <Button label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                    </Dropdown>
-                    </Descriptions.Item>
-                  </Descriptions>
-                </Card>
-                </TabPane>
-
-                <TabPane tab="Hôm nay" key="today"></TabPane>
-                <TabPane tab="Quá hạn" key="late"></TabPane>
-              </Tabs>
-            </TabPane>
             
-          </Tabs>
-        </Content>
-      </Layout>
+             <Form.Item  name ="DatePicker" label="DatePicker" >
+              <DatePicker />
+            </Form.Item>
+
+            <Form.Item name="Contact" label="Contact">
+              <Form.Item>
+                <Input placeholder="Gmail" style={{ width: '89%'}} prefix={<MailOutlined />}/>
+              </Form.Item>
+
+              <Form.Item>
+                <Input placeholder="Phone" style={{ width: '89%'}} prefix={<PhoneOutlined />}/>
+              </Form.Item>
+              
+            </Form.Item>
+      
+            <Form.Item >
+              <Space>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>Search</Button>
+                <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>Add</Button>
+                <Button type="primary" htmlType="submit" icon={<CloseOutlined />}>Delete</Button>
+               </Space>
+            </Form.Item>
+      
+
+      
+            </Card>
+          </Col>
+
+          <Col span={18} pull={6}>
+            <Tabs defaultActiveKey="1" onChange={callback}>
+              <TabPane tab="board" tab="Board" key="board">
+                <Tabs defaultActiveKey="1" onChange={callback}>
+                  <TabPane tab="Soon" tab="Sắp tới" key="soon">
+                    <Menu>
+                    <Card title="Nguyễn Văn A" actions={[
+                          <EditOutlined key="edit" />,
+                          <CloseOutlined key="exit" />,
+                          ]} style={{ width: 400 }}>
+                      <Row>
+                        <Col span={12}>
+                          <p>Code: BLC001</p>
+                          <p>Phòng Ban: Blockchain</p>
+                          <p>Vị trí: Java developer</p>
+                          <p>Level: Junior</p>
+                          <p>Reporter: Tung Lam</p>
+                        </Col>
+
+                        <Col span={12}>
+                            <DatePicker/>
+                            <p></p>
+                            <Dropdown overlay={menuContact} placement="bottomLeft">
+                              <Button type ="primary" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                            </Dropdown>
+                        </Col>
+                      </Row>
+                    </Card>
+                    
+                    </Menu>
+                    
+                  </TabPane>
+
+                  <TabPane tab="Today" tab="Hôm nay" key="today">
+                  <Menu>
+                    <Card title="Nguyễn Văn A" actions={[
+                          <EditOutlined key="edit" />,
+                          <CloseOutlined key="exit" />,
+                          ]} style={{ width: 400 }}>
+                      <Row>
+                        <Col span={12}>
+                          <p>Code: BLC001</p>
+                          <p>Phòng Ban: Blockchain</p>
+                          <p>Vị trí: Java developer</p>
+                          <p>Level: Junior</p>
+                          <p>Reporter: Tung Lam</p>
+                        </Col>
+
+                        <Col span={12}>
+                            <DatePicker/>
+                            <p></p>
+                            <Dropdown overlay={menuContact} placement="bottomLeft">
+                              <Button type ="primary" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                            </Dropdown>
+                        </Col>
+                      </Row>
+                    </Card>
+                    
+                    </Menu>
+                  </TabPane>
+
+                  <TabPane tab="Late" tab="Quá hạn" key="late">
+                  <Menu>
+                    <Card title="Nguyễn Văn A" actions={[
+                          <EditOutlined key="edit" />,
+                          <CloseOutlined key="exit" />,
+                          ]} style={{ width: 400 }}>
+                      <Row>
+                        <Col span={12}>
+                          <p>Code: BLC001</p>
+                          <p>Phòng Ban: Blockchain</p>
+                          <p>Vị trí: Java developer</p>
+                          <p>Level: Junior</p>
+                          <p>Reporter: Tung Lam</p>
+                        </Col>
+
+                        <Col span={12}>
+                            <DatePicker/>
+                            <p></p>
+                            <Dropdown overlay={menuContact} placement="bottomLeft">
+                              <Button type ="primary" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                            </Dropdown>
+                        </Col>
+                      </Row>
+                    </Card>
+                    
+                    </Menu>
+                  </TabPane>
+                </Tabs>
+              </TabPane>
+
+              <TabPane tab="Tab 2" tab="Lịch" key="2">
+                <Tabs defaultActiveKey="1" onChange={callback}>
+                  <TabPane tab="Soon" tab="Sắp tới" key="soon">
+                        
+                  </TabPane>
+
+                  <TabPane tab="Today" tab="Hôm nay" key="today">
+
+                  </TabPane>
+
+                  <TabPane tab="Late" tab="Quá hạn" key="late">
+
+                  </TabPane>
+                </Tabs>
+              </TabPane>
+            </Tabs>
+          </Col>
+        </Row>
+      </Sider>
     </Layout>
   </Layout>
   );
