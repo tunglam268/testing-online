@@ -15,35 +15,37 @@ const { Option } = Select;
 const children = [];
 const menuContact = (
   
-  <Row>
-  <Col span={14} >
-  <Form >
-  <Form.Item style={{ width: '150%'}}  >
-    <Form.Item name="Contact" label="Contact">
-        <Form.Item>
+  
+  <Menu >
+  <Menu.Item style={{ width: '95%'}}  >
+    <Menu.Item name="Contact" label="Contact">
+        <Menu.Item>
           <Input placeholder="Gmail" prefix={<MailOutlined />}/>
-        </Form.Item>
-        <Form.Item>
+        </Menu.Item>
+        <Menu.Item>
           <Input placeholder="Phone" prefix={<PhoneOutlined />}/>
-        </Form.Item>
+        </Menu.Item>
         
         
-        <Form.Item>
+        <Menu.Item>
           <p>Tùy chọn gửi code</p>
-          <Select>
+          <Select style={{ width: '95%'}}>
             <Option value="sms">Qua SMS</Option>
             <Option value="gmail">Qua Gmail</Option>
           </Select>
           <p></p>
           <Button>Gửi</Button>
-        </Form.Item>
-      </Form.Item>
-  </Form.Item>
-  </Form>
-  </Col>
-  </Row>
+          <Button key="exit">X</Button>
+        </Menu.Item>
+      </Menu.Item>
+  </Menu.Item>
+  </Menu>
+  
 );
 
+const state ={
+  visible: false,
+}
 
 for (let i = 10; i < 36; i++) {
   children.push(<Option key={'i.toString(36) + i'}>{i.toString(36) + i}</Option>);
@@ -59,7 +61,6 @@ function callback(key) {
 }
 
 
-
 export default function ListUser() {
   
 
@@ -72,10 +73,11 @@ export default function ListUser() {
         <Menu.Item key="2"><Link to ="/question"/>Bộ câu hỏi</Menu.Item>
         <Menu.Item key="3">Đã hoàn thành</Menu.Item>
         <Menu.Item key="4">Tài liệu</Menu.Item>
-          <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Account">
-            <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
-            <Menu.Item key="logout"><Link to ="/"/>Đăng xuất</Menu.Item>
-          </SubMenu>
+
+        <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Tài khoản">
+          <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
+          <Menu.Item key="logout"><Link to ="/"/>Đăng xuất</Menu.Item>
+        </SubMenu>
         
       </Menu>
     </Header>
@@ -230,11 +232,13 @@ export default function ListUser() {
                             ]} style={{ width: 400 }}>
                           <Row>
                             <Col span={12}>
-                              <p>Code: BLC001</p>
-                              <p>Phòng Ban: Blockchain</p>
-                              <p>Vị trí: Java developer</p>
-                              <p>Level: Junior</p>
-                              <p>Reporter: Tung Lam</p>
+                            <Form>
+                                <Form.Item name="code" label="Code"></Form.Item>
+                                <Form.Item name="room" label="Phòng ban"></Form.Item>
+                                <Form.Item name="position" label="Vị trí"></Form.Item>
+                                <Form.Item name="level" label="Level"></Form.Item>
+                                <Form.Item name="reporter" label="Reporter"></Form.Item>
+                            </Form>
                             </Col>
 
                             <Col span={12}>
@@ -253,11 +257,13 @@ export default function ListUser() {
                           ]} style={{ width: 400 }}>
                       <Row>
                         <Col span={12}>
-                          <p>Code: BLC001</p>
-                          <p>Phòng Ban: Blockchain</p>
-                          <p>Vị trí: Java developer</p>
-                          <p>Level: Junior</p>
-                          <p>Reporter: Tung Lam</p>
+                          <Form>
+                            <Form.Item name="code" label="Code"></Form.Item>
+                            <Form.Item name="room" label="Phòng ban"></Form.Item>
+                            <Form.Item name="position" label="Vị trí"></Form.Item>
+                            <Form.Item name="level" label="Level"></Form.Item>
+                            <Form.Item name="reporter" label="Reporter"></Form.Item>
+                          </Form>
                         </Col>
 
                         <Col span={12}>
@@ -276,11 +282,13 @@ export default function ListUser() {
                           ]} style={{ width: 400 }}>
                       <Row>
                         <Col span={12}>
-                          <p>Code: BLC001</p>
-                          <p>Phòng Ban: Blockchain</p>
-                          <p>Vị trí: Java developer</p>
-                          <p>Level: Junior</p>
-                          <p>Reporter: Tung Lam</p>
+                        <Form>
+                          <Form.Item name="code" label="Code"></Form.Item>
+                          <Form.Item name="room" label="Phòng ban"></Form.Item>
+                          <Form.Item name="position" label="Vị trí"></Form.Item>
+                          <Form.Item name="level" label="Level"></Form.Item>
+                          <Form.Item name="reporter" label="Reporter"></Form.Item>
+                        </Form>
                         </Col>
 
                         <Col span={12}>
@@ -305,11 +313,13 @@ export default function ListUser() {
                             ]} style={{ width: 400 }}>
                           <Row>
                             <Col span={12}>
-                              <p>Code: BLC001</p>
-                              <p>Phòng Ban: Blockchain</p>
-                              <p>Vị trí: Java developer</p>
-                              <p>Level: Junior</p>
-                              <p>Reporter: Tung Lam</p>
+                            <Form>
+                                <Form.Item name="code" label="Code"></Form.Item>
+                                <Form.Item name="room" label="Phòng ban"></Form.Item>
+                                <Form.Item name="position" label="Vị trí"></Form.Item>
+                                <Form.Item name="level" label="Level"></Form.Item>
+                                <Form.Item name="reporter" label="Reporter"></Form.Item>
+                              </Form>
                             </Col>
 
                             <Col span={12}>
@@ -328,11 +338,13 @@ export default function ListUser() {
                           ]} style={{ width: 400 }}>
                       <Row>
                         <Col span={12}>
-                          <p>Code: BLC001</p>
-                          <p>Phòng Ban: Blockchain</p>
-                          <p>Vị trí: Java developer</p>
-                          <p>Level: Junior</p>
-                          <p>Reporter: Tung Lam</p>
+                        <Form>
+                          <Form.Item name="code" label="Code"></Form.Item>
+                          <Form.Item name="room" label="Phòng ban"></Form.Item>
+                          <Form.Item name="position" label="Vị trí"></Form.Item>
+                          <Form.Item name="level" label="Level"></Form.Item>
+                          <Form.Item name="reporter" label="Reporter"></Form.Item>
+                        </Form>
                         </Col>
 
                         <Col span={12}>
@@ -351,11 +363,13 @@ export default function ListUser() {
                           ]} style={{ width: 400 }}>
                       <Row>
                         <Col span={12}>
-                          <p>Code: BLC001</p>
-                          <p>Phòng Ban: Blockchain</p>
-                          <p>Vị trí: Java developer</p>
-                          <p>Level: Junior</p>
-                          <p>Reporter: Tung Lam</p>
+                        <Form>
+                          <Form.Item name="code" label="Code"></Form.Item>
+                          <Form.Item name="room" label="Phòng ban"></Form.Item>
+                          <Form.Item name="position" label="Vị trí"></Form.Item>
+                          <Form.Item name="level" label="Level"></Form.Item>
+                          <Form.Item name="reporter" label="Reporter"></Form.Item>
+                        </Form>
                         </Col>
 
                         <Col span={12}>

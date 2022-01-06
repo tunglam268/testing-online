@@ -33,7 +33,7 @@ export default function Home() {
             minHeight: 280,
           }}
         >
-          Content
+          
         </Content>
           
       </Layout>
