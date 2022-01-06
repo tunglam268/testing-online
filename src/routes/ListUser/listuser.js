@@ -8,15 +8,16 @@ import { Form, Input,  Select , Radio , DatePicker} from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { Link } from 'react-router-dom';
 
-const { Header, Content, Sider } = Layout;
+const { Header, Sider } = Layout;
 const dateFormat = 'YYYY-MM-DD';
 const { TabPane } = Tabs;
 const { Option } = Select;
 const children = [];
 const menuContact = (
-  <Card  style={{ width: '99%'}}>
+  
   <Row>
-    <Col span={14} >
+  <Col span={14} >
+  <Form >
   <Form.Item style={{ width: '150%'}}  >
     <Form.Item name="Contact" label="Contact">
         <Form.Item>
@@ -38,51 +39,15 @@ const menuContact = (
         </Form.Item>
       </Form.Item>
   </Form.Item>
-    </Col>
+  </Form>
+  </Col>
   </Row>
-  </Card>
 );
 
-for (let i = 10; i < 36; i++) {
-  children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-}
 
-const { Column, ColumnGroup } = Table;
-const data = [
-  {
-    key: '1',
-    firstName: 'Nguyen',
-    lastName: 'Van A',
-    code: 'BLC001',
-    room: 'P.CN. BLOCKCHAIN',
-    level: 'Java developer',
-    tags: ['junior','freshser'],
-    gmail:'abc@gmail.com',
-    phone: 123456,
-  },
-  {
-    key: '2',
-    firstName: 'Nguyen',
-    lastName: 'Van A',
-    code: 'BLC001',
-    room: 'P.CN. BLOCKCHAIN',
-    level: 'Java developer',
-    tags: ['junior','freshser'],
-    gmail:'abc@gmail.com',
-    phone: 123456,
-  },
-  {
-    key: '3',
-    firstName: 'Nguyen',
-    lastName: 'Van A',
-    code: 'BLC001',
-    room: 'P.CN. BLOCKCHAIN',
-    level: 'Java developer',
-    tags: ['junior','freshser'],
-    gmail:'abc@gmail.com',
-    phone: 123456,
-  },
-];
+for (let i = 10; i < 36; i++) {
+  children.push(<Option key={'i.toString(36) + i'}>{i.toString(36) + i}</Option>);
+}
 
 
 function handleChange(value) {
@@ -93,8 +58,10 @@ function callback(key) {
   console.log(key);
 }
 
-export default function ListUser() {
 
+
+export default function ListUser() {
+  
 
   return (
     <Layout>
@@ -117,12 +84,14 @@ export default function ListUser() {
       <Sider  width={1852} theme="light" className="site-layout-background" >
         <Row>
           <Col span={6} push={18}>  
+            
             <Card>
-            <Form.Item name="Name" label="Name" style={{ width: '89%'}}><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
+            <Divider>Tìm Kiếm Thông Tin</Divider>
+            <Form.Item name="Name" label="Tên" style={{ width: '89%'}}><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
 
-            <Form.Item name="Room" label="Room" style={{ width: '89%' }}><TreeSelect placeholder="Select an option"/></Form.Item>
+            <Form.Item name="Room" label="Phòng ban" style={{ width: '89%' }}><TreeSelect placeholder="Select an option"/></Form.Item>
 
-            <Form.Item name="Position" label="Position">
+            <Form.Item name="Position" label="Vị trí">
               <Select mode="tags" style={{ width: '89%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
             </Form.Item>
 
@@ -142,7 +111,7 @@ export default function ListUser() {
             </Form.Item>
 
             <Form.Item name="Contact" label="Contact">
-              <Form.Item>
+              <Form.Item >
                 <Input placeholder="Gmail" style={{ width: '89%'}} prefix={<MailOutlined />}/>
               </Form.Item>
 
@@ -154,9 +123,9 @@ export default function ListUser() {
       
             <Form.Item >
               <Space>
-                <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>Search</Button>
-                <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>Add</Button>
-                <Button type="primary" htmlType="submit" icon={<CloseOutlined />}>Delete</Button>
+                <Button type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm kiếm</Button>
+                <Button type="primary" htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
+                <Button type="primary" htmlType="submit" shape="round"icon={<CloseOutlined />}>Xóa</Button>
                </Space>
             </Form.Item>
       
@@ -166,41 +135,142 @@ export default function ListUser() {
           </Col>
 
           <Col span={18} pull={6}>
-            <Tabs defaultActiveKey="1" onChange={callback}>
-              <TabPane tab="board" tab="Board" key="board">
-                <Tabs defaultActiveKey="1" onChange={callback}>
-                  <TabPane tab="Soon" tab="Sắp tới" key="soon">
-                    <Menu>
-                    <Card title="Nguyễn Văn A" actions={[
+              
+            <Tabs defaultActiveKey="tabBoard" size={'large'} type="card" onChange={callback}>
+              <TabPane tab="tabBoard" tab="Board" key="tabBoard">
+                <Tabs defaultActiveKey="tabSoon" size={'large'} type="card" onChange={callback}>
+                  <TabPane tab="tabSoon" tab="Sắp tới" key="tabSoon">
+                    <Row>
+                      <Space>
+                        <Card title="Nguyễn Văn A" actions={[
+                            <EditOutlined key="edit" />,
+                            <CloseOutlined key="exit" />,
+                            ]} style={{ width: 400 }}>
+                          <Row>
+                            <Col span={12}>
+                              <Form>
+                                <Form.Item name="code" label="Code"></Form.Item>
+                                <Form.Item name="room" label="Phòng ban"></Form.Item>
+                                <Form.Item name="position" label="Vị trí"></Form.Item>
+                                <Form.Item name="level" label="Level"></Form.Item>
+                                <Form.Item name="reporter" label="Reporter"></Form.Item>
+                              </Form>
+                            </Col>
+
+                            <Col span={12}>
+                              <DatePicker/>
+                              <p></p>
+                              <Dropdown overlay={menuContact} placement="bottomLeft">
+                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                              </Dropdown>
+                            </Col>
+                          </Row>
+                        </Card>
+
+                     <Card title="Nguyễn Văn B" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={{ width: 400 }}>
                       <Row>
                         <Col span={12}>
-                          <p>Code: BLC001</p>
-                          <p>Phòng Ban: Blockchain</p>
-                          <p>Vị trí: Java developer</p>
-                          <p>Level: Junior</p>
-                          <p>Reporter: Tung Lam</p>
+                              <Form>
+                                <Form.Item name="code" label="Code"></Form.Item>
+                                <Form.Item name="room" label="Phòng ban"></Form.Item>
+                                <Form.Item name="position" label="Vị trí"></Form.Item>
+                                <Form.Item name="level" label="Level"></Form.Item>
+                                <Form.Item name="reporter" label="Reporter"></Form.Item>
+                              </Form>
+                        </Col>
+
+                        <Col span={12}>
+                          <DatePicker/>
+                          <p></p>
+                          <Dropdown overlay={menuContact}  placement="bottomLeft">
+                            <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                          </Dropdown>
+                        </Col>
+                      </Row>
+                    </Card>
+
+                    <Card title="Nguyễn Văn C" actions={[
+                          <EditOutlined key="edit" />,
+                          <CloseOutlined key="exit" />,
+                          ]} style={{ width: 400 }}>
+                      <Row>
+                        <Col span={12}>
+                            <Form>
+                              <Form.Item name="code" label="Code"></Form.Item>
+                              <Form.Item name="room" label="Phòng ban"></Form.Item>
+                              <Form.Item name="position" label="Vị trí"></Form.Item>
+                              <Form.Item name="level" label="Level"></Form.Item>
+                              <Form.Item name="reporter" label="Reporter"></Form.Item>
+                              </Form>
                         </Col>
 
                         <Col span={12}>
                             <DatePicker/>
                             <p></p>
                             <Dropdown overlay={menuContact} placement="bottomLeft">
-                              <Button type ="primary" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                             </Dropdown>
                         </Col>
                       </Row>
                     </Card>
-                    
-                    </Menu>
-                    
+                    </Space>
+                    </Row>
+
                   </TabPane>
 
-                  <TabPane tab="Today" tab="Hôm nay" key="today">
-                  <Menu>
-                    <Card title="Nguyễn Văn A" actions={[
+                  <TabPane tab="tabToday" tab="Hôm nay" key="tabToday">
+                  <Row>
+                      <Space>
+                        <Card title="Nguyễn Văn A" actions={[
+                            <EditOutlined key="edit" />,
+                            <CloseOutlined key="exit" />,
+                            ]} style={{ width: 400 }}>
+                          <Row>
+                            <Col span={12}>
+                              <p>Code: BLC001</p>
+                              <p>Phòng Ban: Blockchain</p>
+                              <p>Vị trí: Java developer</p>
+                              <p>Level: Junior</p>
+                              <p>Reporter: Tung Lam</p>
+                            </Col>
+
+                            <Col span={12}>
+                              <DatePicker/>
+                              <p></p>
+                              <Dropdown overlay={menuContact} placement="bottomLeft">
+                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                              </Dropdown>
+                            </Col>
+                          </Row>
+                        </Card>
+
+                     <Card title="Nguyễn Văn B" actions={[
+                          <EditOutlined key="edit" />,
+                          <CloseOutlined key="exit" />,
+                          ]} style={{ width: 400 }}>
+                      <Row>
+                        <Col span={12}>
+                          <p>Code: BLC001</p>
+                          <p>Phòng Ban: Blockchain</p>
+                          <p>Vị trí: Java developer</p>
+                          <p>Level: Junior</p>
+                          <p>Reporter: Tung Lam</p>
+                        </Col>
+
+                        <Col span={12}>
+                          <DatePicker/>
+                          <p></p>
+                          <Dropdown overlay={menuContact} placement="bottomLeft">
+                            <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                          </Dropdown>
+                        </Col>
+                      </Row>
+                    </Card>
+
+                    <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={{ width: 400 }}>
@@ -217,18 +287,65 @@ export default function ListUser() {
                             <DatePicker/>
                             <p></p>
                             <Dropdown overlay={menuContact} placement="bottomLeft">
-                              <Button type ="primary" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                             </Dropdown>
                         </Col>
                       </Row>
                     </Card>
-                    
-                    </Menu>
+                    </Space>
+                    </Row>
                   </TabPane>
 
-                  <TabPane tab="Late" tab="Quá hạn" key="late">
-                  <Menu>
-                    <Card title="Nguyễn Văn A" actions={[
+                  <TabPane tab="tabLate" tab="Quá hạn" key="tabLate">
+                  <Row>
+                      <Space>
+                        <Card title="Nguyễn Văn A" actions={[
+                            <EditOutlined key="edit" />,
+                            <CloseOutlined key="exit" />,
+                            ]} style={{ width: 400 }}>
+                          <Row>
+                            <Col span={12}>
+                              <p>Code: BLC001</p>
+                              <p>Phòng Ban: Blockchain</p>
+                              <p>Vị trí: Java developer</p>
+                              <p>Level: Junior</p>
+                              <p>Reporter: Tung Lam</p>
+                            </Col>
+
+                            <Col span={12}>
+                              <DatePicker/>
+                              <p></p>
+                              <Dropdown overlay={menuContact} placement="bottomLeft">
+                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                              </Dropdown>
+                            </Col>
+                          </Row>
+                        </Card>
+
+                     <Card title="Nguyễn Văn B" actions={[
+                          <EditOutlined key="edit" />,
+                          <CloseOutlined key="exit" />,
+                          ]} style={{ width: 400 }}>
+                      <Row>
+                        <Col span={12}>
+                          <p>Code: BLC001</p>
+                          <p>Phòng Ban: Blockchain</p>
+                          <p>Vị trí: Java developer</p>
+                          <p>Level: Junior</p>
+                          <p>Reporter: Tung Lam</p>
+                        </Col>
+
+                        <Col span={12}>
+                          <DatePicker/>
+                          <p></p>
+                          <Dropdown overlay={menuContact} placement="bottomLeft">
+                            <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                          </Dropdown>
+                        </Col>
+                      </Row>
+                    </Card>
+
+                    <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={{ width: 400 }}>
@@ -245,29 +362,99 @@ export default function ListUser() {
                             <DatePicker/>
                             <p></p>
                             <Dropdown overlay={menuContact} placement="bottomLeft">
-                              <Button type ="primary" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                             </Dropdown>
                         </Col>
                       </Row>
                     </Card>
-                    
-                    </Menu>
+                    </Space>
+                    </Row>
                   </TabPane>
                 </Tabs>
               </TabPane>
 
-              <TabPane tab="Tab 2" tab="Lịch" key="2">
-                <Tabs defaultActiveKey="1" onChange={callback}>
-                  <TabPane tab="Soon" tab="Sắp tới" key="soon">
-                        
+              <TabPane tab="tabCalendar" tab="Lịch" key="tabCalendar">
+                <Tabs defaultActiveKey="1" size={'large'} type="card" onChange={callback}>
+                  
+                  <TabPane tab="tabSoon" tab="Sắp tới" key="tabSoon">
+                  <Card title="Nguyễn Văn C" actions={[
+                          <EditOutlined key="edit" />,
+                          <CloseOutlined key="exit" />,
+                          ]} style={{ width: 400 }}>
+                      <Row>
+                        <Col span={12}>
+                            <Form>
+                              <Form.Item name="code" label="Code"></Form.Item>
+                              <Form.Item name="room" label="Phòng ban"></Form.Item>
+                              <Form.Item name="position" label="Vị trí"></Form.Item>
+                              <Form.Item name="level" label="Level"></Form.Item>
+                              <Form.Item name="reporter" label="Reporter"></Form.Item>
+                              </Form>
+                        </Col>
+
+                        <Col span={12}>
+                            <DatePicker/>
+                            <p></p>
+                            <Dropdown overlay={menuContact} placement="bottomLeft">
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                            </Dropdown>
+                        </Col>
+                      </Row>
+                    </Card>
                   </TabPane>
 
-                  <TabPane tab="Today" tab="Hôm nay" key="today">
+                  <TabPane tab="tabToday" tab="Hôm nay" key="tabToday">
+                  <Card title="Nguyễn Văn C" actions={[
+                          <EditOutlined key="edit" />,
+                          <CloseOutlined key="exit" />,
+                          ]} style={{ width: 400 }}>
+                      <Row>
+                        <Col span={12}>
+                            <Form>
+                              <Form.Item name="code" label="Code"></Form.Item>
+                              <Form.Item name="room" label="Phòng ban"></Form.Item>
+                              <Form.Item name="position" label="Vị trí"></Form.Item>
+                              <Form.Item name="level" label="Level"></Form.Item>
+                              <Form.Item name="reporter" label="Reporter"></Form.Item>
+                              </Form>
+                        </Col>
 
+                        <Col span={12}>
+                            <DatePicker/>
+                            <p></p>
+                            <Dropdown overlay={menuContact} placement="bottomLeft">
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                            </Dropdown>
+                        </Col>
+                      </Row>
+                    </Card>
                   </TabPane>
 
-                  <TabPane tab="Late" tab="Quá hạn" key="late">
+                  <TabPane tab="tabLate" tab="Quá hạn" key="tabLate">
+                  <Card title="Nguyễn Văn C" actions={[
+                          <EditOutlined key="edit" />,
+                          <CloseOutlined key="exit" />,
+                          ]} style={{ width: 400 }}>
+                      <Row>
+                        <Col span={12}>
+                            <Form>
+                              <Form.Item name="code" label="Code"></Form.Item>
+                              <Form.Item name="room" label="Phòng ban"></Form.Item>
+                              <Form.Item name="position" label="Vị trí"></Form.Item>
+                              <Form.Item name="level" label="Level"></Form.Item>
+                              <Form.Item name="reporter" label="Reporter"></Form.Item>
+                              </Form>
+                        </Col>
 
+                        <Col span={12}>
+                            <DatePicker/>
+                            <p></p>
+                            <Dropdown overlay={menuContact} placement="bottomLeft">
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                            </Dropdown>
+                        </Col>
+                      </Row>
+                    </Card>
                   </TabPane>
                 </Tabs>
               </TabPane>
