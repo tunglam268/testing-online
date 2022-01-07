@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import './question.css';
-import { Layout, Menu, Row, Modal ,Col,Image, Button , Divider, Card ,Tabs, Space} from 'antd';
-import {  SearchOutlined , FieldTimeOutlined,EditOutlined,EllipsisOutlined ,PlusOutlined ,UserOutlined, CloseOutlined} from '@ant-design/icons';
+import { Layout, Menu, Row, Modal ,Col,Image, Button , Card ,Tabs, Space} from 'antd';
+import {  SearchOutlined , FieldTimeOutlined,EditOutlined ,PlusOutlined ,UserOutlined, CloseOutlined} from '@ant-design/icons';
 import { Form, Input,  Select , Radio , } from 'antd';
 import { Link } from 'react-router-dom';
 import SubMenu from 'antd/lib/menu/SubMenu';
 
 
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 const { TextArea } = Input;
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -66,7 +66,7 @@ export default function Question() {
         <Menu.Item key="2"><Link to ="/question"/>Bộ câu hỏi</Menu.Item>
         <Menu.Item key="3">Đã hoàn thành</Menu.Item>
         <Menu.Item key="4">Tài liệu</Menu.Item>
-          <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Account">
+          <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Tài khoản">
             <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
             <Menu.Item key="logout"><Link to ="/"/>Đăng xuất</Menu.Item>
           </SubMenu>
@@ -79,30 +79,30 @@ export default function Question() {
           <Col className="test" span={6}>
             < div style={style}>
               <Card>
-              <h1>Bài test
+              
                 <Space>
+                <h1>Bài test</h1>
                 <Select defaultValue="english"  style={{ width: 150 }} onChange={handleChange}>
                   <Option value="english">Tiếng Anh</Option>
                   <Option value="code">Code</Option>
                   <Option value="knowledger">Kiến thức chung</Option>
                 </Select>
                 </Space>
-              </h1>
+              
 
               <p>
                 <Card>
                   <Form.Item name="test" label="Tên bài test"><Input placeholder="Nhập tên bài test"/></Form.Item>
-                  
-                  <Form.Item name="level" label="Level">
                   <Radio.Group buttonStyle="solid">
+                  <Form.Item name="level" label="Level">
                       <Radio.Button value="B1">B1</Radio.Button>
                       <Radio.Button value="B2">B2</Radio.Button>
                       <Space>
-                      <Radio.Button value="B3">B3</Radio.Button>
+                        <Radio.Button value="B3">B3</Radio.Button>
                         <Button type="primary" shape="round" htmlType="submit" icon={<CloseOutlined />}>Xóa lọc</Button>
                       </Space>
-                  </Radio.Group>
                   </Form.Item>
+                  </Radio.Group>
                 </Card>
 
                 <p></p>
@@ -218,7 +218,7 @@ export default function Question() {
               <h1>Demo</h1>
               <Row gutter={[8, 8]}>
                 <Col span={12}>
-                  <p>Ten bai test</p>
+                  <p>Tên bài test</p>
                   <Form.Item><Input style={{ width: 330 }} placeholder="Nhập tên bài test"/></Form.Item>
                   <Row gutter={[48, 8]}>
                     <Col span={12}>

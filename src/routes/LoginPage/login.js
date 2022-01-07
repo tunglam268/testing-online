@@ -60,9 +60,8 @@ const Login = () => {
         <Form.Item>
           
         <Button style={{
-            padding: 20,
-            margin: 0,
-            minHeight: 10,
+            padding: 0,
+            minHeight: 0,
             width:350,
           }} type="primary" htmlType="submit" className="login-form-button"><Link to ="/listuser"/>LOGIN</Button>
           

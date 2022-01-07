@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import 'antd/dist/antd.css';
 import './listuser.css';
-import { Layout, Menu,Row,Col, Card ,TreeSelect, Button , Dropdown,Divider, Tabs, Space} from 'antd';
+import { Layout, Menu,Row,Col, Card , Button , Dropdown, Tabs, Space} from 'antd';
 import { UserOutlined , MailOutlined  , EditOutlined, PhoneOutlined ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
 import { Form, Input,  Select , Radio , DatePicker} from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -32,17 +32,12 @@ const menuContact = (
           </Select>
           <p></p>
           <Button>Gửi</Button>
-          <Button key="exit">X</Button>
+          <Button key="exit" icon={<CloseOutlined />}></Button>
         </Menu.Item>
       </Menu.Item>
   </Menu.Item>
   </Menu>
-  
 );
-
-const state ={
-  visible: false,
-}
 
 for (let i = 10; i < 36; i++) {
   children.push(<Option key={'i.toString(36) + i'}>{i.toString(36) + i}</Option>);
@@ -50,23 +45,23 @@ for (let i = 10; i < 36; i++) {
 
 
 export default function ListUser() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+  // const showModal = () => {
+  //   setIsModalVisible(true);
+  // };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+  // const handleOk = () => {
+  //   setIsModalVisible(false);
+  // };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+  // const handleCancel = () => {
+  //   setIsModalVisible(false);
+  // };
 
-  const onChange = e => {
-    console.log('Change:', e.target.value);
-  };
+  // const onChange = e => {
+  //   console.log('Change:', e.target.value);
+  // };
 
   const handleChange =(value) => {
     console.log(`selected ${value}`);
@@ -95,16 +90,25 @@ export default function ListUser() {
 
     <Layout>
       <Sider  width={1852} theme="light" className="site-layout-background" >
-        <Row>
-          <Col span={6} push={18}>  
+        <Row gutter={[32, 8]}>
+          <Col span={6}>  
             
             <Card>
             <h1>Bộ Lọc</h1>
-            <Form.Item name="Name" label="Tên" style={{ width: '89%'}}><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
+            <Form.Item name="Name" style={{ width: '89%'}}><p>Tên</p><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
 
-            <Form.Item name="Room" label="Phòng ban" style={{ width: '89%' }}><TreeSelect placeholder="Select an option"/></Form.Item>
+            <Form.Item name="Room" style={{ width: '89%' }}><p>Phòng ban</p>
+              <Select placeholder="Select an option">
+                <Option value="">a1</Option>
+                <Option value="">a2</Option>
+                <Option value="">a3</Option>
+                <Option value="">a4</Option>
+                <Option value="">a5</Option>
+                <Option value="">a6</Option>
+              </Select>
+            </Form.Item>
 
-            <Form.Item name="Position" label="Vị trí">
+            <Form.Item name="Position"><p>Vị trí</p>
               <Select mode="tags" style={{ width: '89%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
             </Form.Item>
 
@@ -118,25 +122,31 @@ export default function ListUser() {
               </Radio.Group>
             </Form.Item>
 
+            <Row gutter={[8, 8]}>
+            <Col span={12}>
+              <p>Lịch</p>
+              <Form.Item  name ="DatePicker">
+                <DatePicker />
+              </Form.Item>
+            </Col>
+
+            <Col span={12}>
+              <p>Liên lạc</p>
+              <Form.Item name="Contact">
+                <Form.Item >
+                  <Input placeholder="Gmail" style={{ width: '89%'}} prefix={<MailOutlined />}/>
+                </Form.Item>
+
+                <Form.Item>
+                  <Input placeholder="Phone" style={{ width: '89%'}} prefix={<PhoneOutlined />}/>
+                </Form.Item>
             
-             <Form.Item  name ="DatePicker" label="DatePicker" >
-              <DatePicker />
             </Form.Item>
-
-            <Form.Item name="Contact" label="Contact">
-              <Form.Item >
-                <Input placeholder="Gmail" style={{ width: '89%'}} prefix={<MailOutlined />}/>
-              </Form.Item>
-
-              <Form.Item>
-                <Input placeholder="Phone" style={{ width: '89%'}} prefix={<PhoneOutlined />}/>
-              </Form.Item>
-              
-            </Form.Item>
-      
+            </Col>
+            </Row>
             <Form.Item >
               <Space>
-                <Button type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm kiếm</Button>
+                <Button type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
                 <Button type="primary" htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
                 <Button type="primary" htmlType="submit" shape="round"icon={<CloseOutlined />}>Xóa</Button>
                </Space>
@@ -147,7 +157,7 @@ export default function ListUser() {
             </Card>
           </Col>
 
-          <Col span={18} pull={6}>
+          <Col span={18}>
             <Tabs defaultActiveKey="tabBoard" size={'large'} type="card" onChange={callback}>
               <TabPane tab="tabBoard" tab="Board" key="tabBoard">
                 <Tabs defaultActiveKey="tabSoon" size={'large'} type="card" onChange={callback}>
