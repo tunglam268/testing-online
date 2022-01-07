@@ -1,25 +1,22 @@
-import React from 'react';
-import moment from 'moment';
+import React, { useState } from 'react';
+
 import 'antd/dist/antd.css';
 import './listuser.css';
-import { Layout, Menu,Row,Col, Descriptions, Card ,TreeSelect, Button , Dropdown,Divider,Table ,Tag, Tabs, Space} from 'antd';
-import { UserOutlined , MailOutlined ,SettingOutlined , EditOutlined, EllipsisOutlined, PhoneOutlined ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
+import { Layout, Menu,Row,Col, Card ,TreeSelect, Button , Dropdown,Divider, Tabs, Space} from 'antd';
+import { UserOutlined , MailOutlined  , EditOutlined, PhoneOutlined ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
 import { Form, Input,  Select , Radio , DatePicker} from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { Link } from 'react-router-dom';
 
 const { Header, Sider } = Layout;
-const dateFormat = 'YYYY-MM-DD';
 const { TabPane } = Tabs;
 const { Option } = Select;
 const children = [];
 const menuContact = (
-  
-  
   <Menu >
   <Menu.Item style={{ width: '95%'}}  >
-    <Menu.Item name="Contact" label="Contact">
-        <Menu.Item>
+    <Menu.Item  name="Contact" label="Contact">
+        <Menu.Item >
           <Input placeholder="Gmail" prefix={<MailOutlined />}/>
         </Menu.Item>
         <Menu.Item>
@@ -52,18 +49,32 @@ for (let i = 10; i < 36; i++) {
 }
 
 
-function handleChange(value) {
-  console.log(`selected ${value}`);
-}
-
-function callback(key) {
-  console.log(key);
-}
-
-
 export default function ListUser() {
-  
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const onChange = e => {
+    console.log('Change:', e.target.value);
+  };
+
+  const handleChange =(value) => {
+    console.log(`selected ${value}`);
+  }
+  
+  const callback =(key) =>{
+    console.log(key);
+  }
   return (
     <Layout>
       <Header className="header">
@@ -88,7 +99,7 @@ export default function ListUser() {
           <Col span={6} push={18}>  
             
             <Card>
-            <Divider>Tìm Kiếm Thông Tin</Divider>
+            <h1>Bộ Lọc</h1>
             <Form.Item name="Name" label="Tên" style={{ width: '89%'}}><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
 
             <Form.Item name="Room" label="Phòng ban" style={{ width: '89%' }}><TreeSelect placeholder="Select an option"/></Form.Item>
@@ -137,7 +148,6 @@ export default function ListUser() {
           </Col>
 
           <Col span={18} pull={6}>
-              
             <Tabs defaultActiveKey="tabBoard" size={'large'} type="card" onChange={callback}>
               <TabPane tab="tabBoard" tab="Board" key="tabBoard">
                 <Tabs defaultActiveKey="tabSoon" size={'large'} type="card" onChange={callback}>
@@ -163,7 +173,7 @@ export default function ListUser() {
                               <DatePicker/>
                               <p></p>
                               <Dropdown overlay={menuContact} placement="bottomLeft">
-                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                                <Button type ="primary"  shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                               </Dropdown>
                             </Col>
                           </Row>

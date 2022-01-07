@@ -78,20 +78,19 @@ export default function Question() {
         <Row gutter={16}>
           <Col className="test" span={6}>
             < div style={style}>
-              <Card>
-              <h1>Bài test
-                <Space>
+              
+              <p>Bài test
+                
                 <Select defaultValue="english"  style={{ width: 150 }} onChange={handleChange}>
                   <Option value="english">Tiếng Anh</Option>
                   <Option value="code">Code</Option>
                   <Option value="knowledger">Kiến thức chung</Option>
                 </Select>
-                </Space>
-              </h1>
+              </p>
 
               <p>
                 <Card>
-                  <Form.Item name="test" label="Tên bài test"><Input placeholder="Nhập tên bài test"/></Form.Item>
+                  <Form.Item name="test" label="Tên bài test"><Input placeholder="Place holder"/></Form.Item>
                   
                   <Form.Item name="level" label="Level">
                   <Radio.Group buttonStyle="solid">
@@ -126,14 +125,13 @@ export default function Question() {
               <Button size ="large"  style={{ width: '100%' }}> Test-01</Button><br></br>
               <Button size ="large"  style={{ width: '100%' }}> Test-01</Button><br></br>
             </Menu>
-            </Card>
+              
             </div>
           </Col>
 
           <Col className="question" span={6}>
             <div style={style}>
-            <Card>
-            <Space><h1>Câu hỏi</h1>
+            <Space>Câu hỏi
             <Button type="primary" shape="round" onClick={showModal}>Tạo câu hỏi</Button>
             </Space>
               <Modal title="Tạo câu hỏi" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
@@ -208,18 +206,17 @@ export default function Question() {
                   </Radio.Group>
                </Card>
                <p></p>
-            </Card>
+               
             </div>
           </Col>
 
           <Col className="demo" span={12}>
             <div style={style}>
-              <Card>
-              <h1>Demo</h1>
+              <Divider>Demo</Divider>
               <Row gutter={[8, 8]}>
                 <Col span={12}>
                   <p>Ten bai test</p>
-                  <Form.Item><Input style={{ width: 330 }} placeholder="Nhập tên bài test"/></Form.Item>
+                  <Form.Item><Input style={{ width: 330 }} placeholder="Place holder"/></Form.Item>
                   <Row gutter={[48, 8]}>
                     <Col span={12}>
                       <Radio.Group buttonStyle="solid">
@@ -239,22 +236,10 @@ export default function Question() {
                 <Col span={12}>
                   <Form.Item name="Position" label="Tham gia test">
                     <Select mode="tags" style={{ width: '50%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
-                    <Button shape="round" type="primary" htmlType="submit">Lưu</Button>  
+                    <Button type="primary" htmlType="submit">Lưu</Button>  
                   </Form.Item>
                 </Col>
-
-                <p></p>
-                <Card style={{ width: 800 }} actions={[<CloseOutlined key="exit" />,]}>
-                  <p> The executives pointed to immigration ______ the biggest drivers of the domestic market</p>
-                  <Radio.Group onChange={onChangeMultiple} value={value}>
-                    <Radio value="A"> A. Rather</Radio><br></br>
-                    <Radio value="B">B. As one of</Radio><br></br>
-                    <Radio value="C">C. Resulting in</Radio><br></br>
-                    <Radio value="D">D. As leading</Radio><br></br>
-                  </Radio.Group>
-                </Card>
               </Row>
-              </Card>
             </div>
           </Col>
       </Row>
