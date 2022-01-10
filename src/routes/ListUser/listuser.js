@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import 'antd/dist/antd.css';
 import './listuser.css';
@@ -8,10 +9,13 @@ import { Form, Input,  Select , Radio , DatePicker} from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { Link } from 'react-router-dom';
 
-const { Header, Sider } = Layout;
+const { Header, Sider ,Content} = Layout;
 const { TabPane } = Tabs;
 const { Option } = Select;
 const children = [];
+
+
+const dateFormat = 'YYYY-MM-DD';
 const menuContact = (
   <Menu >
   <Menu.Item style={{ width: '95%'}}  >
@@ -45,23 +49,6 @@ for (let i = 10; i < 36; i++) {
 
 
 export default function ListUser() {
-  // const [isModalVisible, setIsModalVisible] = useState(false);
-
-  // const showModal = () => {
-  //   setIsModalVisible(true);
-  // };
-
-  // const handleOk = () => {
-  //   setIsModalVisible(false);
-  // };
-
-  // const handleCancel = () => {
-  //   setIsModalVisible(false);
-  // };
-
-  // const onChange = e => {
-  //   console.log('Change:', e.target.value);
-  // };
 
   const handleChange =(value) => {
     console.log(`selected ${value}`);
@@ -148,19 +135,16 @@ export default function ListUser() {
               <Space>
                 <Button type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
                 <Button type="primary" htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
-                <Button type="primary" htmlType="submit" shape="round"icon={<CloseOutlined />}>Xóa</Button>
+                <Button style={{ width: '200%' }} type="primary" htmlType="submit" shape="round"icon={<CloseOutlined />}>Xóa</Button>
                </Space>
             </Form.Item>
-      
-
-      
             </Card>
           </Col>
 
           <Col span={18}>
-            <Tabs defaultActiveKey="tabBoard" size={'large'} type="card" onChange={callback}>
-              <TabPane tab="tabBoard" tab="Board" key="tabBoard">
-                <Tabs defaultActiveKey="tabSoon" size={'large'} type="card" onChange={callback}>
+            <Tabs defaultActiveKey="tabList" size={'large'} type="card" onChange={callback}>
+              <TabPane tab="tabBoard" tab="Board" key="tabBoard"><Link to ="/listuser/tabboard"/>
+                <Tabs defaultActiveKey="tabTimeline" size={'large'} type="card" onChange={callback}>
                   <TabPane tab="tabSoon" tab="Sắp tới" key="tabSoon">
                     <Row>
                       <Space>
@@ -183,7 +167,7 @@ export default function ListUser() {
                               <DatePicker/>
                               <p></p>
                               <Dropdown overlay={menuContact} placement="bottomLeft">
-                                <Button type ="primary"  shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
+                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                               </Dropdown>
                             </Col>
                           </Row>
@@ -207,7 +191,7 @@ export default function ListUser() {
                         <Col span={12}>
                           <DatePicker/>
                           <p></p>
-                          <Dropdown overlay={menuContact}  placement="bottomLeft">
+                          <Dropdown overlay={menuContact} placement="bottomLeft">
                             <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                           </Dropdown>
                         </Col>
@@ -406,12 +390,13 @@ export default function ListUser() {
                   </TabPane>
                 </Tabs>
               </TabPane>
-
+              
               <TabPane tab="tabCalendar" tab="Lịch" key="tabCalendar">
-                <Tabs defaultActiveKey="1" size={'large'} type="card" onChange={callback}>
-                  
-                  <TabPane tab="tabSoon" tab="Sắp tới" key="tabSoon">
-                  <Card title="Nguyễn Văn C" actions={[
+              <Row span={8}>
+                <Content>
+                  <Card>
+                    <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
+                    <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={{ width: 400 }}>
@@ -433,12 +418,18 @@ export default function ListUser() {
                               <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                             </Dropdown>
                         </Col>
+                        
                       </Row>
-                    </Card>
-                  </TabPane>
-
-                  <TabPane tab="tabToday" tab="Hôm nay" key="tabToday">
-                  <Card title="Nguyễn Văn C" actions={[
+                    </Card> 
+                  </Card>
+                </Content>
+                </Row>
+              
+                <Row span={8}>
+                <Content>
+                  <Card>
+                    <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
+                    <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={{ width: 400 }}>
@@ -460,12 +451,19 @@ export default function ListUser() {
                               <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                             </Dropdown>
                         </Col>
+                        
                       </Row>
-                    </Card>
-                  </TabPane>
+                    </Card> 
+                  </Card>
+                </Content>
+                </Row>
 
-                  <TabPane tab="tabLate" tab="Quá hạn" key="tabLate">
-                  <Card title="Nguyễn Văn C" actions={[
+              
+                <Row span={8}>
+                <Content>
+                  <Card>
+                    <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
+                    <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={{ width: 400 }}>
@@ -487,10 +485,13 @@ export default function ListUser() {
                               <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                             </Dropdown>
                         </Col>
+                        
                       </Row>
-                    </Card>
-                  </TabPane>
-                </Tabs>
+                    </Card> 
+                  </Card>
+                </Content>
+                </Row>
+
               </TabPane>
             </Tabs>
           </Col>
