@@ -394,14 +394,16 @@ export default function ListUser() {
               <TabPane tab="tabCalendar" tab="Lịch" key="tabCalendar">
               <Row span={8}>
                 <Content>
-                  <Card>
-                    <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
-                    <Card title="Nguyễn Văn C" actions={[
+                  <Row gutter={[8, 8]}>
+                    <Col span={8}>
+                    <Card>
+                      <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
+                      <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={{ width: 400 }}>
-                      <Row>
-                        <Col span={12}>
+                        <Row>
+                          <Col span={12}>
                             <Form>
                               <Form.Item name="code" label="Code"></Form.Item>
                               <Form.Item name="room" label="Phòng ban"></Form.Item>
@@ -409,32 +411,29 @@ export default function ListUser() {
                               <Form.Item name="level" label="Level"></Form.Item>
                               <Form.Item name="reporter" label="Reporter"></Form.Item>
                               </Form>
-                        </Col>
+                          </Col>
 
-                        <Col span={12}>
+                          <Col span={12}>
                             <DatePicker/>
                             <p></p>
                             <Dropdown overlay={menuContact} placement="bottomLeft">
                               <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                             </Dropdown>
-                        </Col>
-                        
-                      </Row>
-                    </Card> 
-                  </Card>
-                </Content>
-                </Row>
-              
-                <Row span={8}>
-                <Content>
-                  <Card>
-                    <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
-                    <Card title="Nguyễn Văn C" actions={[
+                          </Col> 
+                        </Row>
+                      </Card> 
+                    </Card>
+                    </Col>
+                    
+                    <Col span={8}>
+                    <Card>
+                      <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
+                      <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={{ width: 400 }}>
-                      <Row>
-                        <Col span={12}>
+                        <Row>
+                          <Col span={12}>
                             <Form>
                               <Form.Item name="code" label="Code"></Form.Item>
                               <Form.Item name="room" label="Phòng ban"></Form.Item>
@@ -442,56 +441,23 @@ export default function ListUser() {
                               <Form.Item name="level" label="Level"></Form.Item>
                               <Form.Item name="reporter" label="Reporter"></Form.Item>
                               </Form>
-                        </Col>
+                          </Col>
 
-                        <Col span={12}>
+                          <Col span={12}>
                             <DatePicker/>
                             <p></p>
                             <Dropdown overlay={menuContact} placement="bottomLeft">
                               <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
                             </Dropdown>
-                        </Col>
-                        
-                      </Row>
-                    </Card> 
-                  </Card>
+                          </Col> 
+                        </Row>
+                      </Card> 
+                    </Card>
+                    </Col>
+                  </Row>
                 </Content>
-                </Row>
-
-              
-                <Row span={8}>
-                <Content>
-                  <Card>
-                    <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
-                    <Card title="Nguyễn Văn C" actions={[
-                          <EditOutlined key="edit" />,
-                          <CloseOutlined key="exit" />,
-                          ]} style={{ width: 400 }}>
-                      <Row>
-                        <Col span={12}>
-                            <Form>
-                              <Form.Item name="code" label="Code"></Form.Item>
-                              <Form.Item name="room" label="Phòng ban"></Form.Item>
-                              <Form.Item name="position" label="Vị trí"></Form.Item>
-                              <Form.Item name="level" label="Level"></Form.Item>
-                              <Form.Item name="reporter" label="Reporter"></Form.Item>
-                              </Form>
-                        </Col>
-
-                        <Col span={12}>
-                            <DatePicker/>
-                            <p></p>
-                            <Dropdown overlay={menuContact} placement="bottomLeft">
-                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                            </Dropdown>
-                        </Col>
-                        
-                      </Row>
-                    </Card> 
-                  </Card>
-                </Content>
-                </Row>
-
+              </Row>
+          
               </TabPane>
             </Tabs>
           </Col>
