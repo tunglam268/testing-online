@@ -13,7 +13,7 @@ const { Header, Sider ,Content} = Layout;
 const { TabPane } = Tabs;
 const { Option } = Select;
 const children = [];
-const styleContent = { background: '#ffffff', padding: '20px 20px' };
+
 
 const dateFormat = 'YYYY-MM-DD';
 const menuContact = (
@@ -76,8 +76,11 @@ export default function ListUser() {
     </Header>
 
     <Layout>
-      <Sider  width={500} theme="light" className="site-layout-background" >
-        <Card>
+      <Sider  width={1852} theme="light" className="site-layout-background" >
+        <Row gutter={[32, 8]}>
+          <Col span={6}>  
+            
+            <Card>
             <h1>Bộ Lọc</h1>
             <Form.Item name="Name" style={{ width: '89%'}}><p>Tên</p><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
 
@@ -97,51 +100,49 @@ export default function ListUser() {
             </Form.Item>
 
             <Form.Item>
-            <Radio.Group buttonStyle="solid">
-              <Space>
-                <Radio.Button value="Fresher">Fresher</Radio.Button>
-                <Radio.Button value="Junior">Junior</Radio.Button>
-                <Radio.Button value="Senior">Senior</Radio.Button>
-              </Space>
-            </Radio.Group>
+              <Radio.Group buttonStyle="solid">
+                <Space>
+                  <Radio.Button value="Fresher">Fresher</Radio.Button>
+                  <Radio.Button value="Junior">Junior</Radio.Button>
+                  <Radio.Button value="Senior">Senior</Radio.Button>
+                </Space>
+              </Radio.Group>
             </Form.Item>
 
             <Row gutter={[8, 8]}>
-              <Col span={12}>
-                <p>Lịch</p>
-                <Form.Item  name ="DatePicker">
-                  <DatePicker />
+            <Col span={12}>
+              <p>Lịch</p>
+              <Form.Item  name ="DatePicker">
+                <DatePicker />
+              </Form.Item>
+            </Col>
+
+            <Col span={12}>
+              <p>Liên lạc</p>
+              <Form.Item name="Contact">
+                <Form.Item >
+                  <Input placeholder="Gmail" style={{ width: '89%'}} prefix={<MailOutlined />}/>
                 </Form.Item>
-              </Col>
 
-              <Col span={12}>
-                <p>Liên lạc</p>
-                <Form.Item name="Contact">
-                  <Form.Item >
-                    <Input placeholder="Gmail" style={{ width: '89%'}} prefix={<MailOutlined />}/>
-                  </Form.Item>
-
-                  <Form.Item>
-                    <Input placeholder="Phone" style={{ width: '89%'}} prefix={<PhoneOutlined />}/>
-                  </Form.Item>
+                <Form.Item>
+                  <Input placeholder="Phone" style={{ width: '89%'}} prefix={<PhoneOutlined />}/>
+                </Form.Item>
             
-                </Form.Item>
-              </Col>
+            </Form.Item>
+            </Col>
             </Row>
-          <Form.Item >
+            <Form.Item >
               <Space>
                 <Button type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
                 <Button type="primary" htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
                 <Button style={{ width: '200%' }} type="primary" htmlType="submit" shape="round"icon={<CloseOutlined />}>Xóa</Button>
                </Space>
-          </Form.Item>
-        </Card>
-      </Sider>
-    
+            </Form.Item>
+            </Card>
+          </Col>
 
-      <Content style={styleContent}>
-          <h1>Danh Sách</h1>
-          <Tabs defaultActiveKey="tabList" size={'large'} type="card" onChange={callback}>
+          <Col span={18}>
+            <Tabs defaultActiveKey="tabList" size={'large'} type="card" onChange={callback}>
               <TabPane tab="tabBoard" tab="Board" key="tabBoard">
                 <Tabs defaultActiveKey="tabTimeline" size={'large'} type="card" onChange={callback}>
                   <TabPane tab="tabSoon" tab="Sắp tới" key="tabSoon">
@@ -455,10 +456,13 @@ export default function ListUser() {
                     </Col>
                   </Row>
                 </Content>
-              </Row>     
-            </TabPane>
-          </Tabs>
-      </Content>
+              </Row>
+          
+              </TabPane>
+            </Tabs>
+          </Col>
+        </Row>
+      </Sider>
     </Layout>
   </Layout>
   );

@@ -15,7 +15,7 @@ const { TabPane } = Tabs;
 const { Option } = Select;
 const children = [];
 const style = { background: '#ffffff', padding: '8px 0' };
-const styleContent = { background: '#ffffff', padding: '8px 0' };
+const styleContent = { background: '#ffffff', padding: '0 20px' };
 
 for (let i = 10; i < 36; i++) {
   children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
@@ -94,7 +94,8 @@ export default function Question() {
                 <Card>
                   <Form.Item name="test" label="Tên bài test"><Input placeholder="Nhập tên bài test"/></Form.Item>
                   <Radio.Group buttonStyle="solid">
-                  <Form.Item name="level" label="Level">
+                  
+                  <Form.Item name="level"><p>Level</p>
                       <Radio.Button value="B1">B1</Radio.Button>
                       <Radio.Button value="B2">B2</Radio.Button>
                       <Space>
