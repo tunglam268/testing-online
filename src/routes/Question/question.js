@@ -78,8 +78,7 @@ export default function Question() {
         <Row gutter={16}>
           <Col className="test" span={6}>
             < div style={style}>
-              <Card>
-              
+              <Card>       
                 <Space>
                 <h1>Bài test</h1>
                 <Select defaultValue="english"  style={{ width: 150 }} onChange={handleChange}>
@@ -88,14 +87,13 @@ export default function Question() {
                   <Option value="knowledger">Kiến thức chung</Option>
                 </Select>
                 </Space>
-              
 
-              <p>
-                <Card>
+                <p>
+                <Card style={{background: '#fafafa  '}}>
                   <Form.Item name="test" label="Tên bài test"><Input placeholder="Nhập tên bài test"/></Form.Item>
                   <Radio.Group buttonStyle="solid">
                   
-                  <Form.Item name="level"><p>Level</p>
+                  <Form.Item name="level">
                       <Radio.Button value="B1">B1</Radio.Button>
                       <Radio.Button value="B2">B2</Radio.Button>
                       <Space>
@@ -199,7 +197,7 @@ export default function Question() {
                
               <p></p>
                
-               <Card style={{ width: 400 }} actions={[<PlusOutlined key="add" />,<EditOutlined key="edit" />,<CloseOutlined key="exit" />,]}>
+               <Card style={{ width: 400 ,background: '#fafafa'} } actions={[<PlusOutlined key="add" />,<EditOutlined key="edit" />,<CloseOutlined key="exit" />,]}>
                 <p> Which of the following numbers is fartherest from the number 1 on the number line ?</p>
                   <Radio.Group onChange={onChangeMultiple} value={value}>
                     <Radio value="A"> A. -10</Radio>
