@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import 'antd/dist/antd.css';
 import './listuser.css';
-import { Layout, Menu,Row,Col, Card , Button , Dropdown, Tabs, Space} from 'antd';
+import { Layout, Menu,Row,Col,Popover ,Card , Button , Tabs, Space} from 'antd';
 import { UserOutlined , MailOutlined  , EditOutlined, PhoneOutlined ,SearchOutlined , PlusOutlined , CloseOutlined} from '@ant-design/icons';
 import { Form, Input,  Select , Radio , DatePicker} from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -13,22 +13,23 @@ const { Header, Sider ,Content} = Layout;
 const { TabPane } = Tabs;
 const { Option } = Select;
 const children = [];
-const styleContent = { background: '#ffffff', padding: '20px 20px' };
+const styleContent = { background: '#ffffff', padding: '30px 20px' };
+const styleCard ={background: '#fafafa',  width:400  }
 
 const dateFormat = 'YYYY-MM-DD';
 const menuContact = (
-  <Menu >
-  <Menu.Item style={{ width: '95%'}}  >
-    <Menu.Item  name="Contact" label="Contact">
-        <Menu.Item >
+  <Form >
+    <Form.Item style={{ width: '100%' , padding: '0px 0px'}}  >
+      <Form.Item  name="Contact" label="Contact">
+        <Form.Item >
           <Input placeholder="Gmail" prefix={<MailOutlined />}/>
-        </Menu.Item>
-        <Menu.Item>
+        </Form.Item>
+        <Form.Item>
           <Input placeholder="Phone" prefix={<PhoneOutlined />}/>
-        </Menu.Item>
+        </Form.Item>
         
         
-        <Menu.Item>
+        <Form.Item>
           <p>Tùy chọn gửi code</p>
           <Select style={{ width: '95%'}}>
             <Option value="sms">Qua SMS</Option>
@@ -37,10 +38,10 @@ const menuContact = (
           <p></p>
           <Button>Gửi</Button>
           <Button key="exit" icon={<CloseOutlined />}></Button>
-        </Menu.Item>
-      </Menu.Item>
-  </Menu.Item>
-  </Menu>
+        </Form.Item>
+      </Form.Item>
+    </Form.Item>
+  </Form >
 );
 
 for (let i = 10; i < 36; i++) {
@@ -79,9 +80,9 @@ export default function ListUser() {
       <Sider  width={500} theme="light" className="site-layout-background" >
         <Card>
             <h1>Bộ Lọc</h1>
-            <Form.Item name="Name" style={{ width: '89%'}}><p>Tên</p><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
+            <Form.Item name="Name" style={{ width: '95%'}}><p>Tên</p><Input placeholder="Input Name" prefix={<UserOutlined />}/></Form.Item>
 
-            <Form.Item name="Room" style={{ width: '89%' }}><p>Phòng ban</p>
+            <Form.Item name="Room" style={{ width: '95%' }}><p>Phòng ban</p>
               <Select placeholder="Select an option">
                 <Option value="">a1</Option>
                 <Option value="">a2</Option>
@@ -93,7 +94,7 @@ export default function ListUser() {
             </Form.Item>
 
             <Form.Item name="Position"><p>Vị trí</p>
-              <Select mode="tags" style={{ width: '89%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
+              <Select mode="tags" style={{ width: '95%' }} placeholder="Tags Mode" onChange={handleChange}>{children}</Select>
             </Form.Item>
 
             <Form.Item>
@@ -150,7 +151,7 @@ export default function ListUser() {
                         <Card title="Nguyễn Văn A" actions={[
                             <EditOutlined key="edit" />,
                             <CloseOutlined key="exit" />,
-                            ]} style={{ width: 400 }}>
+                            ]} style={ styleCard }>
                           <Row>
                             <Col span={12}>
                               <Form>
@@ -165,9 +166,9 @@ export default function ListUser() {
                             <Col span={12}>
                               <DatePicker/>
                               <p></p>
-                              <Dropdown overlay={menuContact} placement="bottomLeft">
-                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                              </Dropdown>
+                              <Popover content={menuContact} placement="bottom">
+                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                              </Popover>
                             </Col>
                           </Row>
                         </Card>
@@ -175,7 +176,7 @@ export default function ListUser() {
                      <Card title="Nguyễn Văn B" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
-                          ]} style={{ width: 400 }}>
+                          ]} style={styleCard }>
                       <Row>
                         <Col span={12}>
                               <Form>
@@ -190,9 +191,9 @@ export default function ListUser() {
                         <Col span={12}>
                           <DatePicker/>
                           <p></p>
-                          <Dropdown overlay={menuContact} placement="bottomLeft">
-                            <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                          </Dropdown>
+                          <Popover content={menuContact} placement="bottom">
+                            <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                          </Popover>
                         </Col>
                       </Row>
                     </Card>
@@ -200,7 +201,7 @@ export default function ListUser() {
                     <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
-                          ]} style={{ width: 400 }}>
+                          ]} style={ styleCard }>
                       <Row>
                         <Col span={12}>
                             <Form>
@@ -215,9 +216,9 @@ export default function ListUser() {
                         <Col span={12}>
                             <DatePicker/>
                             <p></p>
-                            <Dropdown overlay={menuContact} placement="bottomLeft">
-                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                            </Dropdown>
+                            <Popover content={menuContact} placement="bottom">
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                            </Popover>
                         </Col>
                       </Row>
                     </Card>
@@ -232,7 +233,7 @@ export default function ListUser() {
                         <Card title="Nguyễn Văn A" actions={[
                             <EditOutlined key="edit" />,
                             <CloseOutlined key="exit" />,
-                            ]} style={{ width: 400 }}>
+                            ]} style={styleCard }>
                           <Row>
                             <Col span={12}>
                             <Form>
@@ -247,9 +248,9 @@ export default function ListUser() {
                             <Col span={12}>
                               <DatePicker/>
                               <p></p>
-                              <Dropdown overlay={menuContact} placement="bottomLeft">
-                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                              </Dropdown>
+                              <Popover content={menuContact} placement="bottom">
+                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                              </Popover>
                             </Col>
                           </Row>
                         </Card>
@@ -257,7 +258,7 @@ export default function ListUser() {
                      <Card title="Nguyễn Văn B" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
-                          ]} style={{ width: 400 }}>
+                          ]} style={ styleCard }>
                       <Row>
                         <Col span={12}>
                           <Form>
@@ -272,9 +273,9 @@ export default function ListUser() {
                         <Col span={12}>
                           <DatePicker/>
                           <p></p>
-                          <Dropdown overlay={menuContact} placement="bottomLeft">
-                            <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                          </Dropdown>
+                          <Popover content={menuContact} placement="bottom">
+                            <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                          </Popover>
                         </Col>
                       </Row>
                     </Card>
@@ -282,7 +283,7 @@ export default function ListUser() {
                     <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
-                          ]} style={{ width: 400 }}>
+                          ]} style={ styleCard }>
                       <Row>
                         <Col span={12}>
                         <Form>
@@ -297,9 +298,9 @@ export default function ListUser() {
                         <Col span={12}>
                             <DatePicker/>
                             <p></p>
-                            <Dropdown overlay={menuContact} placement="bottomLeft">
-                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                            </Dropdown>
+                            <Popover content={menuContact} placement="bottom">
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                            </Popover>
                         </Col>
                       </Row>
                     </Card>
@@ -313,7 +314,7 @@ export default function ListUser() {
                         <Card title="Nguyễn Văn A" actions={[
                             <EditOutlined key="edit" />,
                             <CloseOutlined key="exit" />,
-                            ]} style={{ width: 400 }}>
+                            ]} style={ styleCard }>
                           <Row>
                             <Col span={12}>
                             <Form>
@@ -328,9 +329,9 @@ export default function ListUser() {
                             <Col span={12}>
                               <DatePicker/>
                               <p></p>
-                              <Dropdown overlay={menuContact} placement="bottomLeft">
-                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                              </Dropdown>
+                              <Popover content={menuContact} placement="bottom">
+                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                              </Popover>
                             </Col>
                           </Row>
                         </Card>
@@ -338,7 +339,7 @@ export default function ListUser() {
                      <Card title="Nguyễn Văn B" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
-                          ]} style={{ width: 400 }}>
+                          ]} style={ styleCard }>
                       <Row>
                         <Col span={12}>
                         <Form>
@@ -353,9 +354,9 @@ export default function ListUser() {
                         <Col span={12}>
                           <DatePicker/>
                           <p></p>
-                          <Dropdown overlay={menuContact} placement="bottomLeft">
-                            <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                          </Dropdown>
+                          <Popover content={menuContact} placement="bottom">
+                            <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                          </Popover>
                         </Col>
                       </Row>
                     </Card>
@@ -363,7 +364,7 @@ export default function ListUser() {
                     <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
-                          ]} style={{ width: 400 }}>
+                          ]} style={styleCard }>
                       <Row>
                         <Col span={12}>
                         <Form>
@@ -378,9 +379,9 @@ export default function ListUser() {
                         <Col span={12}>
                             <DatePicker/>
                             <p></p>
-                            <Dropdown overlay={menuContact} placement="bottomLeft">
-                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                            </Dropdown>
+                            <Popover content={menuContact} placement="bottom">
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                            </Popover>
                         </Col>
                       </Row>
                     </Card>
@@ -400,7 +401,7 @@ export default function ListUser() {
                       <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
-                          ]} style={{ width: 400 }}>
+                          ]} style={styleCard }>
                         <Row>
                           <Col span={12}>
                             <Form>
@@ -415,9 +416,9 @@ export default function ListUser() {
                           <Col span={12}>
                             <DatePicker/>
                             <p></p>
-                            <Dropdown overlay={menuContact} placement="bottomLeft">
-                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                            </Dropdown>
+                            <Popover content={menuContact} placement="bottom">
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                            </Popover>
                           </Col> 
                         </Row>
                       </Card> 
@@ -430,7 +431,7 @@ export default function ListUser() {
                       <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
-                          ]} style={{ width: 400 }}>
+                          ]} style={ styleCard }>
                         <Row>
                           <Col span={12}>
                             <Form>
@@ -445,9 +446,9 @@ export default function ListUser() {
                           <Col span={12}>
                             <DatePicker/>
                             <p></p>
-                            <Dropdown overlay={menuContact} placement="bottomLeft">
-                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Contact</Button>
-                            </Dropdown>
+                            <Popover content={menuContact} placement="bottom">
+                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                            </Popover>
                           </Col> 
                         </Row>
                       </Card> 
