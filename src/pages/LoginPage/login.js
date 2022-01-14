@@ -24,7 +24,7 @@ const Login = () => {
               <Form.Item>
                 <Form.Item name="remember" valuePropName="checked" noStyle>
                   <Checkbox>Nhớ tài khoản</Checkbox>
-                  <a className="login-form-forgot" href="">Quên mệt khẩu ?</a>
+                  <a className="login-form-forgot" href="">Quên mật khẩu ?</a>
                 </Form.Item>
 
               </Form.Item>
