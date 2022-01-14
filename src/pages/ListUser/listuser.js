@@ -78,16 +78,16 @@ export default function ListUser() {
       <Sider  width={500} theme="light" className="site-layout-background" style={styleSider}>
         <Card>
             <h1>Bộ Lọc</h1>
-            <Form.Item name="Name" style={{ width: '95%'}}><p>Tên</p><Input placeholder="Nhập tên" prefix={<UserOutlined />}/></Form.Item>
+            <Form.Item name="Name" style={{ width: '95%'}}><p>Tên</p><Input placeholder="Nhập tên" prefix={<UserOutlined/>}/></Form.Item>
 
             <Form.Item name="Room" style={{ width: '95%' }}><p>Phòng ban</p>
               <Select placeholder="Lựa chọn" onChange={handleChange}>
-                <Option value="1">a1</Option>
-                <Option value="2">a2</Option>
-                <Option value="3">a3</Option>
-                <Option value="4">a4</Option>
-                <Option value="5">a5</Option>
-                <Option value="6">a6</Option>
+                <Option value="1">Java</Option>
+                <Option value="2">Python</Option>
+                <Option value="3">Golang</Option>
+                <Option value="4">JavaScript</Option>
+                <Option value="5">NodeJS</Option>
+                <Option value="6">MySQL</Option>
               </Select>
             </Form.Item>
 
@@ -186,12 +186,12 @@ export default function ListUser() {
                           </Row>
                         </Card>
 
-                     <Card title="Nguyễn Văn B" actions={[
+                        <Card title="Nguyễn Văn B" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={styleCard }>
-                      <Row>
-                        <Col span={12}>
+                          <Row>
+                            <Col span={12}>
                               <Form>
                                 <Form.Item name="code" label="Code"></Form.Item>
                                 <Form.Item name="room" label="Phòng ban"></Form.Item>
@@ -199,45 +199,44 @@ export default function ListUser() {
                                 <Form.Item name="level" label="Level"></Form.Item>
                                 <Form.Item name="reporter" label="Reporter"></Form.Item>
                               </Form>
-                        </Col>
+                            </Col>
 
-                        <Col span={12}>
-                          <DatePicker/>
-                          <p></p>
-                          <Popover content={menuContact} placement="bottom">
-                            <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
-                          </Popover>
-                        </Col>
-                      </Row>
-                    </Card>
+                            <Col span={12}>
+                              <DatePicker/>
+                              <p></p>
+                              <Popover content={menuContact} placement="bottom">
+                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                              </Popover>
+                            </Col>
+                          </Row>
+                        </Card>
 
-                    <Card title="Nguyễn Văn C" actions={[
+                        <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={ styleCard }>
-                      <Row>
-                        <Col span={12}>
-                            <Form>
-                              <Form.Item name="code" label="Code"></Form.Item>
-                              <Form.Item name="room" label="Phòng ban"></Form.Item>
-                              <Form.Item name="position" label="Vị trí"></Form.Item>
-                              <Form.Item name="level" label="Level"></Form.Item>
-                              <Form.Item name="reporter" label="Reporter"></Form.Item>
+                          <Row>
+                            <Col span={12}>
+                              <Form>
+                                <Form.Item name="code" label="Code"></Form.Item>
+                                <Form.Item name="room" label="Phòng ban"></Form.Item>
+                                <Form.Item name="position" label="Vị trí"></Form.Item>
+                                <Form.Item name="level" label="Level"></Form.Item>
+                                <Form.Item name="reporter" label="Reporter"></Form.Item>
                               </Form>
-                        </Col>
+                            </Col>
 
-                        <Col span={12}>
-                            <DatePicker/>
-                            <p></p>
-                            <Popover content={menuContact} placement="bottom">
-                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
-                            </Popover>
-                        </Col>
-                      </Row>
-                    </Card>
-                    </Space>
+                            <Col span={12}>
+                              <DatePicker/>
+                              <p></p>
+                                <Popover content={menuContact} placement="bottom">
+                                  <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                                </Popover>
+                            </Col>
+                          </Row>
+                        </Card>
+                      </Space>
                     </Row>
-
                   </TabPane>
 
                   <TabPane tab="tabToday" tab="Hôm nay" key="tabToday">
@@ -439,36 +438,34 @@ export default function ListUser() {
                     </Col>
                     
                     <Col span={8}>
-                    <Card>
-                      <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
-                      <Card title="Nguyễn Văn C" actions={[
+                      <Card>
+                        <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
+                        <Card title="Nguyễn Văn C" actions={[
                           <EditOutlined key="edit" />,
                           <CloseOutlined key="exit" />,
                           ]} style={ styleCard }>
-                        <Row>
-                          <Col span={12}>
-                            <Form>
-                              <Form.Item name="code" label="Code"></Form.Item>
-                              <Form.Item name="room" label="Phòng ban"></Form.Item>
-                              <Form.Item name="position" label="Vị trí"></Form.Item>
-                              <Form.Item name="level" label="Level"></Form.Item>
-                              <Form.Item name="reporter" label="Reporter"></Form.Item>
+                          <Row>
+                            <Col span={12}>
+                              <Form>
+                                <Form.Item name="code" label="Code"></Form.Item>
+                                <Form.Item name="room" label="Phòng ban"></Form.Item>
+                                <Form.Item name="position" label="Vị trí"></Form.Item>
+                                <Form.Item name="level" label="Level"></Form.Item>
+                                <Form.Item name="reporter" label="Reporter"></Form.Item>
                               </Form>
-                          </Col>
+                            </Col>
 
-                          <Col span={12}>
-                            <DatePicker/>
-                            <p></p>
-                            <Popover content={menuContact} placement="bottom">
-                              <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
-                            </Popover>
-                          </Col> 
-                        </Row>
-                      </Card> 
-                    </Card>
-                    </Col>
-
-                    
+                            <Col span={12}>
+                              <DatePicker/>
+                              <p></p>
+                              <Popover content={menuContact} placement="bottom">
+                                <Button type ="primary" shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
+                              </Popover>
+                            </Col> 
+                          </Row>
+                        </Card> 
+                      </Card>
+                    </Col>    
                   </Row>
                 </Content>
               </Row>     
