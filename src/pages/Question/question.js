@@ -229,7 +229,7 @@ export default function Question() {
                   <Form.Item><Input style={{ width: 311 }} placeholder="Nhập tên bài test"/></Form.Item>
                   <Row gutter={[48, 8]}>
                     <Col span={12}>
-                      <Radio.Group size="large" buttonStyle="solid">
+                      <Radio.Group size="middle" buttonStyle="solid">
                         <Radio.Button value="B1">B1</Radio.Button>
                         <Radio.Button value="B2">B2</Radio.Button>
                         <Radio.Button value="B3">B3</Radio.Button>
@@ -237,7 +237,7 @@ export default function Question() {
                     </Col>
                     
                     <Col span={12}>
-                      <Input prefix ={<FieldTimeOutlined />} style={{ width: 80 ,padding: '7px 20px' }}></Input>
+                      <Input prefix ={<FieldTimeOutlined />} style={{ width: 80 ,padding: '3px 5px' }}></Input>
                     </Col>
                   </Row>
                 
