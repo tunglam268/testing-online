@@ -5,10 +5,10 @@ import {
   Route,
 } from "react-router-dom";
 
-import ListUser from './routes/ListUser/listuser';
-import Question from './routes/Question/question';
-import Login from './routes/LoginPage/login';
-import Home from './routes/Home/home';
+import ListUser from './pages/ListUser/listuser';
+import Question from './pages/Question/question';
+import Login from './pages/LoginPage/login';
+import Home from './pages/Home/home';
 
 
 
@@ -21,9 +21,6 @@ ReactDOM.render(
         <Route path="/listuser" element={<ListUser />} />
         <Route path="/question" element={<Question />} />
         <Route path="/login" element={<Login />} />
-     
-      
-      
     </Routes>
   </BrowserRouter>,
   rootElement
