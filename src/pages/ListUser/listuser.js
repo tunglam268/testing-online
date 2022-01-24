@@ -64,7 +64,7 @@ export default function ListUser() {
         <Menu.Item key="1"><NavLink to ="/listuser"/>Lịch test</Menu.Item>   
         <Menu.Item key="2"><NavLink to ="/question"/>Bộ câu hỏi</Menu.Item>
         <Menu.Item key="3">Đã hoàn thành</Menu.Item>
-        <Menu.Item key="4">Tài liệu</Menu.Item>
+        <Menu.Item key="4"><NavLink to ="/document"/>Tài liệu</Menu.Item>
 
         <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Tài khoản">
           <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
