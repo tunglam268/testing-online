@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import moment from 'moment';
-
+import React from 'react';
 import 'antd/dist/antd.css';
 import './document.css';
 import { Layout, Menu,Col,Row,Typography,Image,Popover ,Card , Button , Tabs, Space} from 'antd';
@@ -26,7 +24,7 @@ const menuAdd = (
 );
 
 const menuFolder = (
-    <Menu>
+    <Menu onClick={handleClick}>
         <Menu.Item key="1" icon ={<FolderOpenOutlined />}>Mở</Menu.Item>
         <Menu.Item key="2" icon ={<StarOutlined />}>Đánh dấu sao</Menu.Item>
         <Menu.Item key="3" icon ={<LinkOutlined />}>Sao chép đường liên kết</Menu.Item>
@@ -38,7 +36,7 @@ const menuFolder = (
 
 const menuSort = (
 
-        <Menu>
+        <Menu onClick={handleClick}>
             <Menu.Item key="1" >Mới nhất</Menu.Item>
             <Menu.Item key="2" >Cũ nhất</Menu.Item>
             <Menu.Item key="3" >A - Z</Menu.Item>
@@ -73,7 +71,7 @@ export default function Document(){
                 </Menu>
             </Header>
         <Layout>
-            <Sider width={300} style ={styleSider}>
+            <Sider width={350} style ={styleSider}>
                 <Card>
                     <Menu>
                         <Form.Item name="Search" style={{ width: '90%'}}><Input placeholder="Tìm kiếm " prefix={<SearchOutlined />}/></Form.Item>
@@ -101,35 +99,35 @@ export default function Document(){
                             <p></p>
                             <Space size={[110, 32]} wrap>
                                 <Popover content={menuFolder} placement="bottom" trigger="click">
-                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" htmlType="submit" shape="round" icon={<FileFilled />}>Project 1</Button>
+                                    <Button style={{ width: '150%' , minHeight :50}} size ="large"  shape="round" icon={<FileFilled />}>Project 1</Button>
                                 </Popover>
 
                                 <Popover content={menuFolder} placement="bottom" trigger="click">
-                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" htmlType="submit" shape="round" icon={<FileFilled />}>Project 1</Button>
+                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" shape="round" icon={<FileFilled />}>Project 1</Button>
                                 </Popover>
 
                                 <Popover content={menuFolder} placement="bottom" trigger="click">
-                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" htmlType="submit" shape="round" icon={<FileFilled />}>Project 1</Button>
+                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" shape="round" icon={<FileFilled />}>Project 1</Button>
                                 </Popover>
 
                                 <Popover content={menuFolder} placement="bottom" trigger="click">
-                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" htmlType="submit" shape="round" icon={<FileFilled />}>Project 1</Button>
+                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" shape="round" icon={<FileFilled />}>Project 1</Button>
                                 </Popover>
 
                                 <Popover content={menuFolder} placement="bottom" trigger="click">
-                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" htmlType="submit" shape="round" icon={<FileFilled />}>Project 1</Button>
+                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" shape="round" icon={<FileFilled />}>Project 1</Button>
                                 </Popover>
 
                                 <Popover content={menuFolder} placement="bottom" trigger="click">
-                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" htmlType="submit" shape="round" icon={<FileFilled />}>Project 1</Button>
+                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" shape="round" icon={<FileFilled />}>Project 1</Button>
                                 </Popover>
 
                                 <Popover content={menuFolder} placement="bottom" trigger="click">
-                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" htmlType="submit" shape="round" icon={<FileFilled />}>Project 1</Button>
+                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" shape="round" icon={<FileFilled />}>Project 1</Button>
                                 </Popover>
 
                                 <Popover content={menuFolder} placement="bottom" trigger="click">
-                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" htmlType="submit" shape="round" icon={<FileFilled />}>Project 1</Button>
+                                    <Button style={{ width: '150%' , minHeight :50}} size ="large" shape="round" icon={<FileFilled />}>Project 1</Button>
                                 </Popover>
                             </Space>
                         
@@ -240,11 +238,8 @@ export default function Document(){
                                         </Button>
                                     </Popover>
                                 </Col>
-
-                            </Row>
-                            
-                        </TabPane>
-                    
+                            </Row>     
+                        </TabPane>                   
                     </Tabs>
                 </Card>
             </Content>
