@@ -16,12 +16,16 @@ export default function Home() {
     <Layout>
     <Header className="header">
       <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-        <Menu.Item key="1" icon={<UserOutlined />}><NavLink to ="/login"/>Đăng Nhập</Menu.Item>
-        
-      </Menu>
-      <Outlet />
+      <Row>
+        <Col span={8} offset={22}>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+            <Menu.Item key="1" icon={<UserOutlined />}><NavLink to ="/login"/>Đăng Nhập</Menu.Item>
+          </Menu>
+        </Col>
+      </Row>
+      
     </Header>
+
     <Layout>
       <Content style={{background: '#ffffff',padding: 24,margin: 0,minHeight: 1000}}>
         <Row>
