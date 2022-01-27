@@ -71,7 +71,7 @@ export default function ListUser() {
           </Col>
 
           <Col span={2} offset={14}>
-            <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+            <Menu mode="inline" theme="dark" mode="horizontal">
             <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title="Tài khoản">
               <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
               <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>

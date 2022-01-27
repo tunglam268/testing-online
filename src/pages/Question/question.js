@@ -57,7 +57,7 @@ export default function Question() {
         <div className="logo" />
         <Row>
           <Col span={8}>
-          <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+          <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
               <Menu.Item key="1"><NavLink to="/listuser" />Lịch test</Menu.Item>
               <Menu.Item key="2"><NavLink to="/question" />Bộ câu hỏi</Menu.Item>
               <Menu.Item key="3">Đã hoàn thành</Menu.Item>
@@ -66,7 +66,7 @@ export default function Question() {
           </Col>
 
           <Col span={2} offset={14}>
-            <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+            <Menu mode="inline" theme="dark" mode="horizontal">
             <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title="Tài khoản">
               <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
               <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>

@@ -1,11 +1,13 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import './test.css';
-import { Layout, Menu, Col, Row, TimePicker,Statistic, Image, Typography, Card, Radio, Button, message, Tabs, Space, Select, Popconfirm } from 'antd';
+import { Layout, Menu, Col, Row, Statistic, Image, Typography, Card, Radio, Button, message, Tabs, Space, Select, Popconfirm } from 'antd';
 import { UserOutlined, ClockCircleFilled, UndoOutlined } from '@ant-design/icons';
 import { Input, Avatar } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { NavLink } from 'react-router-dom';
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
 
 const { Countdown } = Statistic;
 const { TabPane } = Tabs;
@@ -114,7 +116,7 @@ export default function Test() {
                     <Col span={8}>
                         <Space size={[32, 8]} wrap>
                             <Avatar size="large" icon={<ClockCircleFilled />} />
-                            <Countdown title="Thời gian làm bài" value={Date.now() + 600 * 6000 } onChange={onChange} />
+                            <Countdown title="Thời gian làm bài" value={Date.now() + 600 * 6000} onChange={onChange} />
                             <Button style={{ width: '130%', background: '#595959', color: '#ffffff' }} shape="round" htmlType="submit">Nộp bài</Button>
                         </Space>
                     </Col>
@@ -231,7 +233,7 @@ export default function Test() {
                             <TabPane tab="Code" key="3">
                                 <Row gutter={[16, 16]}>
                                     <Col span={8}>
-                                        <Card style={{  padding: '0 0' }}>
+                                        <Card style={{ padding: '0 0' }}>
                                             <Title level={2}>Problem</Title>
                                             <Card>
                                                 <Text>{tittleText}</Text>
@@ -256,7 +258,7 @@ export default function Test() {
                                     </Col>
 
                                     <Col span={16}>
-                                        <Card Card style={{  padding: '0 20px' }}>
+                                        <Card Card style={{ padding: '0 20px' }}>
                                             <Col span={8} offset={18}>
                                                 <Space>
                                                     <Select defaultValue="go" style={{ width: 200 }} onChange={handleChange}>
@@ -277,7 +279,7 @@ export default function Test() {
 
                                             <p></p>
                                             <Card style={{ width: 1100, minHeight: 800 }}>
-                                                <Text>Code here</Text>
+                                                <CodeMirror height="1000px" extensions={[javascript({ jsx: true })]} onChange={(value, viewUpdate) => { console.log('value:', value); }} />
                                             </Card>
 
                                             <p></p>
