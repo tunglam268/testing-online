@@ -5,3 +5,5 @@
 - npm add antd
 - npm install react-router-dom@6 history@5
 - npm start
+- npm i @codemirror/lang-javascript
+- npm install @uiw/react-codemirror --save
