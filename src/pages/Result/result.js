@@ -32,8 +32,7 @@ export default function Result() {
                 <Content>
                     <Card style={styleCard1}>
                         <Row justify="center">
-                            <Col span={12}>  
-                                                     
+                            <Col span={12}>            
                                     <h1>Bạn đã hoàn thành bài test</h1>
                                     <Text strong>Tên :</Text><Text> Nguyễn Văn A</Text><br />
                                     <Text strong>Vị trí :</Text><Text> Java Developer</Text><br />
@@ -50,7 +49,7 @@ export default function Result() {
                                 <Progress percent={80} />
                                 <Text strong>Kiến thức chung</Text>
                                 <Progress percent={90} />
-                                <Text strong>Tiếng Anh</Text>
+                                <Text strong>Coding</Text>
                                 <Progress percent={40} />
                             </Col>
                                

@@ -144,7 +144,7 @@ export default function Question() {
                   <Button type="primary" shape="round" icon={<QuestionOutlined />} onClick={showModal}>Tạo câu hỏi</Button>
                 </Space>
                 <Modal title="Tạo câu hỏi" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                  <Menu>
+                  
                     <p>Câu hỏi</p>
 
                     <Select defaultValue="english" style={{ width: 150 }} onChange={handleChange}>
@@ -200,7 +200,7 @@ export default function Question() {
                         <TextArea width={100} height={100} maxLength={1000} onChange={onChange} />
                       </TabPane>
                     </Tabs>
-                  </Menu>
+                  
                 </Modal>
 
                 <Card style={{ width: 400, background: '#fafafa' }} actions={[<PlusOutlined key="add" />, <EditOutlined key="edit" />, <CloseOutlined key="exit" />,]}>
