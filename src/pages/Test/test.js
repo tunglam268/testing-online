@@ -1,7 +1,7 @@
-import React from 'react';
+import React , { useState } from 'react';
 import 'antd/dist/antd.css';
 import './test.css';
-import { Layout, Menu, Col, Row, Statistic, Image, Typography, Card, Radio, Button, message, Tabs, Space, Select, Popconfirm } from 'antd';
+import { Layout, Menu, Col, Row, Statistic, Image, Modal ,Typography, Card, Radio, Button, message, Tabs, Space, Select, Popconfirm } from 'antd';
 import { UserOutlined, ClockCircleFilled, UndoOutlined } from '@ant-design/icons';
 import { Input, Avatar } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -15,6 +15,7 @@ const { Text, Title } = Typography;
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 const { Option } = Select;
+
 
 const tittleText = "There is a large pile of socks that must be paired by color. Given an array of integers representing the color of each sock, determine how many pairs of socks with matching colors there are"
 const exampleText = (
@@ -98,17 +99,48 @@ function handleChange(value) {
     console.log(`selected ${value}`);
 }
 
-function confirm(e) {
-    console.log(e);
-    message.success('Click on Yes');
-}
 
-function cancel(e) {
-    console.log(e);
-    message.error('Click on No');
-}
+
+
 
 export default function Test() {
+    const [isModalVisibleRestart, setIsModalVisibleRestart] = useState(false);
+    const [isModalVisibleSubmit, setIsModalVisibleSubmit] = useState(false);
+
+    const showModalRestartTest = () =>{
+        setIsModalVisibleRestart(true);
+    }
+
+    const handleOkRestartTest = (e) => {
+        console.log(e);
+        message.success('Xác nhận làm lại');
+        setIsModalVisibleRestart(false);
+      };
+    
+      const handleCancelRestartTest = (e) => {
+        console.log(e);
+        message.error('Hủy làm lại');
+        setIsModalVisibleRestart(false);
+    };
+
+
+
+    const showModalSubmitTest = () => {
+        setIsModalVisibleSubmit(true);
+    };
+
+    const handleOkSubmitTest = (e) => {
+        console.log(e);
+        message.success('Xác nhận nộp bài');
+        window.location.href = '/result'
+        setIsModalVisibleSubmit(false);
+      };
+    
+      const handleCancelSubmitTest = (e) => {
+        console.log(e);
+        message.error('Hủy nộp bài');
+        setIsModalVisibleSubmit(false);
+    };
     return (
         <Layout>
             <Header style={styleHeader}>
@@ -117,12 +149,16 @@ export default function Test() {
                         <Space size={[32, 8]} wrap>
                             <Avatar size="large" icon={<ClockCircleFilled />} />
                             <Countdown title="Thời gian làm bài" value={Date.now() + 600 * 6000} onChange={onChange} />
-                            <Button style={{ width: '130%', background: '#595959', color: '#ffffff' }} shape="round" htmlType="submit">Nộp bài</Button>
+                            <Button style={{ width: '130%', background: '#595959', color: '#ffffff' }} shape="round" htmlType="submit" onClick={showModalSubmitTest}>Nộp bài</Button>
+                            <Modal title={<Title level={4}>Xác nhận nộp bài</Title>}
+                                visible={isModalVisibleSubmit} onOk={handleOkSubmitTest} okText="Nộp" onCancel={handleCancelSubmitTest} cancelText="Hủy">
+                                    <Text>Khi nộp bài , bạn sẽ không thể quay lại để chỉnh sửa bài làm . Xác nhận nộp bài ?</Text>
+                            </Modal>
                         </Space>
                     </Col>
 
                     <Col span={2} offset={14}>
-                        <Menu style={styleHeader} mode="horizontal" defaultSelectedKeys={['1']}>
+                        <Menu style={styleHeader} mode="horizontal">
                             <SubMenu key="SubMenu" title="Tài khoản" icon={<UserOutlined />}>
                                 <Menu.Item key="exit"><NavLink to="/" />Thoát</Menu.Item>
                             </SubMenu>
@@ -270,10 +306,11 @@ export default function Test() {
                                                         <Option value="perl">Perl</Option>
                                                     </Select>
 
-                                                    <Popconfirm title="This will reset the code in the editor to the original problem statement. Would you like to continue"
-                                                        placement="bottomLeft" onConfirm={confirm} onCancel={cancel} okText="Yes" cancelText="No">
-                                                        <Button shape="circle" icon={<UndoOutlined />} size="large"></Button>
-                                                    </Popconfirm>
+                                                    <Button shape="circle" icon={<UndoOutlined />} onClick={showModalRestartTest} size="large"></Button>
+                                                    <Modal title={<Title level={5}>Attention : Restart Code</Title>} visible={isModalVisibleRestart}
+                                                         onOk={handleOkRestartTest} okText="Yes" onCancel={handleCancelRestartTest} cancelText="No">
+                                                             <Text>This will restart the code in the editor to the orginal problem statement . Would you like to continue ?</Text>
+                                                    </Modal>
                                                 </Space>
                                             </Col>
 

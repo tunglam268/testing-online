@@ -62,7 +62,7 @@ export default function Document() {
                         <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['4']}>
                             <Menu.Item key="1"><NavLink to="/listuser" />Lịch test</Menu.Item>
                             <Menu.Item key="2"><NavLink to="/question" />Bộ câu hỏi</Menu.Item>
-                            <Menu.Item key="3">Đã hoàn thành</Menu.Item>
+                            <Menu.Item key="3"><NavLink to="/complete" />Đã hoàn thành</Menu.Item>
                             <Menu.Item key="4"><NavLink to="/document" />Tài liệu</Menu.Item>
                         </Menu>
                     </Col>

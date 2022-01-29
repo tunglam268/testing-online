@@ -54,13 +54,12 @@ export default function Question() {
   return (
     <Layout>
       <Header className="header">
-        <div className="logo" />
         <Row>
           <Col span={8}>
           <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
               <Menu.Item key="1"><NavLink to="/listuser" />Lịch test</Menu.Item>
               <Menu.Item key="2"><NavLink to="/question" />Bộ câu hỏi</Menu.Item>
-              <Menu.Item key="3">Đã hoàn thành</Menu.Item>
+              <Menu.Item key="3"><NavLink to="/complete" />Đã hoàn thành</Menu.Item>
               <Menu.Item key="4"><NavLink to="/document" />Tài liệu</Menu.Item>
             </Menu>
           </Col>

@@ -4,10 +4,11 @@ import './home.css';
 import { Layout,Button,Row,Col,Form,Image, Menu, Input, Space} from 'antd';
 import { ArrowRightOutlined,UserOutlined} from '@ant-design/icons';
 import { NavLink ,Outlet} from 'react-router-dom';
+import Title from 'antd/lib/typography/Title';
 
 const { Header , Content } = Layout;
 const onFinish = () => {
-    window.location.href = '/test'
+    window.location.href = '/tutorial'
   };
 
 export default function Home() {
@@ -35,11 +36,11 @@ export default function Home() {
             
             <Row>
               <Col span={12} offset={1}>
-                <p>Nhập code của bạn để vào test</p>  
+                <Title level ={5}>Nhập code của bạn để vào test</Title>  
                 <Form onFinish={onFinish}>
                   <Space>
                     <Input style={{ width: '100%'}} placeholder="Nhập code vào test"></Input>
-                    <Button type="primary" shape="round" htmlType="submit" icon={<ArrowRightOutlined />}><NavLink to ="/test"/></Button>
+                    <Button type="primary" shape="round" htmlType="submit" icon={<ArrowRightOutlined />}><NavLink to ="/tutorial"/></Button>
                   </Space>
                 </Form>
               </Col>
