@@ -19,7 +19,7 @@ export default function Result() {
         <Layout>
             <Header style={styleHeader}>
                 <Row>
-                    <Col span={2} offset={23}>
+                    <Col span={2} offset={22}>
                         <Menu style={styleHeader} mode="horizontal">
                             <SubMenu icon={<UserOutlined />} title="Tài khoản">
                                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
@@ -34,14 +34,15 @@ export default function Result() {
                         <Row justify="center">
                             <Col span={12}>            
                                     <h1>Bạn đã hoàn thành bài test</h1>
-                                    <Text strong>Tên :</Text><Text> Nguyễn Văn A</Text><br />
-                                    <Text strong>Vị trí :</Text><Text> Java Developer</Text><br />
-                                    <Text strong>Thời gian hoàn thành :</Text><Text> 00:00:00</Text><br />
-                                    <Text>Đây là thống kê bài làm của bạn</Text><br />
+                                    <Text strong>Tên :</Text><Text> Nguyễn Văn A</Text><br/><br/>
+                                    <Text strong>Vị trí :</Text><Text> Java Developer</Text><br /><br/>
+                                    <Text strong>Thời gian hoàn thành :</Text><Text> 00:00:00</Text><br /><br/>
+                                    <Text>Đây là thống kê bài làm của bạn</Text><br /><br/> 
                                  
                             </Col>
                             <p></p>
                             <Col span={12} pull={7}>
+                                <br></br>
                                 <br></br>
                                 <br></br>
                                 <br></br>
@@ -51,10 +52,8 @@ export default function Result() {
                                 <Progress percent={90} />
                                 <Text strong>Coding</Text>
                                 <Progress percent={40} />
-                            </Col>
-                               
-                        </Row>
-                        
+                            </Col>      
+                        </Row>             
                     </Card>
                 </Content>
             </Layout>

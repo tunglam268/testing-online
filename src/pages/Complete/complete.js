@@ -13,15 +13,16 @@ import { NavLink } from 'react-router-dom';
 const { Option } = Select;
 const { Text } = Typography;
 const styleContent = { background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
+const styleHeader ={background: '#ffffff'}
 const styleSider = { background: '#ffffff', padding: '20px 30px' }
-const answerParticipant =(
+const answerParticipant = (
     <Card>
         <Row justify="start">
             <Col span={3}>
                 <Button type="text" shape="round" style={{ background: '#595959', color: '#ffffff' }}>Câu 1</Button>
             </Col>
 
-             <Col span={12}>
+            <Col span={12}>
                 <Text>Khai báo 1 biến age với định dạng int có giá trị bằng 10:</Text>
                 <p></p>
                 <Radio.Group defaultValue={1}>
@@ -42,11 +43,11 @@ const answerParticipant =(
 
             <Col span={12}>
                 <Text>Câu lệnh sau in ra gì<br></br>
-                        i:= 10<br></br>
-                        j: = 20.8<br></br>
-                        sum := i +int(j)<br></br>
+                    i:= 10<br></br>
+                    j: = 20.8<br></br>
+                    sum := i +int(j)<br></br>
                 </Text>
-                        <p></p>
+                <p></p>
                 <Radio.Group defaultValue={1}>
                     <Space direction="vertical">
                         <Radio value={1}><Text strong>A.</Text>sum = 30.8</Radio>
@@ -58,8 +59,20 @@ const answerParticipant =(
             </Col>
         </Row>
     </Card>
-    
-    
+)
+
+const detailCandidate = (
+    <Col span={8} >
+        <h1>Nguyễn Văn A</h1>
+        <Text strong>Phòng ban :</Text> <Text> P.CN Blockchain </Text><br /><br />
+        <Text strong>Vị trí :</Text> <Text> Java Developer</Text><br /><br />
+        <Text strong>Level :</Text> <Text> Fresher</Text><br /><br />
+        <Text strong>Người thêm :</Text> <Text> Tung Lam</Text><br /><br />
+        <Space>
+            <Text strong>Điểm</Text>
+            <Input style={{ width: '30%' }}></Input>
+        </Space>
+    </Col>
 )
 
 
@@ -81,17 +94,17 @@ export default function Complete() {
     const handleOk = () => {
         setIsModalVisible(false);
     };
-    
-      const handleCancel = () => {
+
+    const handleCancel = () => {
         setIsModalVisible(false);
     };
 
     return (
         <Layout>
-            <Header className="header">
+            <Header style={styleHeader} className="header">
                 <Row>
                     <Col span={8}>
-                        <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['3']}>
+                        <Menu style={styleHeader}  mode="horizontal" defaultSelectedKeys={['3']}>
                             <Menu.Item key="1"><NavLink to="/listuser" />Lịch test</Menu.Item>
                             <Menu.Item key="2"><NavLink to="/question" />Bộ câu hỏi</Menu.Item>
                             <Menu.Item key="3"><NavLink to="/complete" />Đã hoàn thành</Menu.Item>
@@ -100,7 +113,7 @@ export default function Complete() {
                     </Col>
 
                     <Col span={2} offset={14}>
-                        <Menu mode="inline" theme="dark" mode="horizontal">
+                        <Menu style={styleHeader} mode="horizontal">
                             <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title="Tài khoản">
                                 <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
                                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
@@ -109,10 +122,12 @@ export default function Complete() {
                     </Col>
                 </Row>
             </Header>
+
             <Layout>
+                <Card style={{width:470}}>
                 <Sider width={500} theme="light" className="site-layout-background" style={styleSider}>
-                    <Form.Item name="Name" style={{ width: '100%' }}><p>Tên</p><Input placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
-                    <Form.Item name="Room" style={{ width: '100%' }}><p>Phòng ban</p>
+                    <Form.Item name="Name" style={{ width: '90%' }}><p>Tên</p><Input placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
+                    <Form.Item name="Room" style={{ width: '90%' }}><p>Phòng ban</p>
                         <Select placeholder="Lựa chọn" onChange={handleChange}>
                             <Option value="1">Java</Option>
                             <Option value="2">Python</Option>
@@ -123,7 +138,7 @@ export default function Complete() {
                         </Select>
                     </Form.Item>
                     <Form.Item name="Position"><p>Vị trí</p>
-                        <Select mode="tags" style={{ width: '100%' }} placeholder="Tags Mode" onChange={handleChange}>
+                        <Select mode="tags" style={{ width: '90%' }} placeholder="Tags Mode" onChange={handleChange}>
                             <Option value="1">Fresher</Option>
                             <Option value="2">Junior</Option>
                             <Option value="3">Senior</Option>
@@ -141,55 +156,78 @@ export default function Complete() {
                     </Form.Item>
 
                     <Row>
-                        <Col span={12} offset={6}>
-                            <Space size={[32, 16]}>
+                        <Col span={12} offset={4}>
+                            <Space size={[30, 16]}>
                                 <Button style={{ width: '120%' }} type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
                                 <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
                             </Space>
                         </Col>
                     </Row>
                 </Sider>
+                </Card>
 
+                <Card style={{width:2000}}>
                 <Content style={styleContent}>
                     <Card style={{ width: '100%', minHeight: 1000 }}>
-                        <Card style={{ width: '100%', minHeight: 300 }}>
+                        <Space size={[16, 16]} wrap>
+                        <Card style={{ background: "#fafafa", width: '181%', minHeight: 300 }}>
                             <Row>
-                                <Col span={8} >
-                                    <h1>Nguyễn Văn A</h1>
-                                    <Text strong>Phòng ban :</Text> <Text> P.CN Blockchain </Text><br/><br/>
-                                    <Text strong>Vị trí :</Text> <Text> Java Developer</Text><br/><br/>
-                                    <Text strong>Level :</Text> <Text> Fresher</Text><br/><br/>
-                                    <Text strong>Người thêm :</Text> <Text> Tung Lam</Text><br/><br/>
-                                    <Space>
-                                        <Text strong>Điểm</Text>
-                                        <Input style={{ width: '30%' }}></Input>
-                                    </Space>
-                                </Col>
+                                {detailCandidate}
 
                                 <Col span={16} >
-                                    <Button onClick={showModal} style={{ width: '100%', minHeight: 300 }}>    
+                                    <Button onClick={showModal} style={{ width: '100%', minHeight: 300 }}>
                                         <Text strong>Tiếng Anh</Text><br />
-                                            <Progress percent={80} /><br />
+                                        <Progress percent={80} /><br />
                                         <Text strong>Kiến thức chung</Text><br />
-                                            <Progress percent={90} /><br />
+                                        <Progress percent={90} /><br />
                                         <Text strong>Coding</Text><br />
-                                            <Progress percent={40} /><br />
+                                        <Progress percent={40} /><br />
                                     </Button>
-                                    <Modal title="Câu trả lời của thí sinh" visible={isModalVisible} onOk={handleOk}  onCancel={handleCancel} width={1100}>
-                                            {answerParticipant}
+                                    <Modal title="Câu trả lời của thí sinh" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={1100}>
+                                        {answerParticipant}
                                     </Modal>
                                 </Col>
 
                                 <Col span={6}>
-                                    <br/>
+                                    <br />
                                     <Checkbox onChange={onChange}>Email</Checkbox>
                                     <Checkbox onChange={onChange}>SMS</Checkbox>
                                     <Button icon={<SendOutlined />} style={{ width: '50%', }}>Gửi điểm</Button>
                                 </Col>
                             </Row>
                         </Card>
+
+                        <Card style={{ background: "#fafafa", width: '181%', minHeight: 300 }}>
+                            <Row>
+                                {detailCandidate}
+
+                                <Col span={16} >
+                                    <Button onClick={showModal} style={{ width: '100%', minHeight: 300 }}>
+                                        <Text strong>Tiếng Anh</Text><br />
+                                        <Progress percent={80} /><br />
+                                        <Text strong>Kiến thức chung</Text><br />
+                                        <Progress percent={90} /><br />
+                                        <Text strong>Coding</Text><br />
+                                        <Progress percent={40} /><br />
+                                    </Button>
+                                    <Modal title="Câu trả lời của thí sinh" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={1100}>
+                                        {answerParticipant}
+                                    </Modal>
+                                </Col>
+
+                                <Col span={6}>
+                                    <br />
+                                    <Checkbox onChange={onChange}>Email</Checkbox>
+                                    <Checkbox onChange={onChange}>SMS</Checkbox>
+                                    <Button icon={<SendOutlined />} style={{ width: '50%', }}>Gửi điểm</Button>
+                                </Col>
+                            </Row>
+                        </Card>
+                        
+                        </Space>
                     </Card>
                 </Content>
+                </Card>
             </Layout>
         </Layout>
     );

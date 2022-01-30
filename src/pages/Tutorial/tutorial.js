@@ -21,7 +21,7 @@ export default function Tutorial() {
         <Layout>
             <Header style={styleHeader}>
                 <Row>
-                    <Col span={2} offset={23}>
+                    <Col span={3} offset={22}>
                         <Menu style={styleHeader} mode="horizontal">
                             <SubMenu  icon={<UserOutlined />} title="Tài khoản">
                                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>

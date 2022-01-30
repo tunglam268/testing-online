@@ -157,7 +157,7 @@ export default function Test() {
                         </Space>
                     </Col>
 
-                    <Col span={2} offset={14}>
+                    <Col span={2} offset={13}>
                         <Menu style={styleHeader} mode="horizontal">
                             <SubMenu key="SubMenu" title="Tài khoản" icon={<UserOutlined />}>
                                 <Menu.Item key="exit"><NavLink to="/" />Thoát</Menu.Item>
