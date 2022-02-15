@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
 
 const { Option } = Select;
 const { Text } = Typography;
-const styleContent = { background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
+const styleContent = { background: '#ffffff', padding: '25px 20px', minHeight: 1000 , height: '100vh' , overflow :'auto' };
 const styleHeader ={background: '#ffffff'}
 const styleSider = { background: '#ffffff', padding: '20px 30px' }
 const answerParticipant = (
@@ -115,7 +115,7 @@ export default function Complete() {
                     <Col span={2} offset={14}>
                         <Menu style={styleHeader} mode="horizontal">
                             <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title="Tài khoản">
-                                <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
+                                <Menu.Item key="account" ><NavLink to="/manageaccount" />Quản lý tài khoản</Menu.Item>
                                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
                             </SubMenu>
                         </Menu>
@@ -168,9 +168,9 @@ export default function Complete() {
 
                 <Card style={{width:2000}}>
                 <Content style={styleContent}>
-                    <Card style={{ width: '100%', minHeight: 1000 }}>
+                    <Card style={{ width: '100%', minHeight: 1000  }}>
                         <Space size={[16, 16]} wrap>
-                        <Card style={{ background: "#fafafa", width: '181%', minHeight: 300 }}>
+                        <Card style={{ background: "#fafafa", width: '181%', minHeight: 300  }}>
                             <Row>
                                 {detailCandidate}
 

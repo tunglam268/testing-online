@@ -269,7 +269,7 @@ export default function Test() {
                             <TabPane tab="Code" key="3">
                                 <Row gutter={[16, 16]}>
                                     <Col span={8}>
-                                        <Card style={{ padding: '0 0' }}>
+                                        <Card style={{ overflow :'auto' , height:'100vh' }}>
                                             <Title level={2}>Problem</Title>
                                             <Card>
                                                 <Text>{tittleText}</Text>

@@ -1,36 +1,41 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import './App.css';
-import { Layout, Menu} from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import SubMenu from 'antd/lib/menu/SubMenu';
-import { Link ,Outlet} from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
-const { Header } = Layout;
+import ListUser from './pages/ListUser/listuser';
+import Question from './pages/Question/question';
+import Login from './pages/LoginPage/login';
+import Home from './pages/Home/home';
+import Document from './pages/Documents/document';
+import Test from './pages/Test/test';
+import Tutorial from './pages/Tutorial/tutorial';
+import Result from './pages/Result/result';
+import Complete from './pages/Complete/complete';
+import ManageAccounnt from './pages/ManageAccount/manage';
 
 
 export default function App() {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-  };
 
   return (
-    <Layout>
-    <Header className="header">
-      <div className="logo" />
-      <Menu mode="inline" theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-        <Menu.Item key="1"><Link to ="/listuser"/>Lịch test</Menu.Item>   
-        <Menu.Item key="2"><Link to ="/question"/>Bộ câu hỏi</Menu.Item>
-        <Menu.Item key="3">Đã hoàn thành</Menu.Item>
-        <Menu.Item key="4">Tài liệu</Menu.Item>
-        <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title ="Account">
-          <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
-          <Menu.Item key="logout"><Link to ="/home"/>Đăng xuất</Menu.Item>
-        </SubMenu>
-      </Menu>
-    </Header>
-    <Outlet />
-  </Layout>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="/listuser" element={<ListUser />} />
+        <Route path="/question" element={<Question />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/document" element={<Document />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/tutorial" element={<Tutorial />} />
+        <Route path="/result" element={<Result/>} />
+        <Route path="/complete" element={<Complete/>} />
+        <Route path="/manageaccount" element={<ManageAccounnt/>} />
+    </Routes>
+  </BrowserRouter>
   
   );
 }

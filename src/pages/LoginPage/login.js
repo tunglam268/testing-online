@@ -15,10 +15,10 @@ const Login = () => {
           <h2>Đăng Nhập</h2>
           <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%', borderRight: 0 }}>
             <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
-              <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
+              <Form.Item name="username" rules={[{ required: true, message: 'Chưa nhập tài khoản đăng nhập !' }]}>
                 <Input style={{padding: 10, margin: 0, minHeight: 10, width:350,}} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Tên đăng nhập" />
               </Form.Item>
-              <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
+              <Form.Item name="password" rules={[{ required: true, message: 'Chưa nhập mật khẩu !' }]}>
                 <Input style={{padding: 10,margin: 0,minHeight: 10,width:350,}} prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Nhập mật khẩu"/>
               </Form.Item>
               <Form.Item>

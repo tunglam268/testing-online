@@ -68,7 +68,7 @@ export default function Question() {
           <Col span={2} offset={14}>
             <Menu style={styleHeader} mode="horizontal">
               <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title="Tài khoản">
-                <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
+                <Menu.Item key="account" ><NavLink to="/manageaccount" />Quản lý tài khoản</Menu.Item>
                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
               </SubMenu>
             </Menu>
@@ -120,13 +120,13 @@ export default function Question() {
                       </Col>
 
                       <Col span={4}>
-                        <Button style={{ background: '#434343', color: '#ffffff' }} shape="round" htmlType="submit" icon={<SearchOutlined />}>Tìm</Button>
+                        <Button style={{ background: '#292929', color: '#ffffff' }} shape="round" htmlType="submit" icon={<SearchOutlined />}>Tìm</Button>
                       </Col>
                     </Space>
                   </Row>
                 </p>
 
-                <Menu>
+                <Menu style = {{height: '50vh' , overflow :'auto'}}>
                   <Button size="large" style={styleCardTest} icon={<QuestionCircleTwoTone />}> Test-01</Button>
                   <Button size="large" style={styleCardTest} icon={<QuestionCircleTwoTone />}> Test-01</Button>
                   <Button size="large" style={styleCardTest} icon={<QuestionCircleTwoTone />}> Test-01</Button>
@@ -140,7 +140,7 @@ export default function Question() {
 
           <Col className="question" span={6}>
             <div style={style}>
-              <Card style={{width:'100%' ,padding:'0 0'}}>
+              <Card style={{width:'100%' , height: '100vh' , overflow :'auto'}}>
                 <Space><h1 level={1}>Câu hỏi</h1>
                   <Button style={{ color: '#000000' }} shape="round" onClick={showModal}>Tạo câu hỏi</Button>
                 </Space>
@@ -203,7 +203,7 @@ export default function Question() {
                   </Tabs>
 
                 </Modal>
-
+                
                 <Card style={{ width: 380, background: '#fafafa' }} actions={[<PlusOutlined key="add" />, <EditOutlined key="edit" />, <CloseOutlined key="exit" />,]}>
                   <p> Which of the following numbers is fartherest from the number 1 on the number line ?</p>
                   <Radio.Group defaultActiveKey="1" onChange={callback}>
@@ -214,7 +214,7 @@ export default function Question() {
                   </Radio.Group>
                 </Card>
 
-                <p></p>
+                
                 <Card style={{ width: 380, background: '#fafafa' }} actions={[<PlusOutlined key="add" />, <EditOutlined key="edit" />, <CloseOutlined key="exit" />,]}>
                   <p> Which of the following numbers is fartherest from the number 1 on the number line ?</p>
                   <Radio.Group defaultActiveKey="1" onChange={callback}>
@@ -224,13 +224,14 @@ export default function Question() {
                     <Radio value={4}>D. 0</Radio>
                   </Radio.Group>
                 </Card>
+                
               </Card>
             </div>
           </Col>
 
           <Col className="demo" span={12}>
             <div style={style}>
-              <Card>
+              <Card style ={{height: '100vh' , overflow :'auto'}}>
                 <h1 level={1}>Demo</h1>
                 <Row gutter={[8, 8]}>
                   <Col span={12}>

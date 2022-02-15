@@ -13,7 +13,7 @@ const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 
 const styleContent = { background: '#ffffff', padding: '25px 20px' };
-const styleSider = { background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
+const styleSider = { background: '#ffffff', padding: '25px 20px', minHeight: 1000 ,   overflow: 'auto' };
 const styleHeader ={background: '#ffffff'}
 
 const menuAdd = (
@@ -100,7 +100,7 @@ export default function Document() {
                     <Col span={2} offset={14}>
                         <Menu style={styleHeader} mode="horizontal">
                             <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title="Tài khoản">
-                                <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
+                                <Menu.Item key="account" ><NavLink to="/manageaccount" />Quản lý tài khoản</Menu.Item>
                                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
                             </SubMenu>
                         </Menu>
@@ -110,14 +110,13 @@ export default function Document() {
 
             <Layout>
                 <Card>
-                <Sider width={350} style={styleSider}>   
-                        <Menu>
-                            <Form.Item name="Search" style={{ width: '90%' }}><Input placeholder="Tìm kiếm " prefix={<SearchOutlined />} /></Form.Item>
+                <Sider width={350} style={styleSider}>  
+                        <Form.Item name="Search" style={{ width: '90%' }}><Input placeholder="Tìm kiếm " prefix={<SearchOutlined />} /></Form.Item>
+                        <Popover content={menuAdd} placement="bottom" trigger="click">
+                            <Button style={{ width: '50%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
+                        </Popover> 
 
-                            <Popover content={menuAdd} placement="bottom" trigger="click">
-                                <Button style={{ width: '80%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
-                            </Popover>
-                            <p></p>
+                        <Menu theme="light">
                             <Menu.Item icon={<StarOutlined />}>Được đánh dấu sao</Menu.Item>
                             <Menu.Item icon={<HistoryOutlined />}>Gần đây</Menu.Item>
                             <Menu.Item icon={<DeleteOutlined />}>Thùng rác</Menu.Item>

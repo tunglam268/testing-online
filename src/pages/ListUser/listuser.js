@@ -3,77 +3,95 @@ import moment from 'moment';
 
 import 'antd/dist/antd.css';
 import './listuser.css';
-import { Layout, Menu, Row, Col, Popover, Card, Button, Tabs, Space } from 'antd';
+import { Layout, Menu, Row, Col, Popover, Card, Button, Tabs, Space ,Switch ,Typography } from 'antd';
 import { UserOutlined, MailOutlined, EditOutlined, PhoneOutlined, SearchOutlined, PlusOutlined, FileTextOutlined, CloseOutlined, FilterOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Radio, DatePicker } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { NavLink } from 'react-router-dom';
 import Avatar from 'antd/lib/avatar/avatar';
+import MenuContext from 'antd/lib/menu/MenuContext';
 
+const { Text} = Typography;
 const { Header, Sider, Content } = Layout;
 const { TabPane } = Tabs;
 const { Option } = Select;
-const styleContent = { background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
-const styleCard = { background: '#fafafa', width: 400 }
+const styleContent = { width: 1300,background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
+const styleCard = { background: '#fafafa', width: 400}
 const styleSider = { background: '#ffffff', padding: '0 0  ' }
 const styleHeader ={background: '#ffffff'}
 const dateFormat = 'YYYY-MM-DD';
-const menuContact = (
 
-  <Card style={{ width: '100%', padding: '0px 30px 0px 0px' }}>
-    <Form.Item style={{ width: '100%', padding: '0px 0px' }}  >
-      <Form.Item name="Contact" >
-        <p>Liên hệ</p>
+
+ const menuContact = (
+
+  <Row gutter={[16, 16]}>
+    <Col span={14}>   
+     <p>Liên hệ</p>
         <Form.Item >
-          <Input placeholder="Gmail" prefix={<MailOutlined />} />
+          <Input style={{width:'100%'}} placeholder="Gmail" prefix={<MailOutlined />} />
         </Form.Item>
         <Form.Item>
-          <Input placeholder="Phone" prefix={<PhoneOutlined />} />
+          <Input style={{width:'100%'}} placeholder="Số điện thoại" prefix={<PhoneOutlined />} />
         </Form.Item>
+    </Col>
 
+    <Col span={10}>
+    <p>Tùy chọn gửi code</p>
+      <Select style={{ width: '95%' }}>
+        <Option value="sms">Qua SMS</Option>
+        <Option value="gmail">Qua Gmail</Option>
+      </Select>
+      <br/>
+      <br/>
+      <Text>Tự động trước 1 tiếng</Text>
+      <br/>
+      <Switch defaultChecked onChange={onChange} />
+    </Col>
 
-        <Form.Item>
-          <p>Tùy chọn gửi code</p>
-          <Select style={{ width: '95%' }}>
-            <Option value="sms">Qua SMS</Option>
-            <Option value="gmail">Qua Gmail</Option>
-          </Select>
-          <p></p>
-          <Space>
-            <Button>Gửi</Button>
-            <Button key="exit" icon={<CloseOutlined />}></Button>
-          </Space>
-        </Form.Item>
-      </Form.Item>
-    </Form.Item>
-  </Card >
-);
+    <Col offset={20}>
+      <Button type='primary' shape='round'  >Lưu</Button>
+    </Col>
+  </Row>
+
+)
+
+const popoverCandidate = (
+  <Menu >
+    <Menu.Item key="1" >Chọn</Menu.Item>
+    <Menu.Item key="2" >Gửi code</Menu.Item>
+    <Popover content={menuContact}  placement="bottom">
+      <Menu.Item key="3">Xem liên hệ</Menu.Item>
+    </Popover>
+    <Menu.Item key="4" >Thiết lập bài test<NavLink to="/question" /></Menu.Item>
+    <Menu.Item key="5" >Chỉnh sửa thông tin</Menu.Item>
+    <Menu.Item key="6" >Xóa ứng viên</Menu.Item>
+</Menu>
+)
+  
+
 
 const detailCandidate = (
-  <Card title="Nguyễn Văn A" actions={[
-    <EditOutlined key="edit" />,
-    <CloseOutlined key="exit" />,
-  ]} style={styleCard}>
+  <Popover content={popoverCandidate} placement="right" trigger="click">
+  <Card title="Nguyễn Văn A"  style={styleCard}>
     <Row>
-      <Col span={12}>
+      <Col span={14}>
         <Form>
-          <Form.Item name="code" label="Code"></Form.Item>
-          <Form.Item name="room" label="Phòng ban"></Form.Item>
-          <Form.Item name="position" label="Vị trí"></Form.Item>
-          <Form.Item name="level" label="Level"></Form.Item>
-          <Form.Item name="reporter" label="Reporter"></Form.Item>
+          <Form.Item name="code" label={<Text strong>Code</Text>}>BLC001</Form.Item>
+          <Form.Item name="room" label={<Text strong>Phòng ban</Text>}>P.CN Blockchain</Form.Item>
+          <Form.Item name="position" label={<Text strong>Vị trí</Text>}>Java Developer</Form.Item>
+          <Form.Item name="level" label={<Text strong>Level</Text>}>Junior</Form.Item>
+          <Form.Item name="reporter" label={<Text strong>Reporter</Text>}>Tung Lam</Form.Item>
         </Form>
       </Col>
 
-      <Col span={12}>
+      <Col span={10}>
         <DatePicker />
-        <p></p>
-        <Popover content={menuContact} placement="bottom">
-          <Button style={{ background: '#bfbfbf' }} shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
-        </Popover>
+        
       </Col>
     </Row>
   </Card>
+ </Popover>
+  
 )
 
 const detailCandidateCalendar = (
@@ -111,8 +129,16 @@ const callback = (key) => {
   console.log(key);
 }
 
+// function handleClick(e) {
+//   console.log('Click', e)
+// }
+
+function onChange(checked) {
+  console.log(`switch to ${checked}`);
+}
 
 export default function ListUser() {
+
   return (
     <Layout>
       <Header style={styleHeader} className="header">
@@ -129,7 +155,7 @@ export default function ListUser() {
           <Col span={2} offset={14}>
             <Menu style={styleHeader} mode="horizontal">
               <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title="Tài khoản">
-                <Menu.Item key="account" >Quản lý tài khoản</Menu.Item>
+                <Menu.Item key="account" ><NavLink to="/manageaccount" />Quản lý tài khoản</Menu.Item>
                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
               </SubMenu>
             </Menu>
@@ -208,7 +234,7 @@ export default function ListUser() {
 
               <Col offset={6}>
                 <p></p>
-                <Button danger style={{ width: '66%', background: '#fafafa' }} htmlType="submit" shape="round" icon={<CloseOutlined />}>Xóa</Button>
+                <Button danger style={{ width: '60%', background: '#fafafa' }} htmlType="submit" shape="round" icon={<CloseOutlined />}>Xóa</Button>
               </Col>
 
 
@@ -220,14 +246,13 @@ export default function ListUser() {
         <Content style={styleContent}>
           <h1><Avatar style={{ color: '#000000', backgroundColor: '#ffffff' }} shape="square" size={64} icon={<FileTextOutlined />}></Avatar>Danh Sách</h1>
           <Tabs defaultActiveKey="tabList" size={'large'} type="card" onChange={callback}>
-            <TabPane tab="tabBoard" tab="Board" key="tabBoard">
+            <TabPane tab="tabBoard" tab="Bảng" key="tabBoard">
               <Tabs defaultActiveKey="tabTimeline" size={'large'} type="card" onChange={callback}>
                 <TabPane tab="tabSoon" tab="Sắp tới" key="tabSoon">
                   <Row>
                     <Space>
                       {detailCandidate}
-                      {detailCandidate}
-                      {detailCandidate}
+                      
                     </Space>
                   </Row>
                 </TabPane>
@@ -235,9 +260,8 @@ export default function ListUser() {
                 <TabPane tab="tabToday" tab="Hôm nay" key="tabToday">
                   <Row>
                     <Space>
-                      {detailCandidate}
-                      {detailCandidate}
-                      {detailCandidate}
+                      
+                      
                     </Space>
                   </Row>
                 </TabPane>
@@ -245,9 +269,7 @@ export default function ListUser() {
                 <TabPane tab="tabLate" tab="Quá hạn" key="tabLate">
                   <Row>
                     <Space>
-                      {detailCandidate}
-                      {detailCandidate}
-                      {detailCandidate}
+                     
                     </Space>
                   </Row>
                 </TabPane>
@@ -259,7 +281,7 @@ export default function ListUser() {
                 <Content>
                   <Row gutter={[8, 8]}>
                     {detailCandidateCalendar}
-                    {detailCandidateCalendar}
+                    
 
                   </Row>
                 </Content>
