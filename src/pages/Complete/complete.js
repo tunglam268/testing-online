@@ -8,12 +8,12 @@ import { UserOutlined, SendOutlined, SearchOutlined, PlusOutlined } from '@ant-d
 import { Form, Input, Select, Radio } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { NavLink } from 'react-router-dom';
-
+import CandidateResult from "./candidateresult";
 
 const { Option } = Select;
 const { Text } = Typography;
-const styleContent = { background: '#ffffff', padding: '25px 20px', minHeight: 1000 , height: '100vh' , overflow :'auto' };
-const styleHeader ={background: '#ffffff'}
+const styleContent = { background: '#ffffff', padding: '25px 20px', minHeight: 1000, height: '100vh', overflow: 'auto' };
+const styleHeader = { background: '#ffffff' }
 const styleSider = { background: '#ffffff', padding: '20px 30px' }
 const answerParticipant = (
     <Card>
@@ -61,19 +61,6 @@ const answerParticipant = (
     </Card>
 )
 
-const detailCandidate = (
-    <Col span={8} >
-        <h1>Nguyễn Văn A</h1>
-        <Text strong>Phòng ban :</Text> <Text> P.CN Blockchain </Text><br /><br />
-        <Text strong>Vị trí :</Text> <Text> Java Developer</Text><br /><br />
-        <Text strong>Level :</Text> <Text> Fresher</Text><br /><br />
-        <Text strong>Người thêm :</Text> <Text> Tung Lam</Text><br /><br />
-        <Space>
-            <Text strong>Điểm</Text>
-            <Input style={{ width: '30%' }}></Input>
-        </Space>
-    </Col>
-)
 
 
 const handleChange = (value) => {
@@ -104,17 +91,17 @@ export default function Complete() {
             <Header style={styleHeader} className="header">
                 <Row>
                     <Col span={8}>
-                        <Menu style={styleHeader}  mode="horizontal" defaultSelectedKeys={['3']}>
-                            <Menu.Item key="1"><NavLink to="/listuser" />Lịch test</Menu.Item>
-                            <Menu.Item key="2"><NavLink to="/question" />Bộ câu hỏi</Menu.Item>
-                            <Menu.Item key="3"><NavLink to="/complete" />Đã hoàn thành</Menu.Item>
-                            <Menu.Item key="4"><NavLink to="/document" />Tài liệu</Menu.Item>
+                        <Menu style={styleHeader} mode="horizontal" defaultSelectedKeys={['3']}>
+                            <Menu.Item key="1"><NavLink to="/listuser" /><Text strong>Lịch test</Text></Menu.Item>
+                            <Menu.Item key="2"><NavLink to="/question" /><Text strong>Bộ câu hỏi</Text></Menu.Item>
+                            <Menu.Item key="3"><NavLink to="/complete" /><Text strong>Đã hoàn thành</Text></Menu.Item>
+                            <Menu.Item key="4"><NavLink to="/document" /><Text strong>Tài liệu</Text></Menu.Item>
                         </Menu>
                     </Col>
 
                     <Col span={2} offset={14}>
                         <Menu style={styleHeader} mode="horizontal">
-                            <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title="Tài khoản">
+                            <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title={<Text strong>Tài khoản</Text>}>
                                 <Menu.Item key="account" ><NavLink to="/manageaccount" />Quản lý tài khoản</Menu.Item>
                                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
                             </SubMenu>
@@ -124,109 +111,57 @@ export default function Complete() {
             </Header>
 
             <Layout>
-                <Card style={{width:470}}>
-                <Sider width={500} theme="light" className="site-layout-background" style={styleSider}>
-                    <Form.Item name="Name" style={{ width: '90%' }}><p>Tên</p><Input placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
-                    <Form.Item name="Room" style={{ width: '90%' }}><p>Phòng ban</p>
-                        <Select placeholder="Lựa chọn" onChange={handleChange}>
-                            <Option value="1">Java</Option>
-                            <Option value="2">Python</Option>
-                            <Option value="3">Golang</Option>
-                            <Option value="4">JavaScript</Option>
-                            <Option value="5">NodeJS</Option>
-                            <Option value="6">MySQL</Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item name="Position"><p>Vị trí</p>
-                        <Select mode="tags" style={{ width: '90%' }} placeholder="Tags Mode" onChange={handleChange}>
-                            <Option value="1">Fresher</Option>
-                            <Option value="2">Junior</Option>
-                            <Option value="3">Senior</Option>
-                        </Select>
-                    </Form.Item>
+                <Card style={{ width: 470 }}>
+                    <Sider width={500} theme="light" className="site-layout-background" style={styleSider}>
+                        <Form.Item name="Name" style={{ width: '90%' }}><p>Tên</p><Input placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
+                        <Form.Item name="Room" style={{ width: '90%' }}><p>Phòng ban</p>
+                            <Select placeholder="Lựa chọn" onChange={handleChange}>
+                                <Option value="1">Java</Option>
+                                <Option value="2">Python</Option>
+                                <Option value="3">Golang</Option>
+                                <Option value="4">JavaScript</Option>
+                                <Option value="5">NodeJS</Option>
+                                <Option value="6">MySQL</Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item name="Position"><p>Vị trí</p>
+                            <Select mode="tags" style={{ width: '90%' }} placeholder="Tags Mode" onChange={handleChange}>
+                                <Option value="1">Fresher</Option>
+                                <Option value="2">Junior</Option>
+                                <Option value="3">Senior</Option>
+                            </Select>
+                        </Form.Item>
 
-                    <Form.Item>
-                        <Radio.Group buttonStyle="solid">
-                            <Space>
-                                <Radio.Button value="Fresher">Fresher</Radio.Button>
-                                <Radio.Button value="Junior">Junior</Radio.Button>
-                                <Radio.Button value="Senior">Senior</Radio.Button>
-                            </Space>
-                        </Radio.Group>
-                    </Form.Item>
+                        <Form.Item>
+                            <Radio.Group buttonStyle="solid">
+                                <Space>
+                                    <Radio.Button value="Fresher">Fresher</Radio.Button>
+                                    <Radio.Button value="Junior">Junior</Radio.Button>
+                                    <Radio.Button value="Senior">Senior</Radio.Button>
+                                </Space>
+                            </Radio.Group>
+                        </Form.Item>
 
-                    <Row>
-                        <Col span={12} offset={4}>
-                            <Space size={[30, 16]}>
-                                <Button style={{ width: '120%' }} type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
-                                <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
-                            </Space>
-                        </Col>
-                    </Row>
-                </Sider>
+                        <Row>
+                            <Col span={12} offset={4}>
+                                <Space size={[30, 16]}>
+                                    <Button style={{ width: '120%' }} type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
+                                    <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
+                                </Space>
+                            </Col>
+                        </Row>
+                    </Sider>
                 </Card>
 
-                <Card style={{width:2000}}>
-                <Content style={styleContent}>
-                    <Card style={{ width: '100%', minHeight: 1000  }}>
-                        <Space size={[16, 16]} wrap>
-                        <Card style={{ background: "#fafafa", width: '181%', minHeight: 300  }}>
-                            <Row>
-                                {detailCandidate}
-
-                                <Col span={16} >
-                                    <Button onClick={showModal} style={{ width: '100%', minHeight: 300 }}>
-                                        <Text strong>Tiếng Anh</Text><br />
-                                        <Progress percent={80} /><br />
-                                        <Text strong>Kiến thức chung</Text><br />
-                                        <Progress percent={90} /><br />
-                                        <Text strong>Coding</Text><br />
-                                        <Progress percent={40} /><br />
-                                    </Button>
-                                    <Modal title="Câu trả lời của thí sinh" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={1100}>
-                                        {answerParticipant}
-                                    </Modal>
-                                </Col>
-
-                                <Col span={6}>
-                                    <br />
-                                    <Checkbox onChange={onChange}>Email</Checkbox>
-                                    <Checkbox onChange={onChange}>SMS</Checkbox>
-                                    <Button icon={<SendOutlined />} style={{ width: '50%', }}>Gửi điểm</Button>
-                                </Col>
-                            </Row>
+                <Card style={{ width: 2000 }}>
+                    <Content style={styleContent}>
+                        <Card style={{ width: '100%', minHeight: 1000 }}>
+                            <Space size={[16, 16]} wrap>
+                                
+                                <CandidateResult />
+                            </Space>
                         </Card>
-
-                        <Card style={{ background: "#fafafa", width: '181%', minHeight: 300 }}>
-                            <Row>
-                                {detailCandidate}
-
-                                <Col span={16} >
-                                    <Button onClick={showModal} style={{ width: '100%', minHeight: 300 }}>
-                                        <Text strong>Tiếng Anh</Text><br />
-                                        <Progress percent={80} /><br />
-                                        <Text strong>Kiến thức chung</Text><br />
-                                        <Progress percent={90} /><br />
-                                        <Text strong>Coding</Text><br />
-                                        <Progress percent={40} /><br />
-                                    </Button>
-                                    <Modal title="Câu trả lời của thí sinh" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={1100}>
-                                        {answerParticipant}
-                                    </Modal>
-                                </Col>
-
-                                <Col span={6}>
-                                    <br />
-                                    <Checkbox onChange={onChange}>Email</Checkbox>
-                                    <Checkbox onChange={onChange}>SMS</Checkbox>
-                                    <Button icon={<SendOutlined />} style={{ width: '50%', }}>Gửi điểm</Button>
-                                </Col>
-                            </Row>
-                        </Card>
-                        
-                        </Space>
-                    </Card>
-                </Content>
+                    </Content>
                 </Card>
             </Layout>
         </Layout>

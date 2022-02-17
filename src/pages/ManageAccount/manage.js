@@ -19,16 +19,16 @@ export default function ManageAccounnt() {
                 <Row>
                     <Col span={8}>
                         <Menu style={styleHeader} mode="horizontal" >
-                            <Menu.Item key="1"><NavLink to="/listuser" />Lịch test</Menu.Item>
-                            <Menu.Item key="2"><NavLink to="/question" />Bộ câu hỏi</Menu.Item>
-                            <Menu.Item key="3"><NavLink to="/complete" />Đã hoàn thành</Menu.Item>
-                            <Menu.Item key="4"><NavLink to="/document" />Tài liệu</Menu.Item>
+                            <Menu.Item key="1"><NavLink to="/listuser" /><Text strong>Lịch test</Text></Menu.Item>
+                            <Menu.Item key="2"><NavLink to="/question" /><Text strong>Bộ câu hỏi</Text></Menu.Item>
+                            <Menu.Item key="3"><NavLink to="/complete" /><Text strong>Đã hoàn thành</Text></Menu.Item>
+                            <Menu.Item key="4"><NavLink to="/document" /><Text strong>Tài liệu</Text></Menu.Item>
                         </Menu>
                     </Col>
 
                     <Col span={2} offset={14}>
                         <Menu defaultSelectedKeys={'manage'} style={styleHeader} mode="horizontal">
-                            <SubMenu icon={<UserOutlined />} title="Tài khoản">
+                            <SubMenu icon={<UserOutlined />} title={<Text strong>Tài khoản</Text>}>
                                 <Menu.Item key="manage" ><NavLink to="/manageaccount" />Quản lý tài khoản</Menu.Item>
                                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
                             </SubMenu>
@@ -40,7 +40,7 @@ export default function ManageAccounnt() {
             <Content >
                 <Row>
                     <Col span={12}>
-                        <Card  style={{minHeight:1000 }}>
+                        <Card style={{ minHeight: 1000 }}>
                             <Title level={2}>Quản lý tài khoản</Title>
                             <Row gutter={[16, 16]}>
                                 <Col span={12} offset={10}>
@@ -74,7 +74,7 @@ export default function ManageAccounnt() {
                             <Col span={12} offset={16}>
                                 <Title level={2}>Hoạt động quản lý</Title>
                             </Col>
-                            <Card style={{ width: 880 , minHeight:1000}}>
+                            <Card style={{ width: 880, minHeight: 1000 }}>
                                 <Title level={4}>Nguyễn Văn A</Title>
                                 <Text strong>Code: </Text><Text>BLC001</Text>
                                 <p></p>

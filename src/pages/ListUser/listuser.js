@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import moment from 'moment';
 
 import 'antd/dist/antd.css';
@@ -9,7 +9,9 @@ import { Form, Input, Select, Radio, DatePicker } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { NavLink } from 'react-router-dom';
 import Avatar from 'antd/lib/avatar/avatar';
-import MenuContext from 'antd/lib/menu/MenuContext';
+import CandidateBoard from './candidateboard';
+import CandidateCalendar from './candidatecalendar';
+
 
 const { Text} = Typography;
 const { Header, Sider, Content } = Layout;
@@ -22,104 +24,6 @@ const styleHeader ={background: '#ffffff'}
 const dateFormat = 'YYYY-MM-DD';
 
 
- const menuContact = (
-
-  <Row gutter={[16, 16]}>
-    <Col span={14}>   
-     <p>Liên hệ</p>
-        <Form.Item >
-          <Input style={{width:'100%'}} placeholder="Gmail" prefix={<MailOutlined />} />
-        </Form.Item>
-        <Form.Item>
-          <Input style={{width:'100%'}} placeholder="Số điện thoại" prefix={<PhoneOutlined />} />
-        </Form.Item>
-    </Col>
-
-    <Col span={10}>
-    <p>Tùy chọn gửi code</p>
-      <Select style={{ width: '95%' }}>
-        <Option value="sms">Qua SMS</Option>
-        <Option value="gmail">Qua Gmail</Option>
-      </Select>
-      <br/>
-      <br/>
-      <Text>Tự động trước 1 tiếng</Text>
-      <br/>
-      <Switch defaultChecked onChange={onChange} />
-    </Col>
-
-    <Col offset={20}>
-      <Button type='primary' shape='round'  >Lưu</Button>
-    </Col>
-  </Row>
-
-)
-
-const popoverCandidate = (
-  <Menu >
-    <Menu.Item key="1" >Chọn</Menu.Item>
-    <Menu.Item key="2" >Gửi code</Menu.Item>
-    <Popover content={menuContact}  placement="bottom">
-      <Menu.Item key="3">Xem liên hệ</Menu.Item>
-    </Popover>
-    <Menu.Item key="4" >Thiết lập bài test<NavLink to="/question" /></Menu.Item>
-    <Menu.Item key="5" >Chỉnh sửa thông tin</Menu.Item>
-    <Menu.Item key="6" >Xóa ứng viên</Menu.Item>
-</Menu>
-)
-  
-
-
-const detailCandidate = (
-  <Popover content={popoverCandidate} placement="right" trigger="click">
-  <Card title="Nguyễn Văn A"  style={styleCard}>
-    <Row>
-      <Col span={14}>
-        <Form>
-          <Form.Item name="code" label={<Text strong>Code</Text>}>BLC001</Form.Item>
-          <Form.Item name="room" label={<Text strong>Phòng ban</Text>}>P.CN Blockchain</Form.Item>
-          <Form.Item name="position" label={<Text strong>Vị trí</Text>}>Java Developer</Form.Item>
-          <Form.Item name="level" label={<Text strong>Level</Text>}>Junior</Form.Item>
-          <Form.Item name="reporter" label={<Text strong>Reporter</Text>}>Tung Lam</Form.Item>
-        </Form>
-      </Col>
-
-      <Col span={10}>
-        <DatePicker />
-        
-      </Col>
-    </Row>
-  </Card>
- </Popover>
-  
-)
-
-const detailCandidateCalendar = (
-  <Col span={8}>
-    <h2><DatePicker defaultValue={moment('2022-01-09', dateFormat)} disabled /></h2>
-    <Card title="Nguyễn Văn C" actions={[<EditOutlined key="edit" />, <CloseOutlined key="exit" />,]} style={styleCard}>
-      <Row>
-        <Col span={12}>
-          <Form>
-            <Form.Item name="code" label="Code"></Form.Item>
-            <Form.Item name="room" label="Phòng ban"></Form.Item>
-            <Form.Item name="position" label="Vị trí"></Form.Item>
-            <Form.Item name="level" label="Level"></Form.Item>
-            <Form.Item name="reporter" label="Reporter"></Form.Item>
-          </Form>
-        </Col>
-
-        <Col span={12}>
-          <DatePicker />
-          <p></p>
-          <Popover content={menuContact} placement="bottom">
-            <Button style={{ background: '#bfbfbf' }} shape="round" label="Liên hệ" icon={<MailOutlined />}>Liên hệ</Button>
-          </Popover>
-        </Col>
-      </Row>
-    </Card>
-  </Col>
-)
 
 const handleChange = (value) => {
   console.log(`selected ${value}`);
@@ -145,16 +49,16 @@ export default function ListUser() {
         <Row>
           <Col span={8}>
             <Menu style={styleHeader} mode="horizontal" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1"><NavLink to="/listuser" />Lịch test</Menu.Item>
-              <Menu.Item key="2"><NavLink to="/question" />Bộ câu hỏi</Menu.Item>
-              <Menu.Item key="3"><NavLink to="/complete" />Đã hoàn thành</Menu.Item>
-              <Menu.Item key="4"><NavLink to="/document" />Tài liệu</Menu.Item>
+              <Menu.Item key="1"><NavLink to="/listuser" /><Text strong>Lịch test</Text></Menu.Item>
+              <Menu.Item key="2"><NavLink to="/question" /><Text strong>Bộ câu hỏi</Text></Menu.Item>
+              <Menu.Item key="3"><NavLink to="/complete" /><Text strong>Đã hoàn thành</Text></Menu.Item>
+              <Menu.Item key="4"><NavLink to="/document" /><Text strong>Tài liệu</Text></Menu.Item>
             </Menu>
           </Col>
 
           <Col span={2} offset={14}>
             <Menu style={styleHeader} mode="horizontal">
-              <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title="Tài khoản">
+              <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title={<Text strong>Tài khoản</Text>}>
                 <Menu.Item key="account" ><NavLink to="/manageaccount" />Quản lý tài khoản</Menu.Item>
                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
               </SubMenu>
@@ -251,7 +155,7 @@ export default function ListUser() {
                 <TabPane tab="tabSoon" tab="Sắp tới" key="tabSoon">
                   <Row>
                     <Space>
-                      {detailCandidate}
+                      <CandidateBoard/>
                       
                     </Space>
                   </Row>
@@ -280,7 +184,7 @@ export default function ListUser() {
               <Row span={8}>
                 <Content>
                   <Row gutter={[8, 8]}>
-                    {detailCandidateCalendar}
+                    <CandidateCalendar/>
                     
 
                   </Row>

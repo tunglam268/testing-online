@@ -17,6 +17,7 @@ import Tutorial from './pages/Tutorial/tutorial';
 import Result from './pages/Result/result';
 import Complete from './pages/Complete/complete';
 import ManageAccounnt from './pages/ManageAccount/manage';
+import Example from './pages/Example/example';
 
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/example" element={<Example />}/>
         <Route path="/" element={<Home />}/>
         <Route path="/listuser" element={<ListUser />} />
         <Route path="/question" element={<Question />} />

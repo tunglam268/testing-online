@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import './question.css';
-import { Layout, Menu, Row, Modal, Col, Image, Button, Card, Tabs, Space } from 'antd';
+import { Layout, Menu, Row, Modal, Col, Image, Button, Card, Tabs, Space, Typography } from 'antd';
 import { SearchOutlined, QuestionOutlined, QuestionCircleTwoTone, SaveOutlined, FieldTimeOutlined, EditOutlined, PlusOutlined, UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Radio, } from 'antd';
 import { NavLink } from 'react-router-dom';
 import SubMenu from 'antd/lib/menu/SubMenu';
 
 
-
+const {Text} = Typography;
 const { Header, Content } = Layout;
 const { TextArea } = Input;
 const { TabPane } = Tabs;
@@ -58,16 +58,16 @@ export default function Question() {
         <Row>
           <Col span={8}>
             <Menu style={styleHeader} mode="horizontal" defaultSelectedKeys={['2']}>
-              <Menu.Item key="1"><NavLink to="/listuser" />Lịch test</Menu.Item>
-              <Menu.Item key="2"><NavLink to="/question" />Bộ câu hỏi</Menu.Item>
-              <Menu.Item key="3"><NavLink to="/complete" />Đã hoàn thành</Menu.Item>
-              <Menu.Item key="4"><NavLink to="/document" />Tài liệu</Menu.Item>
+              <Menu.Item key="1"><NavLink to="/listuser" /><Text strong>Lịch test</Text></Menu.Item>
+              <Menu.Item key="2"><NavLink to="/question" /><Text strong>Bộ câu hỏi</Text></Menu.Item>
+              <Menu.Item key="3"><NavLink to="/complete" /><Text strong>Đã hoàn thành</Text></Menu.Item>
+              <Menu.Item key="4"><NavLink to="/document" /><Text strong>Tài liệu</Text></Menu.Item>
             </Menu>
           </Col>
 
           <Col span={2} offset={14}>
             <Menu style={styleHeader} mode="horizontal">
-              <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title="Tài khoản">
+              <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title={<Text strong>Tài khoản</Text>}>
                 <Menu.Item key="account" ><NavLink to="/manageaccount" />Quản lý tài khoản</Menu.Item>
                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
               </SubMenu>
