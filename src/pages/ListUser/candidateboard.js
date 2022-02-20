@@ -113,7 +113,7 @@ const CandidateBoard = () => {
     return (
 
         candidates.map((candidate, index) => (
-            <Space >
+            <Col span={8} >
                 <p></p>
                 <Popover content={popoverCandidate} placement="right" trigger="click">
                     <Card title={candidate.nameCandidate} style={styleCard}>
@@ -139,7 +139,7 @@ const CandidateBoard = () => {
                         </Row>
                     </Card>
                 </Popover>
-            </Space>
+            </Col>
         ))
 
     );

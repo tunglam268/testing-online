@@ -4,7 +4,7 @@ import moment from 'moment';
 import 'antd/dist/antd.css';
 import './listuser.css';
 import { Row, Col, Popover, Card, Button, Switch, Typography } from 'antd';
-import { MailOutlined, EditOutlined, PhoneOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons';
+import { MailOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
 import { Form, Input, Select, DatePicker } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 
@@ -22,6 +22,7 @@ function onChange(checked) {
 
 const candidatesArray = [
     {
+        id:"1",
         nameCandidate: "Nguyễn Văn A",
         code: "BLC001",
         room: "P.CN Blockchain",
@@ -30,6 +31,7 @@ const candidatesArray = [
         reporter: "Tung Lam",
     },
     {
+        id:"2",
         nameCandidate: "Nguyễn Văn B",
         code: "BLC002",
         room: "P.CN Blockchain",
@@ -38,6 +40,7 @@ const candidatesArray = [
         reporter: "Tung Lam",
     },
     {
+        id:"3",
         nameCandidate: "Nguyễn Văn C",
         code: "BLC003",
         room: "P.CN Blockchain",

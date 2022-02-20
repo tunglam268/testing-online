@@ -1,13 +1,13 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import './tutorial.css';
-import { Layout,Card,Row,Col,Typography,Button, Menu, Form, Space} from 'antd';
-import { ArrowRightOutlined,UserOutlined} from '@ant-design/icons';
-import { NavLink ,Outlet} from 'react-router-dom';
+import { Layout,Card,Row,Col,Typography,Button, Menu, Form} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
+import { NavLink } from 'react-router-dom';
 import { Content, Header } from 'antd/lib/layout/layout';
 import SubMenu from 'antd/lib/menu/SubMenu';
 
-const { Text, Title } = Typography;
+const { Title } = Typography;
 const styleHeader = { background: '#ffffff' };
 const styleCard1 = { minHeight: 1000 }
 const styleCard2 = { minHeight: 500 }

@@ -122,7 +122,7 @@ const CandidateResult = () => {
         candidates.map((candidate, index) => (
             <div>
                 <br></br>
-                <Card style={{ background: "#fafafa", width: '181%', minHeight: 300 }}>
+                <Card style={{ background: "#fafafa", width: '225%', minHeight: 300 }}>
                     <Row>
                         <Col span={8} >
                             <Form key={index}>

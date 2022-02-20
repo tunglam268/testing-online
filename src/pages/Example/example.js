@@ -1,27 +1,19 @@
 import { useState } from "react";
 import './example.css';
-import { Layout, Menu, Row, Col, Popover, Card, Button, Tabs, Space, Switch, Typography } from 'antd';
-import { UserOutlined, MailOutlined, EditOutlined, PhoneOutlined, SearchOutlined, PlusOutlined, FileTextOutlined, CloseOutlined, FilterOutlined } from '@ant-design/icons';
+import { Layout, Menu, Row, Col, Popover, Card, Tabs, Typography } from 'antd';
+
 import { Form, Input, Select, Radio, DatePicker } from 'antd';
-import SubMenu from 'antd/lib/menu/SubMenu';
-import { NavLink } from 'react-router-dom';
-import Avatar from 'antd/lib/avatar/avatar';
-import MenuContext from 'antd/lib/menu/MenuContext';
+
 
 
 const { Text } = Typography;
-const { Header, Sider, Content } = Layout;
-const { TabPane } = Tabs;
-const { Option } = Select;
-const styleContent = { width: 1300, background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
-const styleCard = { background: '#fafafa', width: 400 }
-const styleSider = { background: '#ffffff', padding: '0 0  ' }
-const styleHeader = { background: '#ffffff' }
-const dateFormat = 'YYYY-MM-DD';
 
-function onChange(checked) {
-    console.log(`switch to ${checked}`);
-}
+const { TabPane } = Tabs;
+
+const styleCard = { background: '#fafafa', width: 400 }
+
+
+
 
 const candidatesArray = [
     {

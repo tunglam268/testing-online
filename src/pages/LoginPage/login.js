@@ -1,85 +1,133 @@
 import { Form, Input, Card, Row, Col, Button, Checkbox, Menu } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './login.css'
+import React from 'react';
 
 
-const Login = () => {
+export default class Login extends React.Component {
 
-  const onFinish = () => {
-    window.location.href = '/listuser'
-  };
+  // onFinish = () => {
+  //   window.location.href = '/listuser'
+  // };
 
-  const onHome = () => {
+  onHome = () => {
     window.location.href = '/'
   }
 
-  // const construsctor = (props) => {
-  //   super(props)
-  //   this.state = {
-  //     "username": "",
-  //     "password": "",
-  //   }
-  // }
+  construsctor (props) {
+    
+    this.state = {
+      "username": "",
+      "password": "",
+    }
+  }
 
-  // setParams = (event) => {
-  //   this.setParamsetState({[event.targetarget.n]: event.target.value})
-  // }
+  setParams = (e) => {
+    this.setState({ [e.target.username]: e.target.value })
+  }
 
-  return (
-    <Row style={{ padding: '100px 20px' }}>
-      <Col span={12} offset={10}>
-        <Card style={{ width: 400 }}>
-          <h2>Đăng Nhập</h2>
-          <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} style={{ height: '100%', borderRight: 0 }}>
-            <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
+  login = () => {
+    var axios = require('axios');
+    var FormData = require('form-data');
+    var data = new FormData();
 
-              <Form.Item name="username"
-                
-                rules={[{ required: false, message: 'Chưa nhập tài khoản đăng nhập !' }]}>
+    var config = {
+      method: 'post',
+      url: 'localhost:8080/staff/checklogin',
+       headers: {
+      
+      },
+      data: {
+        username: this.state.username,
+        password: this.state.password
+      }
+    };
 
-                <Input style={{ padding: 10, margin: 0, minHeight: 10, width: 350, }}
-                  prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Tên đăng nhập" />
-              </Form.Item>
 
-              <Form.Item name="password"
-                
-                rules={[{ required: false, message: 'Chưa nhập mật khẩu !' }]}>
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        if (response.ok) {
+          window.location.href = '/listuser'
+          return response.JSON()
+        }
+        throw Error(response.status)
+      })
 
-                <Input style={{ padding: 10, margin: 0, minHeight: 10, width: 350, }}
-                  prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Nhập mật khẩu" />
-              </Form.Item>
-              <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Nhớ tài khoản</Checkbox>
-                  <a className="login-form-forgot" href="">Quên mật khẩu ?</a>
+      // .then(result => {
+      //   console.log(result)
+      //   // localStorage.setItem("accessToken" , result.accessToken)
+      //   alert("Thanh cong")
+      //   window.location.href = '/listuser'
+      // })
+
+
+      .catch(function (error) {
+        console.log(error);
+        alert("Username , Password are wrong")
+      });
+  }
+
+  render() {
+
+    return (
+      <Row style={{ padding: '100px 20px' }}>
+        <Col span={12} offset={10}>
+          <Card style={{ width: 400 }}>
+            <h2>Đăng Nhập</h2>
+            <Menu mode="inline"  style={{ height: '100%', borderRight: 0 }}>
+              <Form name="normal_login" className="login-form" initialValues={{ remember: true }} >
+
+                <Form.Item name="username"
+
+                  rules={[{ required: true, message: 'Chưa nhập tài khoản đăng nhập !' }]}>
+
+                  <Input style={{ padding: 10, margin: 0, minHeight: 10, width: 350, }}
+                    onChange={this.setParams}
+                    prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Tên đăng nhập" />
                 </Form.Item>
 
-              </Form.Item>
-              <Form.Item>
+                <Form.Item name="password"
 
-                <Button style={{
-                  padding: 0,
-                  minHeight: 0,
-                  width: 350,
-                }} type="primary" htmlType="submit" className="login-form-button">Đăng nhập</Button>
+                  rules={[{ required: true, message: 'Chưa nhập mật khẩu !' }]}>
 
-                <p></p>
+                  <Input style={{ padding: 10, margin: 0, minHeight: 10, width: 350, }}
+                    onChange={this.setParams}
+                    prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Nhập mật khẩu" />
+                </Form.Item>
+                <Form.Item>
+                  <Form.Item name="remember" valuePropName="checked" noStyle>
+                    <Checkbox>Nhớ tài khoản</Checkbox>
+                    <a className="login-form-forgot" href="">Quên mật khẩu ?</a>
+                  </Form.Item>
+
+                </Form.Item>
+                <Form.Item>
+
+                  <Button style={{
+                    padding: 0,
+                    minHeight: 0,
+                    width: 350,
+                  }} type="primary" htmlType="submit" className="login-form-button" onClick={this.login}>Đăng nhập</Button>
+
+                  <p></p>
 
 
-              </Form.Item>
-            </Form>
-            <Button style={{
-              padding: 0,
-              minHeight: 0,
-              width: 350,
-            }} htmlType="submit" onClick={onHome}>Quay Lại</Button>
-          </Menu>
+                </Form.Item>
+              </Form>
+              <Button style={{
+                padding: 0,
+                minHeight: 0,
+                width: 350,
+              }} htmlType="submit" onClick={this.onHome}>Quay Lại</Button>
+            </Menu>
 
 
-        </Card>
-      </Col>
-    </Row>
-  );
-};
+          </Card>
+        </Col>
+      </Row >
 
-export default Login
+    )
+  }
+}
+

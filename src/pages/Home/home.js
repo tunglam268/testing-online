@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import './home.css';
 import { Layout, Button, Row, Card, Col, Form, Image, Menu, Input, Space } from 'antd';
 import { ArrowRightOutlined, UserOutlined } from '@ant-design/icons';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Title from 'antd/lib/typography/Title';
 
 const { Header, Content } = Layout;

@@ -1,33 +1,28 @@
-import React , {useState} from 'react';
-import moment from 'moment';
+import React,{useState} from 'react';
 
 import 'antd/dist/antd.css';
 import './listuser.css';
-import { Layout, Menu, Row, Col, Popover, Card, Button, Tabs, Space ,Switch ,Typography } from 'antd';
-import { UserOutlined, MailOutlined, EditOutlined, PhoneOutlined, SearchOutlined, PlusOutlined, FileTextOutlined, CloseOutlined, FilterOutlined } from '@ant-design/icons';
+import { Layout, Menu, Row, Col, Card, Button, Tabs, Space, Typography } from 'antd';
+import { UserOutlined, MailOutlined, PhoneOutlined, SearchOutlined, PlusOutlined, FileTextOutlined, CloseOutlined, FilterOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Radio, DatePicker } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { NavLink } from 'react-router-dom';
 import Avatar from 'antd/lib/avatar/avatar';
 import CandidateBoard from './candidateboard';
 import CandidateCalendar from './candidatecalendar';
+import axios from 'axios'
 
-
-const { Text} = Typography;
+const { Text } = Typography;
 const { Header, Sider, Content } = Layout;
 const { TabPane } = Tabs;
 const { Option } = Select;
-const styleContent = { width: 1300,background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
-const styleCard = { background: '#fafafa', width: 400}
+const styleContent = { width: 1514, background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
 const styleSider = { background: '#ffffff', padding: '0 0  ' }
-const styleHeader ={background: '#ffffff'}
-const dateFormat = 'YYYY-MM-DD';
+const styleHeader = { background: '#ffffff' }
 
 
 
-const handleChange = (value) => {
-  console.log(`selected ${value}`);
-}
+
 
 const callback = (key) => {
   console.log(key);
@@ -37,11 +32,26 @@ const callback = (key) => {
 //   console.log('Click', e)
 // }
 
-function onChange(checked) {
-  console.log(`switch to ${checked}`);
-}
 
 export default function ListUser() {
+  let [user, setUser] = useState({})
+
+  const handleChange = () => {
+    var config = {
+      method: 'post',
+      url: 'http://online-testing.ingress.vn:8080/listcandidate',
+      headers: {},
+      data: user
+  };
+
+  axios(config)
+      .then(function (response) {
+          console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+  }
 
   return (
     <Layout>
@@ -69,10 +79,12 @@ export default function ListUser() {
 
       <Layout>
         <Card>
-        <Sider width={500} theme="light" className="site-layout-background" style={styleSider}>
+          <Sider width={500} theme="light" className="site-layout-background" style={styleSider}>
             <br></br>
             <h1><Avatar style={{ color: '#000000', backgroundColor: '#ffffff' }} shape="square" size={64} icon={<FilterOutlined />}></Avatar>Bộ Lọc</h1>
-            <Form.Item name="Name" style={{ width: '95%' }}><p>Tên</p><Input placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
+            <Form.Item name="Name" style={{ width: '95%' }}><p>Tên</p>
+            
+            <Input onChange={(e) => { setUser({...user, name: e.target.value})}} placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
 
             <Form.Item name="Room" style={{ width: '95%' }}><p>Phòng ban</p>
               <Select placeholder="Lựa chọn" onChange={handleChange}>
@@ -87,9 +99,9 @@ export default function ListUser() {
 
             <Form.Item name="Position"><p>Vị trí</p>
               <Select mode="tags" style={{ width: '95%' }} placeholder="Tags Mode" onChange={handleChange}>
-                <Option value="1">Fresher</Option>
-                <Option value="2">Junior</Option>
-                <Option value="3">Senior</Option>
+                <Option value="Fresher">Fresher</Option>
+                <Option value="Junior">Junior</Option>
+                <Option value="Senior">Senior</Option>
               </Select>
             </Form.Item>
 
@@ -130,7 +142,7 @@ export default function ListUser() {
               <Row>
                 <Col span={12} offset={6}>
                   <Space size={[32, 16]}>
-                    <Button style={{ width: '120%', background: '#bfbfbf' }} htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
+                    <Button onClick={handleChange} style={{ width: '120%', background: '#bfbfbf' }} htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
                     <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
                   </Space>
                 </Col>
@@ -143,56 +155,46 @@ export default function ListUser() {
 
 
             </Form.Item>
-        </Sider>
+          </Sider>
         </Card>
 
         <Card>
-        <Content style={styleContent}>
-          <h1><Avatar style={{ color: '#000000', backgroundColor: '#ffffff' }} shape="square" size={64} icon={<FileTextOutlined />}></Avatar>Danh Sách</h1>
-          <Tabs defaultActiveKey="tabList" size={'large'} type="card" onChange={callback}>
-            <TabPane tab="tabBoard" tab="Bảng" key="tabBoard">
-              <Tabs defaultActiveKey="tabTimeline" size={'large'} type="card" onChange={callback}>
-                <TabPane tab="tabSoon" tab="Sắp tới" key="tabSoon">
-                  <Row>
-                    <Space>
-                      <CandidateBoard/>
-                      
-                    </Space>
-                  </Row>
-                </TabPane>
+          <Content style={styleContent}>
+            <h1><Avatar style={{ color: '#000000', backgroundColor: '#ffffff' }} shape="square" size={64} icon={<FileTextOutlined />}></Avatar>Danh Sách</h1>
+            <Tabs defaultActiveKey="tabList" size={'large'} type="card" onChange={callback}>
+              <TabPane tab="tabBoard" tab="Bảng" key="tabBoard">
+                <Tabs defaultActiveKey="tabTimeline" size={'large'} type="card" onChange={callback}>
+                  <TabPane tab="tabSoon" tab="Sắp tới" key="tabSoon">
+                    <Row>
+                      <CandidateBoard />
+                    </Row>
+                  </TabPane>
 
-                <TabPane tab="tabToday" tab="Hôm nay" key="tabToday">
-                  <Row>
-                    <Space>
-                      
-                      
-                    </Space>
-                  </Row>
-                </TabPane>
+                  <TabPane tab="tabToday" tab="Hôm nay" key="tabToday">
+                    <Row>
+                      <CandidateBoard />
+                    </Row>
+                  </TabPane>
 
-                <TabPane tab="tabLate" tab="Quá hạn" key="tabLate">
-                  <Row>
-                    <Space>
-                     
-                    </Space>
-                  </Row>
-                </TabPane>
-              </Tabs>
-            </TabPane>
+                  <TabPane tab="tabLate" tab="Quá hạn" key="tabLate">
+                    <Row>
+                      <CandidateBoard />
+                    </Row>
+                  </TabPane>
+                </Tabs>
+              </TabPane>
 
-            <TabPane tab="tabCalendar" tab="Lịch" key="tabCalendar">
-              <Row span={8}>
-                <Content>
-                  <Row gutter={[8, 8]}>
-                    <CandidateCalendar/>
-                    
-
-                  </Row>
-                </Content>
-              </Row>
-            </TabPane>
-          </Tabs>
-        </Content>
+              <TabPane tab="tabCalendar" tab="Lịch" key="tabCalendar">
+                <Row>
+                  <Content>
+                    <Row >
+                      <CandidateCalendar />
+                    </Row>
+                  </Content>
+                </Row>
+              </TabPane>
+            </Tabs>
+          </Content>
         </Card>
       </Layout>
     </Layout>

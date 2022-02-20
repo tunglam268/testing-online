@@ -1,7 +1,7 @@
 import React , { useState } from 'react';
 import 'antd/dist/antd.css';
 import './test.css';
-import { Layout, Menu, Col, Row, Statistic, Image, Modal ,Typography, Card, Radio, Button, message, Tabs, Space, Select, Popconfirm } from 'antd';
+import { Layout, Menu, Col, Row, Statistic, Image, Modal ,Typography, Card, Radio, Button, message, Tabs, Space, Select } from 'antd';
 import { UserOutlined, ClockCircleFilled, UndoOutlined } from '@ant-design/icons';
 import { Input, Avatar } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -315,7 +315,7 @@ export default function Test() {
                                             </Col>
 
                                             <p></p>
-                                            <Card style={{ width: 1100, minHeight: 800 }}>
+                                            <Card style={{ width: 1300, minHeight: 800 }}>
                                                 <CodeMirror height="1000px" extensions={[javascript({ jsx: true })]} onChange={(value, viewUpdate) => { console.log('value:', value); }} />
                                             </Card>
 
@@ -333,7 +333,6 @@ export default function Test() {
                         </Tabs>
                     </Card>
                 </Content>
-
             </Layout>
         </Layout>
     );
