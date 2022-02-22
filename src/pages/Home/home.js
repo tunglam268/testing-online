@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import 'antd/dist/antd.css';
 import './home.css';
 import { Layout, Button, Row, Card, Col, Form, Image, Menu, Input, Space } from 'antd';
@@ -13,7 +13,12 @@ const onFinish = () => {
 };
 
 export default function Home() {
+  const [code, setCode] = useState("");
 
+  const onChangeCodeCandidate = (e) => {
+    const code = e.target.value;
+    setCode(code);
+  };
   return (
     <Layout>
       <Header style={styleHeader} className="header">
@@ -41,7 +46,7 @@ export default function Home() {
                     <Title level={5}>Nhập code của bạn để vào test</Title>
                     <Form onFinish={onFinish}>
                       <Space>
-                        <Input style={{ width: '100%' }} placeholder="Nhập code vào test"></Input>
+                        <Input style={{ width: '100%' }} value={code} onChange={onChangeCodeCandidate} placeholder="Nhập code vào test"></Input>
                         <Button type="primary" shape="round" htmlType="submit" icon={<ArrowRightOutlined />}><NavLink to="/tutorial" /></Button>
                       </Space>
                     </Form>

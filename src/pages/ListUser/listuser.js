@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 
 import 'antd/dist/antd.css';
 import './listuser.css';
@@ -34,25 +34,55 @@ const callback = (key) => {
 
 
 export default function ListUser() {
-  let [user, setUser] = useState({})
+  const [name, setName] = useState("");
+  const [room, setRoom] = useState("");
+  const [position, setPosition] = useState("");
+  const [calendar, setCalendar] = useState("");
+  const [gmail, setGmail] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const handleChange = () => {
-    var config = {
-      method: 'post',
-      url: 'http://online-testing.ingress.vn:8080/listcandidate',
-      headers: {},
-      data: user
+  const onChangeName = (e) => {
+    const name = e.target.value;
+    setName(name);
   };
 
-  axios(config)
+  const onChangeRoom = (selectObj) => {
+    const room = selectObj.value;
+    setRoom(room);
+  };
+
+  const onChangePosition = (selectObj) => {
+    const position = selectObj.value;
+    setPosition(position);
+  };
+
+  const onChangeCalendar = (e) => {
+    const calendar = e.target.value;
+    setCalendar(calendar);
+  };
+
+  const onChangeGmail = (e) => {
+    const gmail = e.target.value;
+    setGmail(gmail);
+  };
+
+  const onChangePhone = (e) => {
+    const phone = e.target.value;
+    setPhone(phone);
+  };
+
+  const hanldeSearchAll = () => {
+    var axios = require('axios');
+    axios.get('http://localhost:8080/staff/listcandidate')
       .then(function (response) {
-          console.log(JSON.stringify(response.data));
+        console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
-          console.log(error);
+        console.log(error);
       });
-  }
 
+  }
+  
   return (
     <Layout>
       <Header style={styleHeader} className="header">
@@ -82,12 +112,12 @@ export default function ListUser() {
           <Sider width={500} theme="light" className="site-layout-background" style={styleSider}>
             <br></br>
             <h1><Avatar style={{ color: '#000000', backgroundColor: '#ffffff' }} shape="square" size={64} icon={<FilterOutlined />}></Avatar>Bộ Lọc</h1>
-            <Form.Item name="Name" style={{ width: '95%' }}><p>Tên</p>
-            
-            <Input onChange={(e) => { setUser({...user, name: e.target.value})}} placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
+            <Form.Item style={{ width: '95%' }}><p>Tên</p>
+
+              <Input value={name} onChange={onChangeName} placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
 
             <Form.Item name="Room" style={{ width: '95%' }}><p>Phòng ban</p>
-              <Select placeholder="Lựa chọn" onChange={handleChange}>
+              <Select onChange={onChangeRoom} placeholder="Lựa chọn" >
                 <Option value="1">Java</Option>
                 <Option value="2">Python</Option>
                 <Option value="3">Golang</Option>
@@ -98,28 +128,28 @@ export default function ListUser() {
             </Form.Item>
 
             <Form.Item name="Position"><p>Vị trí</p>
-              <Select mode="tags" style={{ width: '95%' }} placeholder="Tags Mode" onChange={handleChange}>
+              <Select onChange={onChangePosition} mode="tags" style={{ width: '95%' }} placeholder="Tags Mode" >
                 <Option value="Fresher">Fresher</Option>
                 <Option value="Junior">Junior</Option>
                 <Option value="Senior">Senior</Option>
               </Select>
             </Form.Item>
 
-            <Form.Item>
-              <Radio.Group buttonStyle="solid">
-                <Space>
-                  <Radio.Button value="Fresher">Fresher</Radio.Button>
-                  <Radio.Button value="Junior">Junior</Radio.Button>
-                  <Radio.Button value="Senior">Senior</Radio.Button>
-                </Space>
-              </Radio.Group>
-            </Form.Item>
+            {/* <Form.Item>
+                <Radio.Group buttonStyle="solid">
+                  <Space>
+                    <Radio.Button value="Fresher">Fresher</Radio.Button>
+                    <Radio.Button value="Junior">Junior</Radio.Button>
+                    <Radio.Button value="Senior">Senior</Radio.Button>
+                  </Space>
+                </Radio.Group>
+              </Form.Item> */}
 
             <Row gutter={[8, 8]}>
               <Col span={12}>
                 <p>Lịch</p>
                 <Form.Item name="DatePicker">
-                  <DatePicker />
+                  <DatePicker onChange={onChangeCalendar} />
                 </Form.Item>
               </Col>
 
@@ -127,11 +157,11 @@ export default function ListUser() {
                 <p>Liên lạc</p>
                 <Form.Item name="Contact">
                   <Form.Item >
-                    <Input placeholder="Gmail" style={{ width: '89%' }} prefix={<MailOutlined />} />
+                    <Input onChange={onChangeGmail} placeholder="Gmail" style={{ width: '89%' }} prefix={<MailOutlined />} />
                   </Form.Item>
 
                   <Form.Item>
-                    <Input placeholder="Số điện thoại" style={{ width: '89%' }} prefix={<PhoneOutlined />} />
+                    <Input onChange={onChangePhone} placeholder="Số điện thoại" style={{ width: '89%' }} prefix={<PhoneOutlined />} />
                   </Form.Item>
 
                 </Form.Item>
@@ -142,15 +172,15 @@ export default function ListUser() {
               <Row>
                 <Col span={12} offset={6}>
                   <Space size={[32, 16]}>
-                    <Button onClick={handleChange} style={{ width: '120%', background: '#bfbfbf' }} htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
-                    <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
+                    <Button style={{ width: '120%', background: '#bfbfbf' }} htmlType="submit" shape="round" icon={<SearchOutlined />} onClick={hanldeSearchAll}>Tìm</Button>
+                    <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />} >Thêm</Button>
                   </Space>
                 </Col>
               </Row>
 
               <Col offset={6}>
                 <p></p>
-                <Button danger style={{ width: '60%', background: '#fafafa' }} htmlType="submit" shape="round" icon={<CloseOutlined />}>Xóa</Button>
+                <Button danger style={{ width: '60%', background: '#fafafa' }} htmlType="submit" shape="round" icon={<CloseOutlined />} >Xóa</Button>
               </Col>
 
 
@@ -198,5 +228,6 @@ export default function ListUser() {
         </Card>
       </Layout>
     </Layout>
+
   );
 }
