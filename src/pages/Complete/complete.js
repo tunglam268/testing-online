@@ -4,7 +4,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import './complete.css';
 import { Menu, Row, Col, Card, Button, Space, Typography } from 'antd';
-import { UserOutlined, SearchOutlined, PlusOutlined } from '@ant-design/icons';
+import { UserOutlined, SearchOutlined, CloseOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Radio } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { NavLink } from 'react-router-dom';
@@ -23,15 +23,15 @@ const styleSider = { background: '#ffffff', padding: '20px 10px' }
 
 export default function Complete() {
 
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
-
+    const handleSearch = () => {
+        var axios = require('axios');
 
         var config = {
             method: 'get',
-            url: 'http://online-testing.ingress.vn:8080/listcandidate',
-            headers: {},
-            data: {}
+            url: 'http://localhost:8080/staff/getallres',
+            headers: {
+
+            }
         };
 
         axios(config)
@@ -43,6 +43,8 @@ export default function Complete() {
             });
 
     }
+
+
     return (
         <Layout>
             <Header style={styleHeader} className="header">
@@ -72,7 +74,7 @@ export default function Complete() {
                     <Sider width={500} theme="light" className="site-layout-background" style={styleSider}>
                         <Form.Item name="Name" style={{ width: '80%' }}><p>Tên</p><Input placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
                         <Form.Item name="Room" style={{ width: '80%' }}><p>Phòng ban</p>
-                            <Select placeholder="Lựa chọn" onChange={handleChange}>
+                            <Select placeholder="Lựa chọn" >
                                 <Option value="1">Java</Option>
                                 <Option value="2">Python</Option>
                                 <Option value="3">Golang</Option>
@@ -82,7 +84,7 @@ export default function Complete() {
                             </Select>
                         </Form.Item>
                         <Form.Item name="Position"><p>Vị trí</p>
-                            <Select mode="tags" style={{ width: '80%' }} placeholder="Vị trí" onChange={handleChange}>
+                            <Select mode="tags" style={{ width: '80%' }} placeholder="Vị trí" >
                                 <Option value="Fresher">Fresher</Option>
                                 <Option value="Junior">Junior</Option>
                                 <Option value="Senior">Senior</Option>
@@ -102,8 +104,8 @@ export default function Complete() {
                         <Row>
                             <Col span={12} offset={4}>
                                 <Space size={[30, 16]}>
-                                    <Button style={{ width: '120%' }} type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
-                                    <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}>Thêm</Button>
+                                    <Button style={{ width: '120%' }} onClick={handleSearch} type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
+                                    <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<CloseOutlined />}>Xóa Lọc</Button>
                                 </Space>
                             </Col>
                         </Row>

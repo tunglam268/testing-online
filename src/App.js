@@ -18,6 +18,7 @@ import Result from './pages/Result/result';
 import Complete from './pages/Complete/complete';
 import ManageAccounnt from './pages/ManageAccount/manage';
 import Example from './pages/Example/example';
+import QuestionCode from './pages/Question/questioncode';
 
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/result" element={<Result/>} />
         <Route path="/complete" element={<Complete/>} />
         <Route path="/manageaccount" element={<ManageAccounnt/>} />
+        <Route path="/questioncode" element={<QuestionCode />} />
     </Routes>
   </BrowserRouter>
   

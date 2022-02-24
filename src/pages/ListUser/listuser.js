@@ -10,16 +10,17 @@ import { NavLink } from 'react-router-dom';
 import Avatar from 'antd/lib/avatar/avatar';
 import CandidateBoard from './candidateboard';
 import CandidateCalendar from './candidatecalendar';
-import axios from 'axios'
+import CandidateResult from '../Complete/candidateresult';
+
 
 const { Text } = Typography;
 const { Header, Sider, Content } = Layout;
 const { TabPane } = Tabs;
 const { Option } = Select;
-const styleContent = { width: 1514, background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
+const styleContent = { width: 1303, background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
 const styleSider = { background: '#ffffff', padding: '0 0  ' }
 const styleHeader = { background: '#ffffff' }
-
+const axios = require('axios');
 
 
 
@@ -36,34 +37,29 @@ const callback = (key) => {
 export default function ListUser() {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
-  const [position, setPosition] = useState("");
-  const [calendar, setCalendar] = useState("");
-  const [gmail, setGmail] = useState("");
+  const [level, setLevel] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+
 
   const onChangeName = (e) => {
     const name = e.target.value;
     setName(name);
   };
 
-  const onChangeRoom = (selectObj) => {
-    const room = selectObj.value;
-    setRoom(room);
+  const onChangeRoom = (room) => {
+    setRoom(room)
+
   };
 
-  const onChangePosition = (selectObj) => {
-    const position = selectObj.value;
-    setPosition(position);
+  const onChangeLevel = (level) => {
+    setLevel(level)
+
   };
 
-  const onChangeCalendar = (e) => {
-    const calendar = e.target.value;
-    setCalendar(calendar);
-  };
-
-  const onChangeGmail = (e) => {
-    const gmail = e.target.value;
-    setGmail(gmail);
+  const onChangeEmail = (e) => {
+    const email = e.target.value;
+    setEmail(email);
   };
 
   const onChangePhone = (e) => {
@@ -71,8 +67,10 @@ export default function ListUser() {
     setPhone(phone);
   };
 
+
+
   const hanldeSearchAll = () => {
-    var axios = require('axios');
+
     axios.get('http://localhost:8080/staff/listcandidate')
       .then(function (response) {
         console.log(JSON.stringify(response.data));
@@ -82,7 +80,34 @@ export default function ListUser() {
       });
 
   }
-  
+
+  const handleAdd = () => {
+    var data = JSON.stringify({
+      "name": name,
+      "level": level,
+      "phone": phone,
+      "email": email,
+      "position": room,
+    });
+
+    var config = {
+      method: 'post',
+      url: 'http://localhost:8080/staff/addcandidate',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
   return (
     <Layout>
       <Header style={styleHeader} className="header">
@@ -113,43 +138,34 @@ export default function ListUser() {
             <br></br>
             <h1><Avatar style={{ color: '#000000', backgroundColor: '#ffffff' }} shape="square" size={64} icon={<FilterOutlined />}></Avatar>Bộ Lọc</h1>
             <Form.Item style={{ width: '95%' }}><p>Tên</p>
-
-              <Input value={name} onChange={onChangeName} placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
+              <Input value={name} onChange={onChangeName} placeholder="Nhập tên" prefix={<UserOutlined />} />
+            </Form.Item>
 
             <Form.Item name="Room" style={{ width: '95%' }}><p>Phòng ban</p>
               <Select onChange={onChangeRoom} placeholder="Lựa chọn" >
-                <Option value="1">Java</Option>
-                <Option value="2">Python</Option>
-                <Option value="3">Golang</Option>
-                <Option value="4">JavaScript</Option>
-                <Option value="5">NodeJS</Option>
-                <Option value="6">MySQL</Option>
+                <Option value="Java">Java</Option>
+                <Option value="Python">Python</Option>
+                <Option value="Golang">Golang</Option>
+                <Option value="JavaScript">JavaScript</Option>
+                <Option value="NodeJS">NodeJS</Option>
+                <Option value="MySQL">MySQL</Option>
               </Select>
+
             </Form.Item>
 
-            <Form.Item name="Position"><p>Vị trí</p>
-              <Select onChange={onChangePosition} mode="tags" style={{ width: '95%' }} placeholder="Tags Mode" >
-                <Option value="Fresher">Fresher</Option>
-                <Option value="Junior">Junior</Option>
-                <Option value="Senior">Senior</Option>
+            <Form.Item name="Level"><p>Level</p>
+              <Select onChange={onChangeLevel} style={{ width: '95%' }} placeholder="level" >
+                <Option value="1">Fresher</Option>
+                <Option value="2">Junior</Option>
+                <Option value="3">Senior</Option>
               </Select>
             </Form.Item>
-
-            {/* <Form.Item>
-                <Radio.Group buttonStyle="solid">
-                  <Space>
-                    <Radio.Button value="Fresher">Fresher</Radio.Button>
-                    <Radio.Button value="Junior">Junior</Radio.Button>
-                    <Radio.Button value="Senior">Senior</Radio.Button>
-                  </Space>
-                </Radio.Group>
-              </Form.Item> */}
 
             <Row gutter={[8, 8]}>
               <Col span={12}>
                 <p>Lịch</p>
                 <Form.Item name="DatePicker">
-                  <DatePicker onChange={onChangeCalendar} />
+                  <DatePicker />
                 </Form.Item>
               </Col>
 
@@ -157,11 +173,11 @@ export default function ListUser() {
                 <p>Liên lạc</p>
                 <Form.Item name="Contact">
                   <Form.Item >
-                    <Input onChange={onChangeGmail} placeholder="Gmail" style={{ width: '89%' }} prefix={<MailOutlined />} />
+                    <Input value={email} onChange={onChangeEmail} placeholder="Email" style={{ width: '89%' }} prefix={<MailOutlined />} />
                   </Form.Item>
 
                   <Form.Item>
-                    <Input onChange={onChangePhone} placeholder="Số điện thoại" style={{ width: '89%' }} prefix={<PhoneOutlined />} />
+                    <Input value={phone} onChange={onChangePhone} placeholder="Số điện thoại" style={{ width: '89%' }} prefix={<PhoneOutlined />} />
                   </Form.Item>
 
                 </Form.Item>
@@ -173,14 +189,14 @@ export default function ListUser() {
                 <Col span={12} offset={6}>
                   <Space size={[32, 16]}>
                     <Button style={{ width: '120%', background: '#bfbfbf' }} htmlType="submit" shape="round" icon={<SearchOutlined />} onClick={hanldeSearchAll}>Tìm</Button>
-                    <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />} >Thêm</Button>
+                    <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />} onClick={handleAdd}>Thêm</Button>
                   </Space>
                 </Col>
               </Row>
 
               <Col offset={6}>
                 <p></p>
-                <Button danger style={{ width: '60%', background: '#fafafa' }} htmlType="submit" shape="round" icon={<CloseOutlined />} >Xóa</Button>
+                <Button danger style={{ width: '60%', background: '#fafafa' }} htmlType="reset" shape="round" icon={<CloseOutlined />} >Xóa</Button>
               </Col>
 
 
@@ -223,6 +239,10 @@ export default function ListUser() {
                   </Content>
                 </Row>
               </TabPane>
+
+              {/* <TabPane tab="tabResult" tab="Kết quả test" key="tabResult">
+                <CandidateResult />
+              </TabPane> */}
             </Tabs>
           </Content>
         </Card>
