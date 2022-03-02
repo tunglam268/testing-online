@@ -1,0 +1,44 @@
+  {
+                        candidate.map((candidate, index) => (
+                          <Col span={8} >
+                            <p></p>
+                            <Popover content={popoverCandidate} placement="right" trigger="click">
+                              <Card title={<Text>{candidate.id}.{candidate.name}</Text>} style={styleCard}>
+                                <Form>
+                                  <Row>
+                                    <Col span={14}>
+                                      <Form key={index}>
+                                        <Form.Item name="code" label={<Text strong>Code</Text>}>BLC001</Form.Item>
+                                        {/* <Form.Item name="room" label={<Text strong>Phòng ban</Text>}>{candidate.room}</Form.Item> */}
+                                        <Form.Item name="position" label={<Text strong>Vị trí</Text>}>{candidate.position}</Form.Item>
+                                        <Form.Item name="level" label={<Text strong>Level</Text>}>{candidate.level}</Form.Item>
+                                        <Form.Item name="reporter" label={<Text strong>Reporter</Text>}>
+                                          <Popover content={PopoverReporter} trigger="hover" placement="bottom">
+                                            <Text >Tung Lam</Text>
+                                          </Popover>
+                                        </Form.Item>
+                                      </Form>
+                                    </Col>
+
+                                    <Col span={10}>
+                                      <Form key={candidate.id}>
+                                        <Form.Item>
+                                          <DatePicker disabled />
+                                        </Form.Item>
+                                        <Form.Item>
+                                          <Button danger style={{ width: '60%', background: '#fafafa' }}
+                                            htmlType="reset"
+                                            shape="round"
+                                            icon={<CloseOutlined />}
+                                          
+                                          >Xóa</Button>
+                                        </Form.Item>
+                                      </Form>
+                                    </Col>
+                                  </Row>
+                                </Form>
+                              </Card>
+                            </Popover>
+                          </Col>
+                        ))
+                      }

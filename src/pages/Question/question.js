@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import './question.css';
-import { Layout, Menu, Row, Modal, Col, Image, Button, Card, Tabs, Space, Typography } from 'antd';
+import { Layout, Menu, Row, Modal, Col, DatePicker, Image, Button, Card, Tabs, Space, Typography } from 'antd';
 import { SearchOutlined, QuestionOutlined, QuestionCircleTwoTone, SaveOutlined, FieldTimeOutlined, EditOutlined, PlusOutlined, UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Radio, } from 'antd';
 import { NavLink } from 'react-router-dom';
@@ -21,18 +21,34 @@ const styleHeader = { background: '#ffffff' }
 
 
 
-export default function Question() {
+export default function Question(props) {
+  const initialQuestionState = {
+    id: null,
+    type: "",
+    subject: "",
+    content: "",
+    level: "",
+    img: "",
+  };
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [type, setType] = useState("");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
   const [level, setLevel] = useState("");
   const [img, setImg] = useState("");
-  const [knowlegeType, setKnowlegeType] = useState('english');
-  const [knowlegeLevel, setKnowledgeLevel] = useState({
-    'english': ['B1', 'B2' , 'B3' , 'B4'],
-    'code': ['fresher', 'junior' ,'senior' , 'master']
+  const [dateTest, setDateTest] = useState("")
+  const [codeTest, setCodeTest] = useState("");
+  const [knowledgerType, setKnowledgerType] = useState('english');
+  const [knowledgerLevel, setKnowledgerLevel] = useState({
+    'english': ['B1', 'B2', 'B3', 'B4'],
+    'code': ['fresher', 'junior', 'senior', 'master'],
+    'knowledger': ['1', '2', '3', '4']
+
+
   })
+  const [dataQuestion, setDataQuestion] = useState([])
+  const [currentQuestion, setCurrentQuestion] = useState([initialQuestionState])
 
   const hanldeSubject = (value) => {
     setSubject(value)
@@ -51,16 +67,11 @@ export default function Question() {
     setLevel(value)
   }
 
-  const handleImg = e => {
-    console.log(e.target.value)
-    setImg(e.target.value)
-  }
-
   const showModal = () => {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
+  const AddQuestion = () => {
     var axios = require('axios');
     var data = JSON.stringify({
       "type": type,
@@ -87,31 +98,78 @@ export default function Question() {
         console.log(error);
       });
   };
-  const handleSearchAllTest = () => {
+  const SearchAllTest = () => {
     var axios = require('axios');
 
     var config = {
       method: 'get',
       url: 'http://localhost:8080/staff/getalltest',
-     
+
     };
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        setCurrentQuestion(response.data)
       })
       .catch(function (error) {
         console.log(error);
       });
 
   }
-  const handleSearchAllQuestion = () => {
+  const SearchAllQuestion = () => {
     var axios = require('axios');
 
     var config = {
       method: 'get',
       url: 'http://localhost:8080/staff/getallquestion',
-      
+
+    };
+
+    axios(config)
+      .then(function (response) {
+        setCurrentQuestion(response.data)
+        console.log(currentQuestion)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  const getQuestionById = id => {
+    var axios = require('axios');
+    var config = {
+      method: 'get',
+      url: `http://localhost:8080/staff/getquestionbyid/${id}`, 
+      headers: {
+        "Content-type": "application/json"
+      }
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        setCurrentQuestion(response.data)
+        console.log(currentQuestion)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
+
+  // useEffect(() => {
+  //   getQuestionById(props.match.params.id)
+  // }, [props.match.params.id]);
+
+  const deleteQuestionById = (id) => {
+    var axios = require('axios');
+
+    var config = {
+      method: 'delete',
+      url: `http://localhost:8080/staff/deletequestion/${id}`, id: currentQuestion.id,
+      headers: {
+        "Content-type": "application/json"
+      }
     };
 
     axios(config)
@@ -121,6 +179,7 @@ export default function Question() {
       .catch(function (error) {
         console.log(error);
       });
+
   }
 
   const handleCancel = () => {
@@ -132,11 +191,19 @@ export default function Question() {
   };
 
   const handleChange = (value) => {
-    setKnowlegeType(value)
+    setKnowledgerType(value)
+  }
+
+  const handleCodeTest = (value) => {
+    setCodeTest(value)
   }
 
   const callback = (key) => {
     console.log(key);
+  }
+
+  const handleDateTest = (date, dateString) => {
+    setDateTest(date, dateString)
   }
 
   return (
@@ -187,16 +254,20 @@ export default function Question() {
                           <Row gutter={[16, 16]}>
                             <Col>
                               {
-                                knowlegeLevel['' + knowlegeType].map((v, k) => {
+                                knowledgerLevel['' + knowledgerType].map((show, value) => {
                                   return (
-                                    <Radio.Button size="large" value="B1">{v}</Radio.Button>
+                                    <Radio.Button size="large" value={value} >{show}</Radio.Button>
                                   )
                                 })
                               }
                             </Col>
 
                             <Col>
-                              <Button danger style={{ width: '150%', background: '#fafafa' }} shape="round" htmlType="submit" icon={<CloseOutlined />}>Xóa lọc</Button>
+                              <Button
+                                danger style={{ width: '150%', background: '#fafafa' }}
+                                shape="round"
+                                htmlType="submit"
+                                icon={<CloseOutlined />}>Xóa lọc</Button>
                             </Col>
                           </Row>
                         </Form.Item>
@@ -211,18 +282,17 @@ export default function Question() {
                         </Col>
 
                         <Col span={4}>
-                          <Button style={{ background: '#292929', color: '#ffffff' }} onClick={handleSearchAllTest} shape="round" htmlType="submit" icon={<SearchOutlined />}>Tìm</Button>
+                          <Button style={{ background: '#292929', color: '#ffffff' }}
+                            onClick={SearchAllTest}
+                            shape="round"
+                            htmlType="submit"
+                            icon={<SearchOutlined />}>Tìm</Button>
                         </Col>
                       </Space>
                     </Row>
                   </p>
 
                   <Menu style={{ height: '50vh', overflow: 'auto' }}>
-                    <Button size="large" style={styleCardTest} icon={<QuestionCircleTwoTone />}> Test-01</Button>
-                    <Button size="large" style={styleCardTest} icon={<QuestionCircleTwoTone />}> Test-01</Button>
-                    <Button size="large" style={styleCardTest} icon={<QuestionCircleTwoTone />}> Test-01</Button>
-                    <Button size="large" style={styleCardTest} icon={<QuestionCircleTwoTone />}> Test-01</Button>
-                    <Button size="large" style={styleCardTest} icon={<QuestionCircleTwoTone />}> Test-01</Button>
                     <Button size="large" style={styleCardTest} icon={<QuestionCircleTwoTone />}> Test-01</Button>
                   </Menu>
                 </Card>
@@ -234,9 +304,14 @@ export default function Question() {
                 <Card style={{ width: '100%', height: '100vh', overflow: 'auto' }}>
                   <Space><h1 level={1}>Câu hỏi</h1>
                     <Button style={{ color: '#000000' }} shape="round" onClick={showModal}>Tạo câu hỏi</Button>
-                    <Button style={{ color: '#000000' }} shape="round" onClick={handleSearchAllQuestion}>Tìm</Button>
+                    <Button style={{ color: '#000000' }} shape="round" onClick={SearchAllQuestion}>Tìm</Button>
                   </Space>
-                  <Modal title="Tạo câu hỏi" visible={isModalVisible} okText={"Tạo"} cancelText={"Hủy"} onOk={handleOk} onCancel={handleCancel}>
+                  <Modal title="Tạo câu hỏi"
+                    visible={isModalVisible}
+                    okText={"Tạo"}
+                    cancelText={"Hủy"}
+                    onOk={AddQuestion}
+                    onCancel={handleCancel}>
 
                     <p>Câu hỏi</p>
 
@@ -258,7 +333,7 @@ export default function Question() {
                     <p></p>
                     <p>Nội dung</p>
                     <Space>
-                      <Input size='large' onChange={handleImg} />
+                      <Image style={{ width: 100, height: 100 }} src="null"></Image>
                       <Input size='large' maxLength={1000} onChange={handleContent} />
                     </Space>
 
@@ -294,26 +369,34 @@ export default function Question() {
                     </Tabs>
 
                   </Modal>
+                  {currentQuestion.map((question, index) => (
+                  
+                      <Card id={question.id} key={index}
+                        style={{ width: 380, background: '#fafafa' }}
+                        actions={[<PlusOutlined key="add" />,
+                        <EditOutlined key="edit" />,
+                        <CloseOutlined key="delete" onClick={deleteQuestionById} />,]}>
 
-                  <Card style={{ width: 380, background: '#fafafa' }} actions={[<PlusOutlined key="add" />, <EditOutlined key="edit" />, <CloseOutlined key="exit" />,]}>
+                        <Text>{question.content}</Text>
+                        <br></br>
+                        <Radio.Group defaultActiveKey="1" onChange={callback}>
+                          <Radio value={1}> A. -10</Radio>
+                          <Radio value={2}>B. -1</Radio>
+                          <Radio value={3}>C. 5</Radio>
+                          <Radio value={4}>D. 0</Radio>
+                        </Radio.Group>
+                      </Card>
+                
+                  ))
+                  }
+
+                  <Card style={{ width: 380, background: '#fafafa' }}
+                    actions={[<PlusOutlined key="add" />,
+                    <EditOutlined key="edit" />,
+                    <CloseOutlined key="exit" />,]}>
                     <p> Which of the following numbers is fartherest from the number 1 on the number line ?</p>
-                    <Radio.Group defaultActiveKey="1" onChange={callback}>
-                      <Radio value={1}> A. -10</Radio>
-                      <Radio value={2}>B. -1</Radio>
-                      <Radio value={3}>C. 5</Radio>
-                      <Radio value={4}>D. 0</Radio>
-                    </Radio.Group>
-                  </Card>
 
-
-                  <Card style={{ width: 380, background: '#fafafa' }} actions={[<PlusOutlined key="add" />, <EditOutlined key="edit" />, <CloseOutlined key="exit" />,]}>
-                    <p> Which of the following numbers is fartherest from the number 1 on the number line ?</p>
-                    <Radio.Group defaultActiveKey="1" onChange={callback}>
-                      <Radio value={1}> A. -10</Radio>
-                      <Radio value={2}>B. -1</Radio>
-                      <Radio value={3}>C. 5</Radio>
-                      <Radio value={4}>D. 0</Radio>
-                    </Radio.Group>
+                    <Input></Input>
                   </Card>
 
                 </Card>
@@ -327,18 +410,32 @@ export default function Question() {
                   <Row gutter={[8, 8]}>
                     <Col span={12}>
                       <p>Tên bài test</p>
-                      <Form.Item><Input style={{ width: 311 }} placeholder="Nhập tên bài test" /></Form.Item>
+                      <Form.Item>
+                        <Input style={{ width: 311 }}
+                          placeholder="Nhập tên bài test" /></Form.Item>
                       <Row gutter={[48, 8]}>
                         <Col span={12}>
-                          <Radio.Group size="middle" buttonStyle="solid">
-                            <Radio.Button value="B1">B1</Radio.Button>
-                            <Radio.Button value="B2">B2</Radio.Button>
-                            <Radio.Button value="B3">B3</Radio.Button>
-                          </Radio.Group>
+                          {
+                            knowledgerLevel['' + knowledgerType].map((show, value) => {
+                              return (
+                                <Radio.Button size="large" value={value} >{show}</Radio.Button>
+
+                              )
+                            })
+                          }
+                          <DatePicker
+                            onChange={handleDateTest} />
                         </Col>
 
-                        <Col span={12}>
-                          <Input prefix={<FieldTimeOutlined />} style={{ width: 80, padding: '3px 5px' }}></Input>
+                        <Col span={12} >
+                          <Input
+                            placeholder="Thời gian"
+                            prefix={<FieldTimeOutlined />}
+                            style={{ width: 92, padding: '3px 5px' }}></Input>
+                          <p></p>
+                          <Input
+                            style={{ width: '50%' }}
+                            placeholder="Nhập điểm"></Input>
                         </Col>
                       </Row>
 
@@ -346,17 +443,25 @@ export default function Question() {
 
                     <Col span={12}>
                       <Form.Item name="Position">
-                        <p>Tham gia test</p>
-                        <Select mode="tags" style={{ width: '50%', minHeight: 50 }} placeholder="Tags Mode" onChange={handleChange}>
-                          <Option value="1">0001</Option>
-                          <Option value="2">0002</Option>
-                          <Option value="3">0003</Option>
-                          <Option value="4">0004</Option>
-                          <Option value="5">0005</Option>
-                          <Option value="6">0006</Option>
+                        <p>Code test</p>
+                        <Select mode="tags" style={{ width: '50%', minHeight: 50 }}
+                          placeholder="Tags Mode"
+                          onChange={handleCodeTest}>
+
+                          <Option value="BlC001">BlC001</Option>
+                          <Option value="BlC002">BlC002</Option>
+                          <Option value="BlC003">BlC003</Option>
+                          <Option value="BlC004">BlC004</Option>
+                          <Option value="BlC005">BlC005</Option>
+                          <Option value="BlC006">BlC006</Option>
                         </Select>
                         <p></p>
-                        <Button style={{ width: '50%', background: "#262626", color: "#ffffff" }} shape="round" type="primary" icon={<SaveOutlined />} htmlType="submit">Lưu</Button>
+                        <Button
+                          style={{ width: '50%', background: "#262626", color: "#ffffff" }}
+                          shape="round"
+                          type="primary"
+                          icon={<SaveOutlined />}
+                          htmlType="submit">Lưu</Button>
                       </Form.Item>
                     </Col>
 
