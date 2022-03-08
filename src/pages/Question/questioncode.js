@@ -88,7 +88,7 @@ export default function QuestionCode() {
     var config = {
       method: 'get',
       url: 'http://localhost:8080/staff/getalltest',
-
+     
     };
 
     axios(config)
@@ -106,7 +106,7 @@ export default function QuestionCode() {
     var config = {
       method: 'get',
       url: 'http://localhost:8080/staff/getallquestion',
-
+      
     };
 
     axios(config)
@@ -298,13 +298,13 @@ export default function QuestionCode() {
 
 
                   <Card style={{ width: 380, background: '#fafafa' }} actions={[<PlusOutlined key="add" />, <EditOutlined key="edit" />, <CloseOutlined key="exit" />,]}>
-                    <Form>
-
-                      <Text> Which of the following numbers is fartherest from the number 1 on the number line ?</Text>
-
-                      <Input> </Input>
-
-                    </Form>
+                    <p> Which of the following numbers is fartherest from the number 1 on the number line ?</p>
+                    <Radio.Group defaultActiveKey="1" onChange={callback}>
+                      <Radio value={1}> A. -10</Radio>
+                      <Radio value={2}>B. -1</Radio>
+                      <Radio value={3}>C. 5</Radio>
+                      <Radio value={4}>D. 0</Radio>
+                    </Radio.Group>
                   </Card>
 
                 </Card>

@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
+
 import 'antd/dist/antd.css';
 import './listuser.css';
-import { Layout, Menu, Row, Col, Popover, Switch, Card, Button, Tabs, Space, Typography } from 'antd';
+import { Layout, Menu, Row, Col, Card, Button, Tabs, Space, Typography } from 'antd';
 import { UserOutlined, MailOutlined, PhoneOutlined, SearchOutlined, PlusOutlined, FileTextOutlined, CloseOutlined, FilterOutlined } from '@ant-design/icons';
-import { Form, Input, Select, DatePicker } from 'antd';
+import { Form, Input, Select, Switch, Popover, DatePicker } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { NavLink } from 'react-router-dom';
 import Avatar from 'antd/lib/avatar/avatar';
 import CandidateBoard from './candidateboard';
 import CandidateCalendar from './candidatecalendar';
-import { createCandidate } from '../../slices/slicecandidate';
-
-
+import CandidateResult from '../Complete/candidateresult';
 
 
 const { Text } = Typography;
@@ -29,151 +27,174 @@ function onChange(checked) {
   console.log(`switch to ${checked}`);
 }
 
+
+
 const callback = (key) => {
   console.log(key);
 }
 
+const menuContact = (
 
+  <Row gutter={[16, 16]}>
+    <Col span={14}>
+      <p>Liên hệ</p>
+      <Form.Item >
+        <Input style={{ width: '100%' }} placeholder="Gmail" prefix={<MailOutlined />} />
+      </Form.Item>
+      <Form.Item>
+        <Input style={{ width: '100%' }} placeholder="Số điện thoại" prefix={<PhoneOutlined />} />
+      </Form.Item>
+    </Col>
 
-export default function ListUser() {
-  const menuContact = (
+    <Col span={10}>
+      <p>Tùy chọn gửi code</p>
+      <Select style={{ width: '95%' }}>
+        <Option value="sms">Qua SMS</Option>
+        <Option value="gmail">Qua Gmail</Option>
+      </Select>
+      <br />
+      <br />
+      <Text>Tự động trước 1 tiếng</Text>
+      <br />
+      <Switch defaultChecked onChange={onChange} />
+    </Col>
 
-    <Row gutter={[16, 16]}>
-      <Col span={14}>
-        <p>Liên hệ</p>
-        <Form.Item >
-          <Input style={{ width: '100%' }} placeholder="Gmail" prefix={<MailOutlined />} />
-        </Form.Item>
-        <Form.Item>
-          <Input style={{ width: '100%' }} placeholder="Số điện thoại" prefix={<PhoneOutlined />} />
-        </Form.Item>
+    <Col offset={20}>
+      <Button type='primary' shape='round'  >Lưu</Button>
+    </Col>
+  </Row>
+
+)
+
+const PopoverReporter = (
+  <Card style={{ width: 370 }}>
+    <Row>
+      <Col span={4}>
+        <Avatar size={64} icon={<UserOutlined />}></Avatar>
       </Col>
 
-      <Col span={10}>
-        <Form>
-          <p>Tùy chọn gửi code</p>
-          <Form.Item >
-            <Select style={{ width: '95%' }}>
-              <Option value="sms">Qua SMS</Option>
-              <Option value="gmail">Qua Gmail</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item >
-            <Text>Tự động trước 1 tiếng</Text><br></br>
-            <Switch defaultChecked onChange={onChange} />
-          </Form.Item>
-
-        </Form>
-      </Col>
-
-      <Col offset={20}>
-        <Button type='primary' shape='round'  >Lưu</Button>
+      <Col span={18} offset={2}>
+        <Text strong>Tùng Lâm</Text><br></br>
+        <Text>Phòng CN Blockchain</Text><br></br>
+        <Text>Email: <Text underline>tunglam@gmail.com</Text></Text>
       </Col>
     </Row>
+  </Card>
+)
 
-  )
+const popoverCandidate = (
+  <Menu >
+    <Menu.Item key="1" >Chọn</Menu.Item>
+    <Menu.Item key="2" >Gửi code</Menu.Item>
+    <Popover content={menuContact} placement="bottom">
+      <Menu.Item key="3">Xem liên hệ</Menu.Item>
+    </Popover>
+    <Menu.Item key="4" >Thiết lập bài test<NavLink to="/question" /></Menu.Item>
+    <Menu.Item key="5" >Chỉnh sửa thông tin</Menu.Item>
+    <Menu.Item key="6" >Xóa ứng viên</Menu.Item>
+  </Menu>
+)
 
-  const PopoverReporter = (
-    <Card style={{ width: 370 }}>
-      <Row>
-        <Col span={4}>
-          <Avatar size={64} icon={<UserOutlined />}></Avatar>
-        </Col>
+export default function ListUser() {
+  const [name, setName] = useState("");
+  const [room, setRoom] = useState("");
+  const [level, setLevel] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [candidate, setCandidate] = useState([]);
 
-        <Col span={18} offset={2}>
-          <Text strong>Tùng Lâm</Text><br></br>
-          <Text>Phòng CN Blockchain</Text><br></br>
-          <Text>Email: <Text underline>tunglam@gmail.com</Text></Text>
-        </Col>
-      </Row>
-    </Card>
-  )
 
-  const popoverCandidate = (
-    <Menu >
-      <Menu.Item key="1" >Chọn</Menu.Item>
-      <Menu.Item key="2" >Gửi code</Menu.Item>
-      <Popover content={menuContact} placement="bottom">
-        <Menu.Item key="3">Xem liên hệ</Menu.Item>
-      </Popover>
-      <Menu.Item key="4" >Thiết lập bài test<NavLink to="/question" /></Menu.Item>
-      <Menu.Item key="5" >Chỉnh sửa thông tin</Menu.Item>
-      <Menu.Item key="6"  >Xóa ứng viên</Menu.Item>
-    </Menu>
-  )
-  const initialCandidateState = {
-    id: null,
-    name: "",
-    level: "",
-    room: "",
-    email: "",
-    phone: "",
+  const onChangeName = (e) => {
+    const name = e.target.value;
+    setName(name);
   };
 
-  const [candidate, setCandidate] = useState([initialCandidateState]);
-  const [submitted, setSubmitted] = useState(false);
+  const onChangeRoom = (room) => {
+    setRoom(room)
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
-    setCandidate({ ...candidate, [name]: value });
   };
 
-  const handleOptionChange = () => {
-    setCandidate({ ...candidate })
-  }
+  const onChangeLevel = (level) => {
+    setLevel(level)
 
-  const dispatch = useDispatch();
+  };
 
-  const GetListCandidate = () => {
+  const onChangeEmail = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+  };
+
+  const onChangePhone = (e) => {
+    const phone = e.target.value;
+    setPhone(phone);
+  };
+
+
+
+  const hanldeSearchAll = () => {
+
     axios.get('http://localhost:8080/staff/listcandidate')
       .then(function (response) {
-        console.log("Get list candidate")
         setCandidate(response.data)
+        console.log("get list")
+        console.log(candidate)
       })
-
       .catch(function (error) {
         console.log(error);
       });
 
   }
 
-  const AddCandidate = () => {
-    const { name, level, room, phone, email } = candidate;
-    dispatch(createCandidate({ name, level, room, phone, email }))
-      .unwrap()
-      .then(data => {
-        console.log(data)
-        setCandidate({
-          id: data.id,
-          name: data.name,
-          level: data.level,
-          phone: data.phone,
-          email: data.email,
-          position: data.position
-        });
-        setSubmitted(true);
+  const handleAdd = () => {
+    var data = JSON.stringify({
+      "name": name,
+      "level": level,
+      "phone": phone,
+      "email": email,
+      "position": room,
+    });
+
+    var config = {
+      method: 'post',
+      url: 'http://localhost:8080/staff/addcandidate',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        console.log("add success")
       })
-      .catch(e => {
-        console.log(e)
-      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   }
 
-  const newCandidate = () => {
-    setCandidate(initialCandidateState);
-    setSubmitted(false);
-  }
 
-  const DeleteCandiate = (id) => {
+  const handleDelete = (id) => {
     var axios = require('axios');
+    var data = JSON.stringify({
+      "name": "lam",
+      "level": 1,
+      "phone": "091231231",
+      "email": "abc@gmail.com",
+      "position": "java"
+    });
+
     var config = {
       method: 'delete',
       url: `http://localhost:8080/staff/delete/${id}`,
       headers: {
-        "Content-type": "application/json"
-      }
+        'Content-Type': 'application/json',
+      },
+      data: data
     };
-
+    const post = candidate.filter(item => item.id !== id)
+    setCandidate(post)
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
@@ -182,6 +203,7 @@ export default function ListUser() {
         console.log(error);
       });
   }
+
   return (
     <Layout>
       <Header style={styleHeader} className="header">
@@ -210,25 +232,13 @@ export default function ListUser() {
         <Card>
           <Sider width={500} theme="light" className="site-layout-background" style={styleSider}>
             <br></br>
-            <h1><Avatar
-              style={{ color: '#000000', backgroundColor: '#ffffff' }}
-              shape="square"
-              size={64}
-              icon={<FilterOutlined />}>
-            </Avatar>Bộ Lọc</h1>
+            <h1><Avatar style={{ color: '#000000', backgroundColor: '#ffffff' }} shape="square" size={64} icon={<FilterOutlined />}></Avatar>Bộ Lọc</h1>
             <Form.Item style={{ width: '95%' }}><p>Tên</p>
-              <Input
-                name='name'
-                value={candidate.name || ''}
-                onChange={handleInputChange}
-                placeholder="Nhập tên"
-                prefix={<UserOutlined />} />
+              <Input value={name} onChange={onChangeName} placeholder="Nhập tên" prefix={<UserOutlined />} />
             </Form.Item>
 
-            <Form.Item name="room" style={{ width: '95%' }}><p>Phòng ban</p>
-              <Select
-                onChange={handleOptionChange}
-                placeholder="Lựa chọn" >
+            <Form.Item name="Room" style={{ width: '95%' }}><p>Phòng ban</p>
+              <Select onChange={onChangeRoom} placeholder="Lựa chọn" >
                 <Option value="Java">Java</Option>
                 <Option value="Python">Python</Option>
                 <Option value="Golang">Golang</Option>
@@ -239,11 +249,8 @@ export default function ListUser() {
 
             </Form.Item>
 
-            <Form.Item name="level"><p>Level</p>
-              <Select
-                onChange={handleOptionChange}
-                style={{ width: '95%' }}
-                placeholder="level" >
+            <Form.Item name="Level"><p>Level</p>
+              <Select onChange={onChangeLevel} style={{ width: '95%' }} placeholder="level" >
                 <Option value="1">Fresher</Option>
                 <Option value="2">Junior</Option>
                 <Option value="3">Senior</Option>
@@ -262,23 +269,11 @@ export default function ListUser() {
                 <p>Liên lạc</p>
                 <Form.Item name="Contact">
                   <Form.Item >
-                    <Input
-                      name="email"
-                      value={candidate.email || ''}
-                      onChange={handleInputChange}
-                      placeholder="Email"
-                      style={{ width: '89%' }}
-                      prefix={<MailOutlined />} />
+                    <Input value={email} onChange={onChangeEmail} placeholder="Email" style={{ width: '89%' }} prefix={<MailOutlined />} />
                   </Form.Item>
 
                   <Form.Item>
-                    <Input
-                      name="phone"
-                      value={candidate.phone || ''}
-                      onChange={handleInputChange}
-                      placeholder="Số điện thoại"
-                      style={{ width: '89%' }}
-                      prefix={<PhoneOutlined />} />
+                    <Input value={phone} onChange={onChangePhone} placeholder="Số điện thoại" style={{ width: '89%' }} prefix={<PhoneOutlined />} />
                   </Form.Item>
 
                 </Form.Item>
@@ -289,25 +284,16 @@ export default function ListUser() {
               <Row>
                 <Col span={12} offset={6}>
                   <Space size={[32, 16]}>
-                    <Button
-                      style={{ width: '120%', background: '#bfbfbf' }}
-                      htmlType="submit" shape="round"
-                      icon={<SearchOutlined />}
-                      onClick={GetListCandidate}>Tìm</Button>
-                    <Button
-                      style={{ width: '120%' }}
-                      htmlType="submit"
-                      shape="round"
-                      icon={<PlusOutlined />}
-                      onClick={AddCandidate}>Thêm</Button>
+                    <Button style={{ width: '120%', background: '#bfbfbf' }} htmlType="submit" shape="round" icon={<SearchOutlined />} onClick={hanldeSearchAll}>Tìm</Button>
+                    <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />} onClick={handleAdd}>Thêm</Button>
                   </Space>
                 </Col>
               </Row>
 
-              {/* <Col offset={6}>
+              <Col offset={6}>
                 <p></p>
                 <Button danger style={{ width: '60%', background: '#fafafa' }} htmlType="reset" shape="round" icon={<CloseOutlined />} >Xóa</Button>
-              </Col> */}
+              </Col>
 
 
             </Form.Item>
@@ -318,29 +304,51 @@ export default function ListUser() {
           <Content style={styleContent}>
             <h1><Avatar style={{ color: '#000000', backgroundColor: '#ffffff' }} shape="square" size={64} icon={<FileTextOutlined />}></Avatar>Danh Sách</h1>
             <Tabs defaultActiveKey="tabList" size={'large'} type="card" onChange={callback}>
-              <TabPane tab="tabBoard" tab="Bảng" key="tabBoard">
-                <Tabs defaultActiveKey="tabTimeline" size={'large'} type="card" onChange={callback}>
-                  <TabPane tab="tabSoon" tab="Sắp tới" key="tabSoon">
-                    <Row>
+              <TabPane tab="Bảng" key="tabBoard">
 
-                    </Row>
-                  </TabPane>
+                {candidate.map((post, index) => {
+                  return (
+                    <Space>
+                      <Col span={8} >
+                        <p></p>
+                        <Popover placement="right" trigger="click">
+                          <Card title={post.name} style={styleCard}>
+                            <Row>
+                              <Col span={14}>
+                                <Form key={index}>
+                                  <Form.Item name="code" label={<Text strong>Code</Text>}>{candidate.code}</Form.Item>
+                                  <Form.Item name="room" label={<Text strong>Phòng ban</Text>}>{post.room}</Form.Item>
+                                  <Form.Item name="position" label={<Text strong>Vị trí</Text>}>{post.position}</Form.Item>
+                                  <Form.Item name="level" label={<Text strong>Level</Text>}>{post.level}</Form.Item>
+                                  <Form.Item name="reporter" label={<Text strong>Reporter</Text>}>
+                                    <Popover content={PopoverReporter} trigger="hover" placement="bottom">
+                                      <Text >Tung Lam</Text>
+                                    </Popover>
+                                  </Form.Item>
+                                </Form>
+                              </Col>
 
-                  <TabPane tab="tabToday" tab="Hôm nay" key="tabToday">
-                    <Row>
-                      <CandidateBoard />
-                    </Row>
-                  </TabPane>
+                              <Col span={10}>
+                                <DatePicker disabled /><p></p>
+                                <Button danger
+                                  style={{ width: '60%', background: '#fafafa' }}
+                                  htmlType="reset"
+                                  shape="round"
+                                  onClick={(e) => handleDelete(post.id, e)}
+                                  icon={<CloseOutlined />} >Xóa</Button>
+                              </Col>
+                            </Row>
+                          </Card>
+                        </Popover>
+                      </Col>
+                    </Space>
+                  )
+                })
+                }
 
-                  <TabPane tab="tabLate" tab="Quá hạn" key="tabLate">
-                    <Row>
-                      <CandidateBoard />
-                    </Row>
-                  </TabPane>
-                </Tabs>
               </TabPane>
 
-              <TabPane tab="tabCalendar" tab="Lịch" key="tabCalendar">
+              <TabPane tab="Lịch" key="tabCalendar">
                 <Row>
                   <Content>
                     <Row >

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import 'antd/dist/antd.css';
 import './listuser.css';
-import { Menu, Row, Col, Popover, Card, Button, Space, Switch, Typography, Avatar } from 'antd';
-import { MailOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons';
+import { Menu, Row, Col, Popover, Card, Button,  Space, Switch, Typography , Avatar } from 'antd';
+import { MailOutlined, PhoneOutlined , UserOutlined} from '@ant-design/icons';
 import { Form, Input, Select, DatePicker } from 'antd';
 
 import { NavLink } from 'react-router-dom';
@@ -50,10 +50,10 @@ const menuContact = (
 )
 
 const PopoverReporter = (
-    <Card style={{ width: 370 }}>
+    <Card style={{width:370}}>
         <Row>
             <Col span={4}>
-                <Avatar size={64} icon={<UserOutlined />}></Avatar>
+                <Avatar size={64} icon={<UserOutlined/>}></Avatar>
             </Col>
 
             <Col span={18} offset={2}>
@@ -125,15 +125,15 @@ const CandidateBoard = () => {
                                     <Form.Item name="position" label={<Text strong>Vị trí</Text>}>{candidate.position}</Form.Item>
                                     <Form.Item name="level" label={<Text strong>Level</Text>}>{candidate.level}</Form.Item>
                                     <Form.Item name="reporter" label={<Text strong>Reporter</Text>}>
-                                        <Popover content={PopoverReporter} trigger="hover" placement="bottom">
-                                            <Text >{candidate.reporter}</Text>
-                                        </Popover>
-                                    </Form.Item>
+                                    <Popover content={PopoverReporter} trigger="hover" placement="bottom">
+                                        <Text >{candidate.reporter}</Text>
+                                    </Popover>
+                                </Form.Item>
                                 </Form>
                             </Col>
 
                             <Col span={10}>
-                                <DatePicker disabled />
+                                <DatePicker disabled/>
 
                             </Col>
                         </Row>

@@ -1,55 +1,28 @@
-import http from "../http-common"
+import axios from "axios";
+const TIMEOUT = 1 * 60 * 1000;
+const  SERVER_API_URL = "http://localhost:8080/";
 
-const getAll = () => {
-    return http.get("/staff/getalltest");
+export const api = axios.create({
+    baseURL: SERVER_API_URL,
+    timeout: TIMEOUT,
+})
+
+const getListQuestion = () => {
+    return api.get("/staff/getallquestion");
 }
 
-const getTestByLevel = (level) => {
-    return http.get(`/staff/gettestbylevel/${level}`);
+const addQuestion = data => {
+    return api.post("/staff/addquestion", data);
 }
 
-const getTestByName = (name) => {
-    return http.get(`/staff/gettestbyname/${name}`);
+const deleteQuestion = id => {
+    return api.delete(`staff/deletequestion/${id}`)
 }
-
-const getTestByCode = (code) => {
-    return http.get(`/staff/gettestbycode/${code}`);
-}
-
-const getTestBySubject = (subject) => {
-    return http.get(`/staff/gettestbysubject/${subject}`);
-}
-
-const getTestById = (id) => {
-    return http.get(`/staff/gettestbyid/${id}`);
-}
-
-const getTestByDone = (done) => {
-    return http.get(`/staff/gettestbydone/${done}`);
-}
-
-const getTestByCandidated = (idCandidate) => {
-    return http.get(`/staff/gettestbycandidateid/${idCandidate}`);
-}
-
-const deleteTestById = (id) => {
-    return http.delete(`/staff/deletetest/${id}`);
-}
-
-const addQuestion = (data) => {
-    return http.post("/staff/addquestion", data)
-}
-
-const editQuestion = (id, data) => {
-    return http.put(`/staff/editquestion/${id}`, data)
-}
-
-
 
 const QuestionService = {
-    getAll, getTestByLevel, getTestByName, getTestByCode, getTestBySubject,
-    getTestById, getTestByDone, getTestByCandidated, deleteTestById, editQuestion,
-    addQuestion
-};
+    getListQuestion,
+    addQuestion,
+    deleteQuestion
+}
 
 export default QuestionService;
