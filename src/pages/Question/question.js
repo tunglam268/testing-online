@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import './question.css';
-import { Layout, Menu, Row, Modal, Col, Image, Button, Card, Tabs, Space, Typography, DatePicker } from 'antd';
-import { SearchOutlined, QuestionOutlined, QuestionCircleTwoTone, SaveOutlined, FieldTimeOutlined, EditOutlined, PlusOutlined, UserOutlined, CloseOutlined } from '@ant-design/icons';
+import { Layout, Menu, Row, Modal, Col, Button, Card, Space, Typography, DatePicker } from 'antd';
+import { SearchOutlined, QuestionCircleTwoTone, SaveOutlined, UserOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Radio, } from 'antd';
 import { NavLink } from 'react-router-dom';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -11,8 +11,6 @@ import AddQuestion from './AddQuestion';
 
 const { Text } = Typography;
 const { Header, Content } = Layout;
-const { TextArea } = Input;
-const { TabPane } = Tabs;
 const { Option } = Select;
 const style = { background: '#ffffff', padding: '8px 0' };
 const styleContent = { background: '#ffffff', padding: '0 20px' };
@@ -112,12 +110,12 @@ export default function Question() {
       },
       data: data
     }
-    const post = listTest.filter(item => item.id !== id)
-    setListTest(post)
+
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         console.log(response.data)
+        alert(id)
       })
       .catch(function (error) {
         console.log(error);
@@ -233,9 +231,10 @@ export default function Question() {
                     </Row>
                   </p>
 
-                  <Menu style={{ height: '50vh', overflow: 'auto' }}>
+                  <Form style={{ height: '50vh', overflow: 'auto' }}>
                     {listTest.map((q, index) => {
                       return (
+
                         <Button onClick={(e) => showModal(q.id, e)} size="large"
                           style={styleCardTest} icon={<QuestionCircleTwoTone />}>{q.name}
                         </Button>
@@ -297,14 +296,16 @@ export default function Question() {
                         </Modal>
                       )
                     })}
-                  </Menu>
+                  </Form>
                 </Card>
               </div>
             </Col>
 
             <Col className="question" span={6}>
               <div style={style}>
+
                 <AddQuestion />
+
               </div>
             </Col>
 

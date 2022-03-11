@@ -120,9 +120,8 @@ const CandidateResult = () => {
     }
     return (
         candidates.map((candidate, index) => (
-            <div>
-                <br></br>
-                <Card style={{ background: "#fafafa", width: '100%', minHeight: 300 }}>
+         
+                <Card style={{ background: "#fafafa", width: '195%', minHeight: 300 }}>
                     <Row>
                         <Col span={8} >
                             <Form key={index}>
@@ -165,7 +164,7 @@ const CandidateResult = () => {
                         </Col>
                     </Row>
                 </Card>
-            </div>
+ 
         ))
 
     );

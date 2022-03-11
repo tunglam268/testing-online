@@ -12,7 +12,6 @@ const { Option } = Select;
 
 
 export default function AddQuestion() {
-
     const [isModalVisibleAdd, setIsModalVisibleAdd] = useState(false);
     const [isModalVisibleEdit, setIsModalVisibleEdit] = useState(false);
     const [type, setType] = useState("");
@@ -20,7 +19,6 @@ export default function AddQuestion() {
     const [content, setContent] = useState("");
     const [level, setLevel] = useState("");
     const [img, setImg] = useState("");
-    const [id, setId] = useState("");
     const [question, setQuestion] = useState([])
 
     const hanldeSubject = (value) => {
@@ -137,34 +135,31 @@ export default function AddQuestion() {
             });
     }
 
-    // const handleGetQuestionById = (id) => {
-    //     var axios = require('axios');
-    //     var config = {
-    //         method: 'get',
-    //         url: `http://localhost:8080/staff/getquestionbyid/${id}`,
-    //         headers: {
-    //             'Content-Type': 'application/json',
+    const handleGetQuestionById = (id) => {
+        var axios = require('axios');
+        var config = {
+            method: 'get',
+            url: `http://localhost:8080/staff/getquestionbyid/${id}`,
+            headers: {
+                'Content-Type': 'application/json',
 
-    //         },
+            },
 
-    //     };
-    //     const post = question.filter(item => item.id !== id)
-    //     setQuestion(post)
-    //     axios(config)
-    //         .then(function (response) {
-    //             console.log(JSON.stringify(response.data));
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
+        };
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
-    // useEffect(() => {
-    //     handleGetQuestionById(question.id);
-    // }, [question.id]);
+    useEffect(() => {
+        handleGetQuestionById(question.id);
+    }, [question.id]);
 
     const hanldeEditQuestion = (id) => {
-        console.log(id, "id ")
         var data = JSON.stringify({
             "type": type,
             "subject": subject,
@@ -172,7 +167,7 @@ export default function AddQuestion() {
             "level": level,
             "img": img
         });
-        console.log(data)
+        console.log(id,"----------------")
         var axios = require('axios')
         var config = {
             method: 'PUT',
@@ -183,14 +178,11 @@ export default function AddQuestion() {
             },
             data: data
         }
-        const post = question.filter(item => item.id !== id)
-        console.log(id)
-        console.log(post)
-        setQuestion(post)
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
                 console.log(response.data)
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -262,8 +254,9 @@ export default function AddQuestion() {
 
             {question.map((post, index) => {
                 return (
+                    
                     <Card style={{ width: 380, background: '#fafafa' }}
-                        actions={[<PlusOutlined key="add" onClick={showModal} title={"Thêm câu trả lời"} />,
+                        actions={[<PlusOutlined key="add" />,
                         <EditOutlined key="edit" onClick={(e) => showModalEdit(post.id, e)} />,
                         <CloseOutlined key="delete" onClick={(e) => handleDeleteQuestion(post.id, e)} />,]}>
                         <p> {post.content}</p>

@@ -1,6 +1,6 @@
 import Layout, { Content, Header } from "antd/lib/layout/layout";
 import Sider from "antd/lib/layout/Sider";
-import React from 'react';
+import React , {useState} from 'react';
 import 'antd/dist/antd.css';
 import './complete.css';
 import { Menu, Row, Col, Card, Button, Space, Typography } from 'antd';
@@ -22,21 +22,14 @@ const styleSider = { background: '#ffffff', padding: '20px 10px' }
 
 
 export default function Complete() {
+    const [candidate, setCandidate] = useState([]);
+    const hanldeSearch = () => {
 
-    const handleSearch = () => {
-        var axios = require('axios');
-
-        var config = {
-            method: 'get',
-            url: 'http://localhost:8080/staff/getallres',
-            headers: {
-
-            }
-        };
-
-        axios(config)
+        axios.get('http://localhost:8080/staff/listcandidate')
             .then(function (response) {
-                console.log(JSON.stringify(response.data));
+                setCandidate(response.data)
+                console.log("get list")
+                console.log(candidate)
             })
             .catch(function (error) {
                 console.log(error);
@@ -72,7 +65,9 @@ export default function Complete() {
             <Layout>
                 <Card style={{ width: 470 }}>
                     <Sider width={500} theme="light" className="site-layout-background" style={styleSider}>
-                        <Form.Item name="Name" style={{ width: '80%' }}><p>Tên</p><Input placeholder="Nhập tên" prefix={<UserOutlined />} /></Form.Item>
+                        <Form.Item name="Name" style={{ width: '80%' }}><p>Tên</p>
+                            <Input placeholder="Nhập tên" prefix={<UserOutlined />} />
+                        </Form.Item>
                         <Form.Item name="Room" style={{ width: '80%' }}><p>Phòng ban</p>
                             <Select placeholder="Lựa chọn" >
                                 <Option value="1">Java</Option>
@@ -104,7 +99,7 @@ export default function Complete() {
                         <Row>
                             <Col span={12} offset={4}>
                                 <Space size={[30, 16]}>
-                                    <Button style={{ width: '120%' }} onClick={handleSearch} type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
+                                    <Button style={{ width: '120%' }} onClick={hanldeSearch} type="primary" htmlType="submit" shape="round" icon={<SearchOutlined />}>Tìm</Button>
                                     <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<CloseOutlined />}>Xóa Lọc</Button>
                                 </Space>
                             </Col>
@@ -117,7 +112,7 @@ export default function Complete() {
                         <Card style={{ width: '100%', minHeight: 1000 }}>
                             <Space size={[16, 16]} wrap>
 
-                                <CandidateResult />
+                                <CandidateResult/>
                             </Space>
                         </Card>
                     </Content>

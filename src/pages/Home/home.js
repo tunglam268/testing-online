@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import './home.css';
 import { Layout, Button, Row, Card, Col, Form, Image, Menu, Input, Space } from 'antd';
@@ -8,9 +8,6 @@ import Title from 'antd/lib/typography/Title';
 
 const { Header, Content } = Layout;
 const styleHeader = { background: '#ffffff' }
-const onFinish = () => {
-  window.location.href = '/tutorial'
-};
 
 export default function Home() {
   const [code, setCode] = useState("");
@@ -19,6 +16,30 @@ export default function Home() {
     const code = e.target.value;
     setCode(code);
   };
+
+  const joinTest = () => {
+    var axios = require('axios');
+    var qs = require('qs');
+    var data = qs.stringify({
+      'code': code
+    });
+    var config = {
+      method: 'post',
+      url: 'http://localhost:8080/jointest',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data: data
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   return (
     <Layout>
       <Header style={styleHeader} className="header">
@@ -44,10 +65,14 @@ export default function Home() {
                 <Row>
                   <Col span={12} offset={1}>
                     <Title level={5}>Nhập code của bạn để vào test</Title>
-                    <Form onFinish={onFinish}>
+                    <Form>
                       <Space>
-                        <Input style={{ width: '100%' }} value={code} onChange={onChangeCodeCandidate} placeholder="Nhập code vào test"></Input>
-                        <Button type="primary" shape="round" htmlType="submit" icon={<ArrowRightOutlined />}><NavLink to="/tutorial" /></Button>
+                        <Input style={{ width: '100%' }}
+                          value={code} onChange={onChangeCodeCandidate}
+                          
+                          placeholder="Nhập code vào test"></Input>
+                        <Button type="primary"
+                          shape="round" onClick={joinTest} htmlType="submit" icon={<ArrowRightOutlined />}></Button>
                       </Space>
                     </Form>
                   </Col>

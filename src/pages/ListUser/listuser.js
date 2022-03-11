@@ -8,9 +8,8 @@ import { Form, Input, Select, Switch, Popover, DatePicker } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { NavLink } from 'react-router-dom';
 import Avatar from 'antd/lib/avatar/avatar';
-import CandidateBoard from './candidateboard';
 import CandidateCalendar from './candidatecalendar';
-import CandidateResult from '../Complete/candidateresult';
+
 
 
 const { Text } = Typography;
@@ -259,41 +258,38 @@ export default function ListUser() {
 
             <Row gutter={[8, 8]}>
               <Col span={12}>
-                <p>Lịch</p>
-                <Form.Item name="DatePicker">
-                  <DatePicker />
+                <p>Liên lạc</p>
+                <Form.Item >
+                  <Input value={email} onChange={onChangeEmail}
+                    placeholder="Email" style={{ width: '89%' }} prefix={<MailOutlined />} />
                 </Form.Item>
               </Col>
 
               <Col span={12}>
-                <p>Liên lạc</p>
-                <Form.Item name="Contact">
-                  <Form.Item >
-                    <Input value={email} onChange={onChangeEmail} placeholder="Email" style={{ width: '89%' }} prefix={<MailOutlined />} />
-                  </Form.Item>
-
+                <p></p>
+               <br></br>            
                   <Form.Item>
-                    <Input value={phone} onChange={onChangePhone} placeholder="Số điện thoại" style={{ width: '89%' }} prefix={<PhoneOutlined />} />
-                  </Form.Item>
-
-                </Form.Item>
+                    <Input value={phone} onChange={onChangePhone}
+                      placeholder="Số điện thoại" style={{ width: '89%' }} prefix={<PhoneOutlined />} />
+                  </Form.Item>           
               </Col>
             </Row>
 
             <Form.Item>
-              <Row>
-                <Col span={12} offset={6}>
-                  <Space size={[32, 16]}>
-                    <Button style={{ width: '120%', background: '#bfbfbf' }} htmlType="submit" shape="round" icon={<SearchOutlined />} onClick={hanldeSearchAll}>Tìm</Button>
-                    <Button style={{ width: '120%' }} htmlType="submit" shape="round" icon={<PlusOutlined />} onClick={handleAdd}>Thêm</Button>
-                  </Space>
-                </Col>
-              </Row>
+              <Form>
+                <Form.Item><Button style={{ width: '60%', background: '#bfbfbf' }}
+                  htmlType="submit" shape="round" icon={<SearchOutlined />}
+                  onClick={hanldeSearchAll}>Danh sach ung vien</Button></Form.Item>
+                <Form.Item>
+                  <Button style={{ width: '60%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}
+                    onClick={handleAdd}>Thêm</Button>
+                </Form.Item>
 
-              <Col offset={6}>
-                <p></p>
-                <Button danger style={{ width: '60%', background: '#fafafa' }} htmlType="reset" shape="round" icon={<CloseOutlined />} >Xóa</Button>
-              </Col>
+                <Form.Item>
+                  <Button danger style={{ width: '60%', background: '#fafafa' }}
+                    htmlType="reset" shape="round" icon={<CloseOutlined />} >Xóa</Button>
+                </Form.Item>
+              </Form>
 
 
             </Form.Item>
@@ -317,9 +313,10 @@ export default function ListUser() {
                               <Col span={14}>
                                 <Form key={index}>
                                   <Form.Item name="code" label={<Text strong>Code</Text>}>{candidate.code}</Form.Item>
-                                  <Form.Item name="room" label={<Text strong>Phòng ban</Text>}>{post.room}</Form.Item>
                                   <Form.Item name="position" label={<Text strong>Vị trí</Text>}>{post.position}</Form.Item>
                                   <Form.Item name="level" label={<Text strong>Level</Text>}>{post.level}</Form.Item>
+                                  <Form.Item name="email" label={<Text strong>Email</Text>}>{post.email}</Form.Item>
+                                  <Form.Item name="phone" label={<Text strong>Phone</Text>}>{post.phone}</Form.Item>
                                   <Form.Item name="reporter" label={<Text strong>Reporter</Text>}>
                                     <Popover content={PopoverReporter} trigger="hover" placement="bottom">
                                       <Text >Tung Lam</Text>
