@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import './question.css';
-import { Layout, Menu, Row, Modal, Col, Button, Card, Space, Typography, DatePicker } from 'antd';
-import { SearchOutlined, QuestionCircleTwoTone, SaveOutlined, UserOutlined } from '@ant-design/icons';
+import { Layout, Menu, Row, Modal, Col, Button, Card, Space, Typography, DatePicker, Checkbox } from 'antd';
+import { SearchOutlined, SaveOutlined, UserOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Radio, } from 'antd';
 import { NavLink } from 'react-router-dom';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -14,7 +14,8 @@ const { Header, Content } = Layout;
 const { Option } = Select;
 const style = { background: '#ffffff', padding: '8px 0' };
 const styleContent = { background: '#ffffff', padding: '0 20px' };
-const styleCardTest = { background: '#fafafa', minHeight: 100, width: '100%' };
+
+const styleTest = { background: '#fafafa', minHeight: 1000, width: '100%' };
 const styleHeader = { background: '#ffffff' }
 
 
@@ -29,18 +30,30 @@ export default function Question() {
   const [nameTest, setNameTest] = useState("")
   const [codeTest, setCodeTest] = useState("")
   const [listTest, setListTest] = useState([])
+  const [candidate, setCandidate] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalAddTtoC, setisModalAddTtoC] = useState(false);
+  const [valueC, setValueC] = useState()
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+  const onValueC = e => {
+    setValueC(e)
+    console.log(valueC)
+  }
 
-  const handleOk = () => {
-    setIsModalVisible(false);
+  const showModal = (id) => {
+    setIsModalVisible(id);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+
+  const showModalQtoT = (id) => {
+    setisModalAddTtoC(id);
+  };
+
+  const handleCancelQtoT = () => {
+    setisModalAddTtoC(false);
   };
 
   const onChangeCodeTest = (e) => {
@@ -88,6 +101,23 @@ export default function Question() {
 
 
   }
+
+  const hanldeSearchAll = () => {
+    var axios = require('axios');
+    axios.get('http://localhost:8080/staff/listcandidate')
+      .then(function (response) {
+        setCandidate(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
+
+  useEffect(() => {
+    setCandidate(hanldeSearchAll())
+  }, []);
+
   const handleEditTest = (id) => {
     var data = JSON.stringify({
       "subject": subject,
@@ -177,7 +207,24 @@ export default function Question() {
 
   }
 
+  const addQtoT = (id) => {
+    var axios = require('axios');
 
+    var config = {
+      method: 'put',
+      url: `http://localhost:8080/staff/addtestforcandidate/${id}/${valueC}`,
+    };
+    console.log(id , "id")
+    console.log(valueC , "valueC")
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
 
   return (
     <Layout>
@@ -225,23 +272,51 @@ export default function Question() {
                         <Col span={4}>
                           <Button style={{ background: '#292929', color: '#ffffff' }}
                             onClick={handleSearchAllTest}
-                            shape="round" htmlType="submit" icon={<SearchOutlined />}>Tìm</Button>
+                            shape="round" htmlType="submit" icon={<SearchOutlined />}>Danh sách</Button>
                         </Col>
                       </Space>
                     </Row>
                   </p>
 
                   <Form style={{ height: '50vh', overflow: 'auto' }}>
-                    {listTest.map((q, index) => {
+                    {listTest.map((q) => {
                       return (
+                        <div>
+                          <br></br>
+                          <Card style={{ width: 370, background: '#fafafa' }}
+                            title={q.name}
+                            actions={
+                              [<PlusOutlined key="add" onClick={(p) => showModalQtoT(q.id, p)} />,
+                              <EditOutlined key="edit" onClick={(p) => showModal(q.id, p)} />,]}>
+                            <Row>
+                              <Col span={12}>
+                                <h3>Level : {q.level}</h3>
+                              </Col>
+                              <Col span={12}>
+                                <h3>Subject : {q.level}</h3>
+                              </Col>
+                            </Row>
 
-                        <Button onClick={(e) => showModal(q.id, e)} size="large"
-                          style={styleCardTest} icon={<QuestionCircleTwoTone />}>{q.name}
-                        </Button>
+                          </Card>
+                          <Modal
+                            title={<h3>Thêm câu hỏi cho ứng viên {q.name}</h3>}
+                            visible={isModalAddTtoC === q.id}
+                            onOk={(e)=>addQtoT(q.id,e)} okText={"Thêm"}
+                            onCancel={handleCancelQtoT} cancelText={"Hủy"}>
+                            {candidate && candidate.map(post => {
+                              return (
+                                <Checkbox.Group onChange={onValueC}>
+                                  <Checkbox value={post.id}>
+                                    Name: {post.name} Level: {post.level}</Checkbox>
+                                </Checkbox.Group>
+                              )
+                            })}
+                          </Modal>
+                        </div>
 
                       )
                     })}
-                    {listTest.map((q, index) => {
+                    {listTest.map((q) => {
                       return (
                         <Modal footer={[
                           <Button key="back" onClick={handleCancel}>
@@ -252,17 +327,22 @@ export default function Question() {
                             Sửa
                           </Button>,
                           <Button
+                            danger
+                            type="primary"
                             onClick={(e) => handleDeleteTest(q.id, e)}
                           >
                             Xóa
                           </Button>,]}
                           title="Test"
-                          visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                          visible={isModalVisible === q.id}
+                          onCancel={handleCancel}>
 
                           <Row gutter={[8, 8]}>
                             <Col span={12}>
-                              <Form.Item><Input onChange={onChangeNameTest}
-                                style={{ width: 150 }} placeholder={q.name} /></Form.Item>
+                              <Form.Item>
+                                <Input onChange={onChangeNameTest}
+                                  style={{ width: 150 }} placeholder={q.name} />
+                              </Form.Item>
                               <DatePicker placeholder={q.date} onChange={onChangeDate}></DatePicker><p></p>
                               <DatePicker style={{ width: 150 }} placeholder={q.time} onChange={onChangeTime} picker="time"></DatePicker>
 
@@ -350,30 +430,9 @@ export default function Question() {
                       </Form.Item>
                     </Col>
 
-                    {/* <p></p>
-                    <Card style={{ width: 800, background: '#fafafa' }} actions={[<CloseOutlined key="exit" />,]}>
-                      <p> The executives pointed to immigration ______ the biggest drivers of the domestic market</p>
-                      <Radio.Group defaultActiveKey="1" onChange={callback}>
-                        <Radio value={1}> A. Rather</Radio><br></br>
-                        <Radio value={2}>B. As one of</Radio><br></br>
-                        <Radio value={3}>C. Resulting in</Radio><br></br>
-                        <Radio value={4}>D. As leading</Radio><br></br>
-                      </Radio.Group>
-                    </Card> */}
+                    <Card style={styleTest}>
 
-                    {/* <Card style={{ width: 800, background: '#fafafa' }} actions={[<CloseOutlined key="exit" />,]}>
-
-                      <Row>
-                        <Col span={12}>
-                          <p> The executives pointed to immigration ______ the biggest drivers of the domestic market</p>
-                          <TextArea width={300} height={300} maxLength={1000} onChange={onChange} />
-                        </Col>
-
-                        <Col span={6} offset={4}>
-                          <Image width={150} height={150} src="error" fallback="data:image/png;base64,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" />
-                        </Col>
-                      </Row>
-                    </Card> */}
+                    </Card>
                   </Row>
                 </Card>
               </div>

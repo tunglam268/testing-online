@@ -32,39 +32,6 @@ const callback = (key) => {
   console.log(key);
 }
 
-const menuContact = (
-
-  <Row gutter={[16, 16]}>
-    <Col span={14}>
-      <p>Liên hệ</p>
-      <Form.Item >
-        <Input style={{ width: '100%' }} placeholder="Gmail" prefix={<MailOutlined />} />
-      </Form.Item>
-      <Form.Item>
-        <Input style={{ width: '100%' }} placeholder="Số điện thoại" prefix={<PhoneOutlined />} />
-      </Form.Item>
-    </Col>
-
-    <Col span={10}>
-      <p>Tùy chọn gửi code</p>
-      <Select style={{ width: '95%' }}>
-        <Option value="sms">Qua SMS</Option>
-        <Option value="gmail">Qua Gmail</Option>
-      </Select>
-      <br />
-      <br />
-      <Text>Tự động trước 1 tiếng</Text>
-      <br />
-      <Switch defaultChecked onChange={onChange} />
-    </Col>
-
-    <Col offset={20}>
-      <Button type='primary' shape='round'  >Lưu</Button>
-    </Col>
-  </Row>
-
-)
-
 const PopoverReporter = (
   <Card style={{ width: 370 }}>
     <Row>
@@ -81,18 +48,6 @@ const PopoverReporter = (
   </Card>
 )
 
-const popoverCandidate = (
-  <Menu >
-    <Menu.Item key="1" >Chọn</Menu.Item>
-    <Menu.Item key="2" >Gửi code</Menu.Item>
-    <Popover content={menuContact} placement="bottom">
-      <Menu.Item key="3">Xem liên hệ</Menu.Item>
-    </Popover>
-    <Menu.Item key="4" >Thiết lập bài test<NavLink to="/question" /></Menu.Item>
-    <Menu.Item key="5" >Chỉnh sửa thông tin</Menu.Item>
-    <Menu.Item key="6" >Xóa ứng viên</Menu.Item>
-  </Menu>
-)
 
 export default function ListUser() {
   const [name, setName] = useState("");
@@ -267,28 +222,33 @@ export default function ListUser() {
 
               <Col span={12}>
                 <p></p>
-               <br></br>            
-                  <Form.Item>
-                    <Input value={phone} onChange={onChangePhone}
-                      placeholder="Số điện thoại" style={{ width: '89%' }} prefix={<PhoneOutlined />} />
-                  </Form.Item>           
+                <br></br>
+                <Form.Item>
+                  <Input value={phone} onChange={onChangePhone}
+                    placeholder="Số điện thoại" style={{ width: '89%' }} prefix={<PhoneOutlined />} />
+                </Form.Item>
               </Col>
             </Row>
 
             <Form.Item>
-              <Form>
-                <Form.Item><Button style={{ width: '60%', background: '#bfbfbf' }}
-                  htmlType="submit" shape="round" icon={<SearchOutlined />}
-                  onClick={hanldeSearchAll}>Danh sach ung vien</Button></Form.Item>
-                <Form.Item>
-                  <Button style={{ width: '60%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}
-                    onClick={handleAdd}>Thêm</Button>
-                </Form.Item>
 
-                <Form.Item>
-                  <Button danger style={{ width: '60%', background: '#fafafa' }}
-                    htmlType="reset" shape="round" icon={<CloseOutlined />} >Xóa</Button>
-                </Form.Item>
+              <Form>
+                <Row gutter={[8, 64]}>
+                  <Col span={12}>
+                    <Form.Item>
+                      <Button style={{ width: '60%', background: '#bfbfbf' }}
+                        htmlType="submit" shape="round" icon={<SearchOutlined />}
+                        onClick={hanldeSearchAll}>Danh sách</Button>
+                    </Form.Item>
+                  </Col>
+
+                  <Col span={12}>
+                    <Form.Item>
+                      <Button style={{ width: '60%' }} htmlType="submit" shape="round" icon={<PlusOutlined />}
+                        onClick={handleAdd}>Thêm</Button>
+                    </Form.Item>
+                  </Col>
+                </Row>
               </Form>
 
 
@@ -301,48 +261,50 @@ export default function ListUser() {
             <h1><Avatar style={{ color: '#000000', backgroundColor: '#ffffff' }} shape="square" size={64} icon={<FileTextOutlined />}></Avatar>Danh Sách</h1>
             <Tabs defaultActiveKey="tabList" size={'large'} type="card" onChange={callback}>
               <TabPane tab="Bảng" key="tabBoard">
-
-                {candidate.map((post, index) => {
-                  return (
-                    <Space>
-                      <Col span={8} >
+                <Space>
+                  {candidate.map((post, index) => {
+                    return (
+                      <div>
                         <p></p>
-                        <Popover placement="right" trigger="click">
-                          <Card title={post.name} style={styleCard}>
-                            <Row>
-                              <Col span={14}>
-                                <Form key={index}>
-                                  <Form.Item name="code" label={<Text strong>Code</Text>}>{candidate.code}</Form.Item>
-                                  <Form.Item name="position" label={<Text strong>Vị trí</Text>}>{post.position}</Form.Item>
-                                  <Form.Item name="level" label={<Text strong>Level</Text>}>{post.level}</Form.Item>
-                                  <Form.Item name="email" label={<Text strong>Email</Text>}>{post.email}</Form.Item>
-                                  <Form.Item name="phone" label={<Text strong>Phone</Text>}>{post.phone}</Form.Item>
-                                  <Form.Item name="reporter" label={<Text strong>Reporter</Text>}>
-                                    <Popover content={PopoverReporter} trigger="hover" placement="bottom">
-                                      <Text >Tung Lam</Text>
-                                    </Popover>
-                                  </Form.Item>
-                                </Form>
-                              </Col>
+                        <Space>
+                          <Col span={8} >
+                            <Popover placement="right" trigger="click">
+                              <Card title={post.name} style={styleCard}>
+                                <Row>
+                                  <Col span={14}>
+                                    <Form key={index}>
+                                      <Form.Item name="code" label={<Text strong>Code</Text>}>{candidate.code}</Form.Item>
+                                      <Form.Item name="position" label={<Text strong>Vị trí</Text>}>{post.position}</Form.Item>
+                                      <Form.Item name="level" label={<Text strong>Level</Text>}>{post.level}</Form.Item>
+                                      <Form.Item name="email" label={<Text strong>Email</Text>}>{post.email}</Form.Item>
+                                      <Form.Item name="phone" label={<Text strong>Phone</Text>}>{post.phone}</Form.Item>
+                                      <Form.Item name="reporter" label={<Text strong>Reporter</Text>}>
+                                        <Popover content={PopoverReporter} trigger="hover" placement="bottom">
+                                          <Text >Tung Lam</Text>
+                                        </Popover>
+                                      </Form.Item>
+                                    </Form>
+                                  </Col>
 
-                              <Col span={10}>
-                                <DatePicker disabled /><p></p>
-                                <Button danger
-                                  style={{ width: '60%', background: '#fafafa' }}
-                                  htmlType="reset"
-                                  shape="round"
-                                  onClick={(e) => handleDelete(post.id, e)}
-                                  icon={<CloseOutlined />} >Xóa</Button>
-                              </Col>
-                            </Row>
-                          </Card>
-                        </Popover>
-                      </Col>
-                    </Space>
-                  )
-                })
-                }
-
+                                  <Col span={10}>
+                                    <DatePicker disabled /><p></p>
+                                    <Button danger
+                                      style={{ width: '60%', background: '#fafafa' }}
+                                      htmlType="reset"
+                                      shape="round"
+                                      onClick={(e) => handleDelete(post.id, e)}
+                                      icon={<CloseOutlined />} >Xóa</Button>
+                                  </Col>
+                                </Row>
+                              </Card>
+                            </Popover>
+                          </Col>
+                        </Space>
+                      </div>
+                    )
+                  })
+                  }
+                </Space>
               </TabPane>
 
               <TabPane tab="Lịch" key="tabCalendar">

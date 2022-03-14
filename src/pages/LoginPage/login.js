@@ -19,6 +19,9 @@ export default function Login() {
     setPassword(password);
   };
 
+  const onBack = () => {
+    window.location.href="/"
+  }
   const handleLogin = () => {
     var axios = require('axios');
     var qs = require('qs');
@@ -30,6 +33,9 @@ export default function Login() {
     axios.post('http://localhost:8080/checklogin', data)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        if(response.data === "redirect:/staff/home") {
+          window.location.href="/listuser"
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -52,7 +58,8 @@ export default function Login() {
 
                 <Input style={{ padding: 10, margin: 0, minHeight: 10, width: 350, }}
                   onChange={onChangeUsername} value={username}
-                  prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Tên đăng nhập" />
+                  prefix={<UserOutlined className="site-form-item-icon" />}
+                  placeholder="Tên đăng nhập" />
               </Form.Item>
 
               <Form.Item name="password"
@@ -61,7 +68,8 @@ export default function Login() {
 
                 <Input style={{ padding: 10, margin: 0, minHeight: 10, width: 350, }}
                   onChange={onChangePassword} value={password}
-                  prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Nhập mật khẩu" />
+                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  type="password" placeholder="Nhập mật khẩu" />
               </Form.Item>
               <Form.Item>
                 <Form.Item name="remember" valuePropName="checked" noStyle>
@@ -76,7 +84,9 @@ export default function Login() {
                   padding: 0,
                   minHeight: 0,
                   width: 350,
-                }} type="primary" htmlType="submit" className="login-form-button" onClick={handleLogin}>Đăng nhập</Button>
+                }} type="primary" htmlType="submit"
+                  className="login-form-button"
+                  onClick={handleLogin}>Đăng nhập</Button>
 
                 <p></p>
 
@@ -87,7 +97,7 @@ export default function Login() {
               padding: 0,
               minHeight: 0,
               width: 350,
-            }} htmlType="submit" onClick={() => { }}>Quay Lại</Button>
+            }} htmlType="submit" onClick={(e)=>onBack(e)}>Quay Lại</Button>
           </Menu>
 
 

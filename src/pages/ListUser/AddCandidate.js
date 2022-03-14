@@ -1,23 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
 import 'antd/dist/antd.css';
-import { Layout, Menu, Row, Col, Popover, Switch, Card, Button, Tabs, Space, Typography } from 'antd';
-import { UserOutlined, MailOutlined, PhoneOutlined, SearchOutlined, PlusOutlined, FileTextOutlined, CloseOutlined, FilterOutlined } from '@ant-design/icons';
+import { Row, Col, Button, Space } from 'antd';
+import { UserOutlined, MailOutlined, PhoneOutlined, SearchOutlined, PlusOutlined,  FilterOutlined } from '@ant-design/icons';
 import { Form, Input, Select, DatePicker } from 'antd';
-import SubMenu from 'antd/lib/menu/SubMenu';
-import { NavLink } from 'react-router-dom';
 import Avatar from 'antd/lib/avatar/avatar';
 import { createCandidate, deleteCandidate } from '../../slices/slicecandidate';
 
-const { Text } = Typography;
-const { Header, Sider, Content } = Layout;
-const { TabPane } = Tabs;
+
 const { Option } = Select;
-const styleContent = { width: 1303, background: '#ffffff', padding: '25px 20px', minHeight: 1000 };
 const styleSider = { background: '#ffffff', padding: '0 0  ' }
-const styleHeader = { background: '#ffffff' }
-const axios = require('axios');
-const styleCard = { background: '#fafafa', width: 400 }
 
 export default function AddCandidate(props) {
     const initialCandidateState = {
@@ -30,19 +21,6 @@ export default function AddCandidate(props) {
     };
 
     const [candidate, setCandidate] = useState([initialCandidateState]);
-    const [submitted, setSubmitted] = useState(false);
-    const [currentTutorial, setCurrentTutorial] = useState(null);
-    const [currentIndex, setCurrentIndex] = useState(-1);
-
-    const newCandidate = () => {
-        setCandidate(initialCandidateState);
-        setSubmitted(false);
-    }
-
-    const refreshData = () => {
-        setCurrentTutorial(null);
-        setCurrentIndex(-1);
-    };
 
     const handleInputChange = event => {
         const { name, value } = event.target;
@@ -55,10 +33,6 @@ export default function AddCandidate(props) {
         console.log(candidate)
 
     }
-
-    const dispatch = useDispatch();
-
-
 
     const AddCandidate = () => {
         const { name, level, room, phone, email } = candidate;

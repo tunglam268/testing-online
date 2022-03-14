@@ -1,10 +1,10 @@
 import Layout, { Content, Header } from "antd/lib/layout/layout";
 import Sider from "antd/lib/layout/Sider";
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import './complete.css';
-import { Menu, Row, Col, Card, Button, Space, Typography } from 'antd';
-import { UserOutlined, SearchOutlined, CloseOutlined } from '@ant-design/icons';
+import { Menu, Row, Col, Card, Button, Space, Typography, Checkbox, Progress } from 'antd';
+import { UserOutlined, SearchOutlined, CloseOutlined, SendOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Radio } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { NavLink } from 'react-router-dom';
@@ -12,17 +12,34 @@ import CandidateResult from "./candidateresult";
 import axios from "axios";
 
 const { Option } = Select;
-const { Text } = Typography;
 const styleContent = { background: '#ffffff', padding: '25px 20px', minHeight: 1000, height: '100vh', overflow: 'auto' };
 const styleHeader = { background: '#ffffff' }
 const styleSider = { background: '#ffffff', padding: '20px 10px' }
-
+const { Text, Title } = Typography;
 
 
 
 
 export default function Complete() {
     const [candidate, setCandidate] = useState([]);
+    const [markEnglish, setMarkE] = useState()
+    const [markCode, setMarkC] = useState()
+    const [markKnow, setMarkK] = useState()
+
+    const onCode = (e) => {
+        setMarkC(e.target.value)
+    }
+
+    const onEnglish = (e) => {
+        setMarkE(e.target.value)
+    }
+
+    const onKnow = (e) => {
+        setMarkK(e.target.value)
+    }
+    const onChange = (e) => {
+        console.log(`checked = ${e.target.checked}`);
+    }
     const hanldeSearch = () => {
 
         axios.get('http://localhost:8080/staff/listcandidate')
@@ -37,7 +54,32 @@ export default function Complete() {
 
     }
 
+    const handleSetMark = (id) => {
+        var axios = require('axios');
+        var data = JSON.stringify({
+            "english_mark": markEnglish,
+            "code_mark": markCode,
+            "knowledge_mark": markKnow
+        });
 
+        var config = {
+            method: 'put',
+            url: `http://localhost:8080/staff/setmark/${id}`,
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
     return (
         <Layout>
             <Header style={styleHeader} className="header">
@@ -110,10 +152,67 @@ export default function Complete() {
                 <Card style={{ width: 2000 }}>
                     <Content style={styleContent}>
                         <Card style={{ width: '100%', minHeight: 1000 }}>
-                            <Space size={[16, 16]} wrap>
 
-                                <CandidateResult/>
-                            </Space>
+                            {candidate.map((candidate) => {
+                                return (
+                                    <div>
+                                        <br></br>
+                                        <Card style={{ background: "#fafafa", width: '100%', minHeight: 300 }}>
+                                            <Row>
+                                                <Col span={12} >
+                                                    <Form>
+                                                        <Title level={2}>{candidate.name}</Title>
+                                                        <Row>
+                                                            <Col span={6}>
+                                                                <Form.Item name="code" label={<Text strong>Code</Text>}>{candidate.code}</Form.Item>
+                                                                <Form.Item name="position" label={<Text strong>Vị trí</Text>}>{candidate.position}</Form.Item>
+                                                                <Form.Item name="level" label={<Text strong>Level</Text>}>{candidate.level}</Form.Item>
+                                                            </Col>
+                                                            <Col span={12}>
+                                                                <Form.Item>
+                                                                    <Text strong>Điểm tiếng anh</Text><br></br>
+                                                                    <Input onChange={onEnglish} style={{ width: '20%' }}></Input>
+                                                                </Form.Item>
+                                                                <Form.Item>
+                                                                    <Text strong>Điểm coding</Text><br></br>
+                                                                    <Input onChange={onCode} style={{ width: '20%' }}></Input>
+                                                                </Form.Item>
+                                                                <Form.Item>
+                                                                    <Text strong>Điểm kiến thức chung</Text><br></br>
+                                                                    <Input onChange={onKnow} style={{ width: '20%' }}></Input>
+                                                                </Form.Item>
+                                                            </Col>
+                                                        </Row>
+
+
+
+                                                    </Form>
+                                                    <Button onClick={(e) => handleSetMark(candidate.id, e)}
+                                                        icon={<SendOutlined />} style={{ width: '20%', }}>Chấm điểm</Button>
+                                                </Col>
+
+                                                <Col span={12}>
+                                                    <Button style={{ width: '100%', minHeight: 300 }}>
+                                                        <Text strong>Tiếng Anh</Text><br />
+                                                        <Progress percent={candidate.englishMark} /><br />
+                                                        <Text strong>Kiến thức chung</Text><br />
+                                                        <Progress percent={candidate.knowledgeMark} /><br />
+                                                        <Text strong>Coding</Text><br />
+                                                        <Progress percent={candidate.codingMark} /><br />
+                                                    </Button>
+                                                    {/* <Modal title="Câu trả lời của thí sinh" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={1100}>
+                                                    {answerParticipant}
+                                                </Modal> */}
+
+                                                </Col>
+
+
+                                            </Row>
+                                        </Card>
+                                    </div> 
+                                )
+                            })}
+
                         </Card>
                     </Content>
                 </Card>
