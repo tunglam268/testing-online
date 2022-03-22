@@ -66,6 +66,7 @@ export default function Question() {
 
   const onChangeLevel = (e) => {
     setLevel(e.target.value)
+    console.log(level)
   }
 
   const onChangeTime = (e) => {
@@ -74,6 +75,7 @@ export default function Question() {
 
   const onChangeSubject = (e) => {
     setSubject(e)
+    console.log(subject)
   }
 
   const onChangeDate = (value) => {
@@ -98,8 +100,6 @@ export default function Question() {
       .catch(function (error) {
         console.log(error);
       });
-
-
   }
 
   const hanldeSearchAll = () => {
@@ -144,7 +144,6 @@ export default function Question() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        console.log(response.data)
         alert(id)
       })
       .catch(function (error) {
@@ -167,7 +166,7 @@ export default function Question() {
     console.log(id)
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
         alert("delete succes" + id)
       })
       .catch(function (error) {
@@ -200,6 +199,9 @@ export default function Question() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        if (response.data.status === "OK") {
+          alert("Them thanh cong")
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -214,14 +216,16 @@ export default function Question() {
       method: 'put',
       url: `http://localhost:8080/staff/addtestforcandidate/${id}/${valueC}`,
     };
-    console.log(id , "id")
-    console.log(valueC , "valueC")
+    
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
+        console.log("Them bai test cho candidate thanh cong")
       })
       .catch(function (error) {
-        console.log(error);
+        if (error = "Request failed with status code 500") {
+          return alert("Ứng viên bị trùng bài test")
+        }
       });
 
   }
@@ -241,7 +245,7 @@ export default function Question() {
 
           <Col span={2} offset={14}>
             <Menu style={styleHeader} mode="horizontal">
-              <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title={<Text strong>Tài khoản</Text>}>
+              <SubMenu icon={<UserOutlined />} title={<Text strong>Tài khoản</Text>}>
                 <Menu.Item key="account" ><NavLink to="/manageaccount" />Quản lý tài khoản</Menu.Item>
                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
               </SubMenu>
@@ -270,9 +274,12 @@ export default function Question() {
                     <Row justify="center">
                       <Space>
                         <Col span={4}>
-                          <Button style={{ background: '#292929', color: '#ffffff' }}
+                          <Button
+                            style={{ background: '#292929', color: '#ffffff' }}
                             onClick={handleSearchAllTest}
-                            shape="round" htmlType="submit" icon={<SearchOutlined />}>Danh sách</Button>
+                            shape="round"
+                            htmlType="submit"
+                            icon={<SearchOutlined />}>Danh sách</Button>
                         </Col>
                       </Space>
                     </Row>
@@ -293,7 +300,7 @@ export default function Question() {
                                 <h3>Level : {q.level}</h3>
                               </Col>
                               <Col span={12}>
-                                <h3>Subject : {q.level}</h3>
+                                <h3>Subject : {q.subject}</h3>
                               </Col>
                             </Row>
 
@@ -301,8 +308,9 @@ export default function Question() {
                           <Modal
                             title={<h3>Thêm câu hỏi cho ứng viên {q.name}</h3>}
                             visible={isModalAddTtoC === q.id}
-                            onOk={(e)=>addQtoT(q.id,e)} okText={"Thêm"}
+                            onOk={(e) => addQtoT(q.id, e)} okText={"Thêm"}
                             onCancel={handleCancelQtoT} cancelText={"Hủy"}>
+
                             {candidate && candidate.map(post => {
                               return (
                                 <Checkbox.Group onChange={onValueC}>
@@ -319,13 +327,11 @@ export default function Question() {
                     {listTest.map((q) => {
                       return (
                         <Modal footer={[
-                          <Button key="back" onClick={handleCancel}>
-                            Hủy
-                          </Button>,
                           <Button key="submit"
                             type="primary" onClick={(e) => handleEditTest(q.id, e)}>
                             Sửa
                           </Button>,
+
                           <Button
                             danger
                             type="primary"
@@ -343,8 +349,14 @@ export default function Question() {
                                 <Input onChange={onChangeNameTest}
                                   style={{ width: 150 }} placeholder={q.name} />
                               </Form.Item>
-                              <DatePicker placeholder={q.date} onChange={onChangeDate}></DatePicker><p></p>
-                              <DatePicker style={{ width: 150 }} placeholder={q.time} onChange={onChangeTime} picker="time"></DatePicker>
+                              <DatePicker
+                                placeholder={q.date}
+                                onChange={onChangeDate} /><p></p>
+                              <DatePicker
+                                style={{ width: 150 }}
+                                placeholder={q.time}
+                                onChange={onChangeTime}
+                                picker="time" />
 
                               <p></p>
                             </Col>
@@ -356,7 +368,7 @@ export default function Question() {
                                   style={{ width: 150 }} placeholder={q.codeTest} />
                               </Form.Item>
                               <Form.Item>
-                                <Select defaultValue={q.subject} style={{ width: 150 }} onChange={onChangeSubject}>
+                                <Select style={{ width: 150 }} onChange={onChangeSubject}>
                                   <Option value="1">Tiếng Anh</Option>
                                   <Option value="2">Code</Option>
                                   <Option value="3">Kiến thức chung</Option>
@@ -364,7 +376,7 @@ export default function Question() {
                               </Form.Item>
 
                               <Form.Item>
-                                <Radio.Group defaultValue={q.level} size="middle" onChange={onChangeLevel} buttonStyle="solid">
+                                <Radio.Group size="middle" onChange={onChangeLevel} buttonStyle="solid">
                                   <Radio.Button value="1">Fresher</Radio.Button>
                                   <Radio.Button value="2">Junior</Radio.Button>
                                   <Radio.Button value="3">Senior</Radio.Button>
@@ -399,8 +411,8 @@ export default function Question() {
                         style={{ width: 311 }} placeholder="Nhập tên bài test" /></Form.Item>
                       <Row>
                         <Col span={10}>
-                          <DatePicker onChange={onChangeDate}></DatePicker><p></p>
-                          <DatePicker onChange={onChangeTime} picker="time"></DatePicker>
+                          <DatePicker onChange={onChangeDate} /><p></p>
+                          <DatePicker onChange={onChangeTime} picker="time" />
                         </Col>
                         <Col span={14}>
                           <Radio.Group size="middle" onChange={onChangeLevel} buttonStyle="solid">

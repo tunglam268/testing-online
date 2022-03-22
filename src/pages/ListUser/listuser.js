@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import 'antd/dist/antd.css';
 import './listuser.css';
@@ -21,11 +21,6 @@ const styleSider = { background: '#ffffff', padding: '0 0  ' }
 const styleHeader = { background: '#ffffff' }
 const axios = require('axios');
 const styleCard = { background: '#fafafa', width: 400 }
-
-function onChange(checked) {
-  console.log(`switch to ${checked}`);
-}
-
 
 
 const callback = (key) => {
@@ -56,6 +51,7 @@ export default function ListUser() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [candidate, setCandidate] = useState([]);
+  const [test, setTest] = useState([])
 
 
   const onChangeName = (e) => {
@@ -70,6 +66,7 @@ export default function ListUser() {
 
   const onChangeLevel = (level) => {
     setLevel(level)
+    console.log(level)
 
   };
 
@@ -106,6 +103,9 @@ export default function ListUser() {
       "phone": phone,
       "email": email,
       "position": room,
+      "codingMark": 0,
+      "englishMark": 0,
+      "knowledgeMark": 0
     });
 
     var config = {
@@ -131,13 +131,6 @@ export default function ListUser() {
 
   const handleDelete = (id) => {
     var axios = require('axios');
-    var data = JSON.stringify({
-      "name": "lam",
-      "level": 1,
-      "phone": "091231231",
-      "email": "abc@gmail.com",
-      "position": "java"
-    });
 
     var config = {
       method: 'delete',
@@ -145,7 +138,7 @@ export default function ListUser() {
       headers: {
         'Content-Type': 'application/json',
       },
-      data: data
+
     };
     const post = candidate.filter(item => item.id !== id)
     setCandidate(post)
@@ -173,7 +166,7 @@ export default function ListUser() {
 
           <Col span={2} offset={14}>
             <Menu style={styleHeader} mode="horizontal">
-              <SubMenu defaultActiveKey="1" icon={<UserOutlined />} title={<Text strong>Tài khoản</Text>}>
+              <SubMenu icon={<UserOutlined />} title={<Text strong>Tài khoản</Text>}>
                 <Menu.Item key="account" ><NavLink to="/manageaccount" />Quản lý tài khoản</Menu.Item>
                 <Menu.Item key="logout"><NavLink to="/" />Đăng xuất</Menu.Item>
               </SubMenu>
@@ -259,52 +252,50 @@ export default function ListUser() {
         <Card>
           <Content style={styleContent}>
             <h1><Avatar style={{ color: '#000000', backgroundColor: '#ffffff' }} shape="square" size={64} icon={<FileTextOutlined />}></Avatar>Danh Sách</h1>
-            <Tabs defaultActiveKey="tabList" size={'large'} type="card" onChange={callback}>
+            <Tabs size={'large'} type="card" onChange={callback}>
               <TabPane tab="Bảng" key="tabBoard">
-                <Space>
-                  {candidate.map((post, index) => {
-                    return (
-                      <div>
-                        <p></p>
-                        <Space>
-                          <Col span={8} >
-                            <Popover placement="right" trigger="click">
-                              <Card title={post.name} style={styleCard}>
-                                <Row>
-                                  <Col span={14}>
-                                    <Form key={index}>
-                                      <Form.Item name="code" label={<Text strong>Code</Text>}>{candidate.code}</Form.Item>
-                                      <Form.Item name="position" label={<Text strong>Vị trí</Text>}>{post.position}</Form.Item>
-                                      <Form.Item name="level" label={<Text strong>Level</Text>}>{post.level}</Form.Item>
-                                      <Form.Item name="email" label={<Text strong>Email</Text>}>{post.email}</Form.Item>
-                                      <Form.Item name="phone" label={<Text strong>Phone</Text>}>{post.phone}</Form.Item>
-                                      <Form.Item name="reporter" label={<Text strong>Reporter</Text>}>
-                                        <Popover content={PopoverReporter} trigger="hover" placement="bottom">
-                                          <Text >Tung Lam</Text>
-                                        </Popover>
-                                      </Form.Item>
-                                    </Form>
-                                  </Col>
 
-                                  <Col span={10}>
-                                    <DatePicker disabled /><p></p>
-                                    <Button danger
-                                      style={{ width: '60%', background: '#fafafa' }}
-                                      htmlType="reset"
-                                      shape="round"
-                                      onClick={(e) => handleDelete(post.id, e)}
-                                      icon={<CloseOutlined />} >Xóa</Button>
-                                  </Col>
-                                </Row>
-                              </Card>
-                            </Popover>
-                          </Col>
-                        </Space>
-                      </div>
-                    )
-                  })
-                  }
-                </Space>
+                {candidate.map((post) => {
+                  return (
+                    <div>
+                      <p></p>
+                      <Col span={8} >
+                        <Card title={<h3>{post.name}</h3>} style={styleCard}>
+                          <Row>
+                            <Col span={14}>
+                              <Form >
+                                <Form.Item name="position" label={<Text strong>Vị trí</Text>}>{post.position}</Form.Item>
+                                <Form.Item name="level" label={<Text strong>Level</Text>}>{post.level}</Form.Item>
+                                <Form.Item name="email" label={<Text strong>Email</Text>}>{post.email}</Form.Item>
+                                <Form.Item name="phone" label={<Text strong>Phone</Text>}>{post.phone}</Form.Item>
+                                <Form.Item name="reporter" label={<Text strong>Reporter</Text>}>
+                                  <Popover content={PopoverReporter} trigger="hover" placement="bottom">
+                                    <Text >Tung Lam</Text>
+                                  </Popover>
+                                </Form.Item>
+                              </Form>
+                            </Col>
+
+                            <Col span={9}>
+                              <DatePicker disabled /><p></p>
+
+                              <Button danger
+                                style={{ width: '60%' }}
+                                type="primary"
+                                shape="round"
+                                onClick={(e) => handleDelete(post.id, e)}
+                                icon={<CloseOutlined />} >Xóa</Button>
+                              <p />
+
+                            </Col>
+                          </Row>
+                        </Card>
+                      </Col>
+                    </div>
+                  )
+                })
+                }
+
               </TabPane>
 
               <TabPane tab="Lịch" key="tabCalendar">

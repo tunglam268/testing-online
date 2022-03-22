@@ -28,25 +28,25 @@ export default function Complete() {
 
     const onCode = (e) => {
         setMarkC(e.target.value)
+        console.log(markCode)
     }
 
     const onEnglish = (e) => {
         setMarkE(e.target.value)
+        console.log(markEnglish)
     }
 
     const onKnow = (e) => {
         setMarkK(e.target.value)
+        console.log(markKnow)
     }
-    const onChange = (e) => {
-        console.log(`checked = ${e.target.checked}`);
-    }
+  
     const hanldeSearch = () => {
 
         axios.get('http://localhost:8080/staff/listcandidate')
             .then(function (response) {
                 setCandidate(response.data)
                 console.log("get list")
-                console.log(candidate)
             })
             .catch(function (error) {
                 console.log(error);
@@ -153,7 +153,7 @@ export default function Complete() {
                     <Content style={styleContent}>
                         <Card style={{ width: '100%', minHeight: 1000 }}>
 
-                            {candidate.map((candidate) => {
+                            {candidate && candidate.map((candidate) => {
                                 return (
                                     <div>
                                         <br></br>
