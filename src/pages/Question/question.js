@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import './question.css';
 import { Layout, Menu, Row, Modal, Col, Button, Card, Space, Typography, DatePicker, Checkbox } from 'antd';
-import { SearchOutlined, SaveOutlined, UserOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { SearchOutlined, SaveOutlined, UserOutlined, EditOutlined, ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Radio, } from 'antd';
 import { NavLink } from 'react-router-dom';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -14,7 +14,7 @@ const { Header, Content } = Layout;
 const { Option } = Select;
 const style = { background: '#ffffff', padding: '8px 0' };
 const styleContent = { background: '#ffffff', padding: '0 20px' };
-
+const TextArea = Input;
 const styleTest = { background: '#fafafa', minHeight: 1000, width: '100%' };
 const styleHeader = { background: '#ffffff' }
 
@@ -22,7 +22,7 @@ const styleHeader = { background: '#ffffff' }
 
 
 export default function Question() {
-
+  const abcd = ["A", "B", "C", "D"]
   const [date, SetDate] = useState("")
   const [subject, setSubject] = useState("")
   const [level, setLevel] = useState("")
@@ -31,6 +31,8 @@ export default function Question() {
   const [codeTest, setCodeTest] = useState("")
   const [listTest, setListTest] = useState([])
   const [candidate, setCandidate] = useState([]);
+  const [test, setTest] = useState([])
+  const [currentTest, setCurrentTest] = useState(1);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isModalAddTtoC, setisModalAddTtoC] = useState(false);
   const [valueC, setValueC] = useState()
@@ -83,6 +85,27 @@ export default function Question() {
     console.log(date)
   }
 
+
+  const getTest = (id) => {
+    var axios = require('axios');
+    var config = {
+      method: 'get',
+      url: `http://localhost:8080/staff/gettestbyid/${id}`,
+    };
+
+
+    axios(config)
+      .then(function (response) {
+        setTest(response.data)
+        console.log(response.data.questions, "=========================")
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
+
   const handleSearchAllTest = () => {
     var axios = require('axios');
 
@@ -94,7 +117,6 @@ export default function Question() {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data), "Test");
         setListTest(response.data)
       })
       .catch(function (error) {
@@ -216,7 +238,7 @@ export default function Question() {
       method: 'put',
       url: `http://localhost:8080/staff/addtestforcandidate/${id}/${valueC}`,
     };
-    
+
     axios(config)
       .then(function (response) {
         // console.log(JSON.stringify(response.data));
@@ -293,8 +315,9 @@ export default function Question() {
                           <Card style={{ width: 370, background: '#fafafa' }}
                             title={q.name}
                             actions={
-                              [<PlusOutlined key="add" onClick={(p) => showModalQtoT(q.id, p)} />,
-                              <EditOutlined key="edit" onClick={(p) => showModal(q.id, p)} />,]}>
+                              [<PlusOutlined onClick={(p) => showModalQtoT(q.id, p)} />,
+                              <EditOutlined onClick={(p) => showModal(q.id, p)} />,
+                              <ArrowRightOutlined onClick={(p) => getTest(q.id, p)} />]}>
                             <Row>
                               <Col span={12}>
                                 <h3>Level : {q.level}</h3>
@@ -306,7 +329,7 @@ export default function Question() {
 
                           </Card>
                           <Modal
-                            title={<h3>Thêm câu hỏi cho ứng viên {q.name}</h3>}
+                            title={<h3>Thêm bài test cho ứng viên {q.name}</h3>}
                             visible={isModalAddTtoC === q.id}
                             onOk={(e) => addQtoT(q.id, e)} okText={"Thêm"}
                             onCancel={handleCancelQtoT} cancelText={"Hủy"}>
@@ -444,6 +467,62 @@ export default function Question() {
 
                     <Card style={styleTest}>
 
+                      {test.questions && test.questions.map(t => {
+                        switch (t.type) {
+                          case 0:
+                            return (
+                              <div>
+                                <Card style={{ width: 800 }}>
+                                  <Row justify="start">
+                                    <Col span={3}>
+                                      <Button type="text" shape="round" style={{ background: '#595959', color: '#ffffff' }}>Câu {t.id}</Button>
+                                    </Col>
+
+                                    <Col span={12}>
+                                      <Text>{t.content}</Text>
+                                      <p></p>
+                                      <Radio.Group defaultValue={1}>
+                                        <Space direction="vertical">
+                                          {t.multipleChoiceQuestions && t.multipleChoiceQuestions.map(mc => {
+                                            return (
+                                              <div>
+
+                                                <Radio value={1}><Text strong>Them ABCD. </Text>{mc.answer}</Radio>
+
+
+                                              </div>
+                                            )
+                                          })}
+
+                                        </Space>
+                                      </Radio.Group>
+                                    </Col>
+                                  </Row>
+                                </Card>
+                                <p></p>
+                              </div>
+                            )
+                          case 1:
+                            return (
+                              <div>
+                                <Card style={{ width: 800 }}>
+                                  <Row justify="space-between">
+                                    <Col span={1}>
+                                      <Button type="text" shape="round" style={{ background: '#595959', color: '#ffffff' }}>Câu {t.id}</Button>
+                                    </Col>
+
+                                    <Col >
+                                      <Text>{t.content}</Text>
+                                      <p></p>
+                                      <TextArea rows={4} style={{ width: 600 }} maxLength={1000} />
+                                    </Col>
+                                  </Row>
+                                </Card>
+                                <p></p>
+                              </div>
+                            )
+                        }
+                      })}
                     </Card>
                   </Row>
                 </Card>

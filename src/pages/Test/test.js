@@ -88,7 +88,6 @@ const styleContent = { background: '#ffffff', minHeight: 1000 };
 const styleCard = { minHeight: 1000 }
 
 function onChange(time, timeString) {
-    console.log(time, timeString);
 }
 
 function callback(key) {

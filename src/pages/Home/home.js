@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import './home.css';
 import { Layout, Button, Row, Card, Col, Form, Image, Menu, Input, Space } from 'antd';
@@ -11,17 +11,36 @@ const styleHeader = { background: '#ffffff' }
 
 export default function Home() {
   const [code, setCode] = useState("");
+  const [test, setTest] = useState([])
 
   const onChangeCodeCandidate = (e) => {
     const code = e.target.value;
-    setCode(code);
+    setCode(code)
   };
 
-  const joinTest = () => {
+  const getTestByCode = (code) => {
+    var axios = require('axios');
+    var config = {
+      method: 'get',
+      url: `http://localhost:8080/staff/gettestbycode/${code}`,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setTest(response.data);
+        localStorage.setItem("test", JSON.stringify(response.data))
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  const joinTest = async () => {
     var axios = require('axios');
     var qs = require('qs');
     var data = qs.stringify({
-      'code': code
+      'code': test.id
     });
     var config = {
       method: 'post',
@@ -35,11 +54,16 @@ export default function Home() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        if (response.data === "redirect:/testpage") {
+          window.location.href = "/tutorial"
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
   }
+
+
   return (
     <Layout>
       <Header style={styleHeader} className="header">
@@ -69,10 +93,14 @@ export default function Home() {
                       <Space>
                         <Input style={{ width: '100%' }}
                           value={code} onChange={onChangeCodeCandidate}
-                          
+
                           placeholder="Nhập code vào test"></Input>
                         <Button type="primary"
-                          shape="round" onClick={joinTest} htmlType="submit" icon={<ArrowRightOutlined />}></Button>
+                          shape="round"
+                          htmlType="submit"
+                          onClick={(e) => { getTestByCode(code, e); joinTest() }}
+                          icon={<ArrowRightOutlined />}></Button>
+
                       </Space>
                     </Form>
                   </Col>

@@ -230,8 +230,6 @@ export default function AddQuestion() {
         axios(config)
             .then(function (response) {
                 setListTest(response.data)
-                console.log(response.data)
-
             })
             .catch(function (error) {
                 console.log(error);
@@ -432,7 +430,7 @@ export default function AddQuestion() {
                                         [<PlusOutlined onClick={(e) => showModalQtoT(post.id, e)} />,
                                         <FormOutlined onClick={(e) => showModalAddAnswer(post.id, e)} />,
                                         <EditOutlined onClick={(e) => showModalEdit(post.id, e)} />,]}>
-                                    <p> {post.content}</p>
+                                    <p>{post.content}</p>
                                     {question[currentQuestion].multipleChoiceQuestions.map((answer) => {
                                         return (
                                             <p>

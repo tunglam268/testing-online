@@ -51,7 +51,6 @@ export default function ListUser() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [candidate, setCandidate] = useState([]);
-  const [test, setTest] = useState([])
 
 
   const onChangeName = (e) => {
